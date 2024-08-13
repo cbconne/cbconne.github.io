@@ -2,42 +2,53 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>CBC&#39;s Site</title>
-        <link>https://example.com/</link>
+        <link>https://cbconne.github.io/</link>
         <description>Recent content on CBC&#39;s Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>Example Person</copyright>
-        <lastBuildDate>Tue, 13 Aug 2024 11:06:19 +0800</lastBuildDate><atom:link href="https://example.com/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 13 Aug 2024 11:06:19 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>博客说明</title>
+        <link>https://cbconne.github.io/p/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/</link>
+        <pubDate>Tue, 13 Aug 2024 11:06:19 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/p/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/</guid>
+        <description>&lt;p&gt;该网站是使用 &lt;a class=&#34;link&#34; href=&#34;https://gohugo.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Hugo&lt;/a&gt; 构建的 CBC 的个人博客，用于分享（可对外公开的）技术笔记、个人随笔、学习笔记等内容。&lt;/p&gt;
+&lt;p&gt;本人不对内容可靠性负责 &lt;del&gt;（大雾）&lt;/del&gt;。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>归档</title>
-        <link>https://example.com/archives/</link>
+        <link>https://cbconne.github.io/archives/</link>
         <pubDate>Tue, 28 May 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/archives/</guid>
+        <guid>https://cbconne.github.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>关于</title>
-        <link>https://example.com/%E5%85%B3%E4%BA%8E/</link>
+        <link>https://cbconne.github.io/%E5%85%B3%E4%BA%8E/</link>
         <pubDate>Thu, 28 Feb 2019 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/%E5%85%B3%E4%BA%8E/</guid>
+        <guid>https://cbconne.github.io/%E5%85%B3%E4%BA%8E/</guid>
         <description>&lt;p&gt;CBC 个人站点，用于记录（可对外公开的）个人学习、生活、技术、随笔等。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>查询</title>
-        <link>https://example.com/search/</link>
+        <link>https://cbconne.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/search/</guid>
+        <guid>https://cbconne.github.io/search/</guid>
         <description></description>
         </item>
         <item>
         <title>链接</title>
-        <link>https://example.com/%E9%93%BE%E6%8E%A5/</link>
+        <link>https://cbconne.github.io/%E9%93%BE%E6%8E%A5/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>https://example.com/%E9%93%BE%E6%8E%A5/</guid>
+        <guid>https://cbconne.github.io/%E9%93%BE%E6%8E%A5/</guid>
         <description></description>
         </item>
         

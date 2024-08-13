@@ -2,27 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://example.com/</loc>
+    <loc>https://cbconne.github.io/</loc>
     <lastmod>2024-08-13T11:06:19+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/post/</loc>
+    <loc>https://cbconne.github.io/post/</loc>
     <lastmod>2024-08-13T11:06:19+08:00</lastmod>
   </url><url>
-    <loc>https://example.com/page/</loc>
+    <loc>https://cbconne.github.io/p/%E5%8D%9A%E5%AE%A2%E8%AF%B4%E6%98%8E/</loc>
+    <lastmod>2024-08-13T11:06:19+08:00</lastmod>
+  </url><url>
+    <loc>https://cbconne.github.io/page/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/archives/</loc>
+    <loc>https://cbconne.github.io/archives/</loc>
     <lastmod>2019-05-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/%E5%85%B3%E4%BA%8E/</loc>
+    <loc>https://cbconne.github.io/%E5%85%B3%E4%BA%8E/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://example.com/categories/</loc>
+    <loc>https://cbconne.github.io/categories/</loc>
   </url><url>
-    <loc>https://example.com/tags/</loc>
+    <loc>https://cbconne.github.io/tags/</loc>
   </url><url>
-    <loc>https://example.com/search/</loc>
+    <loc>https://cbconne.github.io/search/</loc>
   </url><url>
-    <loc>https://example.com/%E9%93%BE%E6%8E%A5/</loc>
+    <loc>https://cbconne.github.io/%E9%93%BE%E6%8E%A5/</loc>
   </url>
 </urlset>
