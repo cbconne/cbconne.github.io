@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>CBC&#39;s Site</title>
+        <title>CBC_onne&#39;s Site</title>
         <link>https://cbconne.github.io/</link>
-        <description>Recent content on CBC&#39;s Site</description>
+        <description>Recent content on CBC_onne&#39;s Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
@@ -197,18 +197,18 @@
         <pubDate>Tue, 13 Aug 2024 11:54:20 +0000</pubDate>
         
         <guid>https://cbconne.github.io/%E5%85%B3%E4%BA%8E/</guid>
-        <description>&lt;p&gt;CBC 个人站点，用于记录（可对外公开的）个人学习、生活、技术、随笔等。&lt;/p&gt;
+        <description>&lt;p&gt;个人站点，用于记录（可对外公开的）个人学习、生活、技术、随笔等。&lt;/p&gt;
 &lt;p&gt;目前处于内容创造与页面排布并重的早期阶段。&lt;/p&gt;
 &lt;p&gt;目前计划内容：&lt;/p&gt;
 &lt;span class=&#34;begin-task-list&#34;&gt;&lt;/span&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 使用图床方式保存图片，不再使用本地图片&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 使用在线方式添加字体，不再使用本地字体文件（感谢&lt;a class=&#34;link&#34; href=&#34;https://chinese-font.netlify.app/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 使用 cdn 方式添加字体，不再使用本地字体文件（感谢&lt;a class=&#34;link&#34; href=&#34;https://chinese-font.netlify.app/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;中文网字计划&lt;/a&gt; &lt;del&gt;以及&lt;a class=&#34;link&#34; href=&#34;https://fonts.google.com/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Google Font&lt;/a&gt;&lt;/del&gt; 的免费CDN）&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 引入数学公式的支持&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加评论功能 &lt;del&gt;（虽然大概率没有任何评论）&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 页面录入搜索引擎&lt;/li&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 接入 Google Analytics 确认站点访问量 &lt;del&gt;（虽然大概率没有任何访问）&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加评论功能 &lt;del&gt;（虽然大概率没有任何评论）&lt;/del&gt;&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
