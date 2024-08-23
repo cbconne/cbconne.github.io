@@ -23,6 +23,22 @@
         <guid>https://cbconne.github.io/tags/hugo/</guid>
         <description></description>
         </item>
+        <item>
+        <title>Redis</title>
+        <link>https://cbconne.github.io/tags/redis/</link>
+        <pubDate>Tue, 26 Sep 2023 11:21:00 +0000</pubDate>
+        
+        <guid>https://cbconne.github.io/tags/redis/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Spring</title>
+        <link>https://cbconne.github.io/tags/spring/</link>
+        <pubDate>Tue, 26 Sep 2023 11:21:00 +0000</pubDate>
+        
+        <guid>https://cbconne.github.io/tags/spring/</guid>
+        <description></description>
+        </item>
         
     </channel>
 </rss>
