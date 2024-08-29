@@ -517,16 +517,11 @@
 上面都没什么问题，然后我尝试手动删掉 redis 里的锁记录之后发现还是锁着的。甚至超时时间过去之后依然是锁着的。</p>
 <h2 id="排查">排查
 </h2><p>当然很容易想到除了 redis，应该还会有其他地方保存着锁信息，这个通过打断点很容易发现：
-<img src="https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png"
-	
-	
-	
-	loading="lazy"
-	
-		alt="2075908-20230926103341555-1736653197"
-	
-	
->
+
+<figure class="figure">
+    <img class="img" src="https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png" alt="2075908-20230926103341555-1736653197" style="border:2px solid black">
+</figure>
+
 很明显，在下面获取 redis 锁之前先尝试获取了 localLock 的锁，虽然 redis 的锁已经没了，但 localLock 仍然还在，所以依然被锁。<br>
 只有在 localLock 没被锁，能够获取锁的情况下才回去尝试获取 redis 的锁。然后如果获取 redis 锁失败（返回 false）的情况下又把 localLock 解锁。感觉这部分逻辑有点怪，不排除是个 BUG？之后再研究下吧。</p>
 <h2 id="解决">解决
