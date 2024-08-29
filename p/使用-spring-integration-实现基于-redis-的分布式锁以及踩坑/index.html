@@ -517,11 +517,18 @@
 上面都没什么问题，然后我尝试手动删掉 redis 里的锁记录之后发现还是锁着的。甚至超时时间过去之后依然是锁着的。</p>
 <h2 id="排查">排查
 </h2><p>当然很容易想到除了 redis，应该还会有其他地方保存着锁信息，这个通过打断点很容易发现：
-
-<figure class="figure">
-    <img class="img" src="https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png" alt="2075908-20230926103341555-1736653197" style="border:2px solid black">
-</figure>
-
+<img src="https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png"
+	width="1802"
+	height="720"
+	
+	loading="lazy"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="250"
+		data-flex-basis="600px"
+	
+>
 很明显，在下面获取 redis 锁之前先尝试获取了 localLock 的锁，虽然 redis 的锁已经没了，但 localLock 仍然还在，所以依然被锁。<br>
 只有在 localLock 没被锁，能够获取锁的情况下才回去尝试获取 redis 的锁。然后如果获取 redis 锁失败（返回 false）的情况下又把 localLock 解锁。感觉这部分逻辑有点怪，不排除是个 BUG？之后再研究下吧。</p>
 <h2 id="解决">解决
@@ -720,9 +727,7 @@ To do it you can get a lock and exit from a method without releasing. In such ca
         t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
         y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, "clarity", "script", "nq4skyjk39");
-</script>
 
-<script>
     (function (u, c) {
         var d = document, t = 'script', o = d.createElement(t),
             s = d.getElementsByTagName(t)[0];

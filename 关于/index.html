@@ -315,7 +315,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 275
+                字数: 330
             </time>
         </div>
         
@@ -346,6 +346,7 @@
     >Bing</a>）</li>
 <li><input checked="" disabled="" type="checkbox"> 插入懒加载图片居中 &amp; 可显示图注</li>
 <li><input disabled="" type="checkbox"> 将一些原有的技术笔记或其他内容迁移过来</li>
+<li><input disabled="" type="checkbox"> 增加 TOC 开关功能（该部分不在原主题的可配置项目内且目前没有搜索到做过类似事情的文章，所以可能需要我自己尝试实现）</li>
 <li><input disabled="" type="checkbox"> 添加评论功能 <del>（其他评论组件需要部署一些其他云上资源，虽然是免费的但是多稍有些麻烦，没什么人访问的情况下感觉没啥必要，优先考虑 gitalk）</del></li>
 </ul>
 
@@ -517,9 +518,7 @@
         t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
         y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
     })(window, document, "clarity", "script", "nq4skyjk39");
-</script>
 
-<script>
     (function (u, c) {
         var d = document, t = 'script', o = d.createElement(t),
             s = d.getElementsByTagName(t)[0];
