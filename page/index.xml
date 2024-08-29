@@ -28,10 +28,12 @@
 &lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 页面录入搜索引擎（&lt;a class=&#34;link&#34; href=&#34;https://search.google.com/search-console&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Google&lt;/a&gt; 和 &lt;a class=&#34;link&#34; href=&#34;https://www.bing.com/webmasters&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Bing&lt;/a&gt;）&lt;/li&gt;
-&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 插入懒加载图片居中 &amp;amp; 可显示图注&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 图床图片兼容（能够进行点击放大等交互，参考 &lt;a class=&#34;link&#34; href=&#34;https://github.com/CaiJimmy/hugo-theme-stack/discussions/659&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;stack 仓库的 discussions&lt;/a&gt; 和&lt;a class=&#34;link&#34; href=&#34;https://ghjayce.github.io/p/static-site-generator/hugo/hugo-theme-stack-gallery-study/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;某位大佬的博客&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 将一些原有的技术笔记或其他内容迁移过来&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 增加 TOC 开关功能（该部分不在原主题的可配置项目内且目前没有搜索到做过类似事情的文章，所以可能需要我自己尝试实现）&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加评论功能 &lt;del&gt;（其他评论组件需要部署一些其他云上资源，虽然是免费的但是多稍有些麻烦，没什么人访问的情况下感觉没啥必要，优先考虑 gitalk）&lt;/del&gt;&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 增加 TOC 开关功能（目前未找到可参考的资料，手动实现的话过于麻烦，考虑放弃）&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 添加评论功能 （其他评论组件需要部署一些其他云上资源，虽然是免费的但是多稍有些麻烦，没什么人访问的情况下感觉没啥必要，优先考虑 gitalk）&lt;/li&gt;
 &lt;/ul&gt;
 </description>
         </item>
