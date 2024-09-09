@@ -15,6 +15,9 @@
 <meta name="twitter:description" content="背景 分布式锁的应用场景应该还是蛮多的，这里就不赘述了。\n之前在开发中实现分布式锁都是自己基于 Redis 造轮子，虽然也不复杂并且自己实现一次能对分布式锁有更深的了解，但是终归有些麻烦。尤其是新项目需要的时候还得 CV 一次。\n在查询/学习过程中（毫不意外地）发现 Spring 有现成的组件实现，所以决定拿过来使用一次，顺便了解一下。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
+
+
+    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
       <script>
         var doNotTrack = false;
@@ -29,6 +32,7 @@
           gtag('config', 'G-62TS5Y5J35');
         }
       </script>
+
     </head>
     <body class="
     article-page
@@ -716,21 +720,23 @@ To do it you can get a lock and exit from a method without releasing. In such ca
     }
 </style>
 <script type="text/javascript">
-    (function (c, l, a, r, i, t, y) {
-        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-        t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", "nq4skyjk39");
+    if (!window.location.host.includes('localhost')) {
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "nq4skyjk39");
 
-    (function (u, c) {
-        var d = document, t = 'script', o = d.createElement(t),
-            s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(e); }); }
-        s.parentNode.insertBefore(o, s);
-    })('//cdn.bootcss.com/pangu/4.0.7/pangu.min.js', function () {
-        pangu.spacingPage();
-    });
+        (function (u, c) {
+            var d = document, t = 'script', o = d.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+            o.src = u;
+            if (c) { o.addEventListener('load', function (e) { c(e); }); }
+            s.parentNode.insertBefore(o, s);
+        })('//cdn.bootcss.com/pangu/4.0.7/pangu.min.js', function () {
+            pangu.spacingPage();
+        });
+    }
 </script>
     </body>
 </html>

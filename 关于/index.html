@@ -15,6 +15,9 @@
 <meta name="twitter:description" content="个人站点，用于记录（可对外公开的）个人学习、生活、技术、随笔等。\n目前处于内容创造与页面排布并重的早期阶段。\n目前计划内容：\n使用图床方式保存图片，不再使用本地图片 使用 cdn 方式添加字体，不再使用本地字体文件（感谢中文网字计划 以及Google Font 的免费CDN） 接入 Google Analytics &amp; Microsoft Clarty 确认站点访问量 （虽然大概率没有任何访问） 页面录入搜索引擎（Google 和 Bing） 图床图片兼容（能够进行点击放大等交互，参考 stack 仓库的 discussions 和某位大佬的博客 将一些原有的技术笔记或其他内容迁移过来 增加 TOC 开关功能（目前未找到可参考的资料，手动实现的话过于麻烦，考虑放弃） 添加评论功能 （其他评论组件需要部署一些其他云上资源，虽然是免费的但是多稍有些麻烦，没什么人访问的情况下感觉没啥必要，优先考虑 gitalk） ">
     <link rel="shortcut icon" href="/favicon.ico" />
 
+
+
+    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
       <script>
         var doNotTrack = false;
@@ -29,6 +32,7 @@
           gtag('config', 'G-62TS5Y5J35');
         }
       </script>
+
     </head>
     <body class="
     article-page
@@ -509,21 +513,23 @@
     }
 </style>
 <script type="text/javascript">
-    (function (c, l, a, r, i, t, y) {
-        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-        t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", "nq4skyjk39");
+    if (!window.location.host.includes('localhost')) {
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "nq4skyjk39");
 
-    (function (u, c) {
-        var d = document, t = 'script', o = d.createElement(t),
-            s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(e); }); }
-        s.parentNode.insertBefore(o, s);
-    })('//cdn.bootcss.com/pangu/4.0.7/pangu.min.js', function () {
-        pangu.spacingPage();
-    });
+        (function (u, c) {
+            var d = document, t = 'script', o = d.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+            o.src = u;
+            if (c) { o.addEventListener('load', function (e) { c(e); }); }
+            s.parentNode.insertBefore(o, s);
+        })('//cdn.bootcss.com/pangu/4.0.7/pangu.min.js', function () {
+            pangu.spacingPage();
+        });
+    }
 </script>
     </body>
 </html>

@@ -15,6 +15,9 @@
 <meta name="twitter:description" content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。"><link rel="alternate" type="application/rss&#43;xml" href="https://cbconne.github.io/page/index.xml">
     <link rel="shortcut icon" href="/favicon.ico" />
 
+
+
+    
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
       <script>
         var doNotTrack = false;
@@ -29,6 +32,7 @@
           gtag('config', 'G-62TS5Y5J35');
         }
       </script>
+
     </head>
     <body class="">
     <script>
@@ -488,21 +492,23 @@
     }
 </style>
 <script type="text/javascript">
-    (function (c, l, a, r, i, t, y) {
-        c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
-        t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
-        y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
-    })(window, document, "clarity", "script", "nq4skyjk39");
+    if (!window.location.host.includes('localhost')) {
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "nq4skyjk39");
 
-    (function (u, c) {
-        var d = document, t = 'script', o = d.createElement(t),
-            s = d.getElementsByTagName(t)[0];
-        o.src = u;
-        if (c) { o.addEventListener('load', function (e) { c(e); }); }
-        s.parentNode.insertBefore(o, s);
-    })('//cdn.bootcss.com/pangu/4.0.7/pangu.min.js', function () {
-        pangu.spacingPage();
-    });
+        (function (u, c) {
+            var d = document, t = 'script', o = d.createElement(t),
+                s = d.getElementsByTagName(t)[0];
+            o.src = u;
+            if (c) { o.addEventListener('load', function (e) { c(e); }); }
+            s.parentNode.insertBefore(o, s);
+        })('//cdn.bootcss.com/pangu/4.0.7/pangu.min.js', function () {
+            pangu.spacingPage();
+        });
+    }
 </script>
     </body>
 </html>
