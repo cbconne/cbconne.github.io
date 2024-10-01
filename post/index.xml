@@ -7,7 +7,142 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Wed, 18 Sep 2024 12:27:04 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 01 Oct 2024 07:54:53 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>20240929 周记</title>
+        <link>https://cbconne.github.io/p/20240929-%E5%91%A8%E8%AE%B0/</link>
+        <pubDate>Tue, 01 Oct 2024 07:54:53 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/p/20240929-%E5%91%A8%E8%AE%B0/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;看了不少周刊性质/内容的 blog，觉得这种形式还是挺好的，能够逼迫自己产生相对稳定的输出。因此决定参照这种模式。但是因为个人水平原因，估计写的内容很难称之为“周刊”，因此还是暂定为“周记”吧。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;技术&#34;&gt;技术
+&lt;/h1&gt;&lt;h2 id=&#34;开源项目&#34;&gt;开源项目
+&lt;/h2&gt;&lt;h3 id=&#34;计算机体系结构基础&#34;&gt;《计算机体系结构基础》
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/foxsen/archbase&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;计算机体系结构基础&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;计算机体系结构基础&lt;br&gt;
+这是龙芯团队胡伟武老师等人编写的《计算机体系结构基础》（第三版）的开源版本。本书纸质版本由机械工业出版社发行，可以通过各种常规渠道购买。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;内容提要&lt;br&gt;
+本书由从事微处理器设计的一线科研人员编写而成。作者从微处理器设计的角度出发，充分考虑计算机体系结构的学科完整性，强调体系结构、基础软件、电路和器件的融会贯通。全书共分12章，包括指令系统结构、计算机硬件结构、CPU微结构、并行处理结构、计算机性能分析等主要内容，重点放在作为软硬件界面的指令系统结构，以及包含CPU、GPU、南北桥协同的计算机硬件结构。本书可作为高等学校“计算机体系结构”课程的本科生教材，同时也适合相关专业研究生或计算机技术人员参考阅读。&lt;br&gt;
+关于本书内容更多的介绍可以参考&lt;a class=&#34;link&#34; href=&#34;https://foxsen.github.io/archbase/%E6%8E%A8%E8%8D%90%E5%BA%8F.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;推荐序&lt;/a&gt;、&lt;a class=&#34;link&#34; href=&#34;https://foxsen.github.io/archbase/%E8%87%AA%E5%BA%8F.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;自序&lt;/a&gt;、&lt;a class=&#34;link&#34; href=&#34;https://foxsen.github.io/archbase/%E7%AC%AC%E4%B8%89%E7%89%88%E5%BA%8F.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;第三版序&lt;/a&gt;和&lt;a class=&#34;link&#34; href=&#34;https://foxsen.github.io/archbase/%E5%89%8D%E8%A8%80.html&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;前言&lt;/a&gt;等相关章节。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;纯囤积癖犯了，star 了等于学了。&lt;br&gt;
+其实还是看了个开头的，但确实太偏硬件了，个人兴趣不大，对工作的实际价值也有限，所以先屯着吧。&lt;/p&gt;
+&lt;h3 id=&#34;又一个开发者工具&#34;&gt;又一个开发者工具
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/rememberber/MooTool&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;MooTool&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/09/25/Plq2jRmfKxtJWvk.png&#34;
+	width=&#34;2528&#34;
+	height=&#34;1638&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;154&#34;
+		data-flex-basis=&#34;370px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这种工具真的特别多：各种语言开发的、各种平台的、在线的/本地的，开源的/闭源的……&lt;br&gt;
+这个工具我看到的亮点是有一个“随手记”功能，并且支持一些简单的文本处理比如“去掉空格”“去掉空行”“科学计数法-&amp;gt;普通数字”等等。&lt;br&gt;
+但是确实不得不说，实际下载下来用过之后发现 BUG 是真的多啊……随便点点就能碰到那种只能关掉重启的恶性 BUG。
+只能说未来可期但是现在肯定是不能当日常主力工具使用了。&lt;/p&gt;
+&lt;h3 id=&#34;zen-浏览器&#34;&gt;Zen 浏览器
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/zen-browser/desktop&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Zen Browser&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;一个开源的、基于 Firefox 的浏览器。&lt;br&gt;
+之所以了解到是因为看到一个&lt;a class=&#34;link&#34; href=&#34;https://www.reddit.com/r/ArcBrowser/comments/1flixxw/i_am_moving_away_from_arc/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;关于 Arc 浏览器安全性的讨论的 Reddit 帖子&lt;/a&gt;，评论里提到了可以选择 Zen 浏览器作为代替品。&lt;br&gt;
+简单试用了下感觉还是比较早期，有着各种小问题，比如快捷键在 MacOS 上存在一些问题。&lt;br&gt;
+目前主力使用的浏览器一个是 Arc（公司 Mac）一个是 Edge （个人 Mac&amp;amp;Windows），前者主要吸引我的一个是 Space 这个功能，能够将不同类型的页面放在不同的 Space 下，另一个是标签页 ≈ 收藏页但比收藏轻量一些；相比之下其他功能只能说有趣、概念比较新，真正有多少实际帮助还是待商榷的。&lt;br&gt;
+Zen 也是有类似 Space 的功能，但实际体验下来和 Arc 的还是有一些差距，当然也可能是习惯问题。&lt;br&gt;
+之后应该也会持续关注，毕竟 Arc 是闭源的并且看势头将来必定是要走向收费的，有一个开源的备选方案总归会好一些。&lt;/p&gt;
+&lt;h2 id=&#34;个人项目&#34;&gt;个人项目
+&lt;/h2&gt;&lt;p&gt;因为是第一篇，所以把不是本周的项目也都放在这里了。（下一周大概率就凑不出来这部分内容了）&lt;/p&gt;
+&lt;h3 id=&#34;个人页面&#34;&gt;个人页面
+&lt;/h3&gt;&lt;p&gt;没什么好说的，毕竟每个搭建个人页面/博客的人的第一篇文章大概率都是关于怎么搭建的技术笔记。
+&lt;a class=&#34;link&#34; href=&#34;https://cbconne.github.io/p/hugo-github-actions-github-pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%A1%B5%E9%9D%A2/&#34; &gt;Hugo+Github Page 搭建个人页面&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&#34;统计-steam-游戏时间&#34;&gt;统计 Steam 游戏时间
+&lt;/h3&gt;&lt;p&gt;因为个人对“收集数据”的强烈喜好，再加上一些相关功能的启发，因此决定采集自己每天的 Steam 游戏时长。没什么价值，但是确实还蛮有趣。&lt;br&gt;
+具体详见 &lt;a class=&#34;link&#34; href=&#34;https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/&#34; &gt;使用 Github Actions 实现 Steam 每天游戏时长记录&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;生活&#34;&gt;生活
+&lt;/h1&gt;&lt;h2 id=&#34;游戏&#34;&gt;游戏
+&lt;/h2&gt;&lt;p&gt;不得不说，Steam Deck 确实是电子伟哥。&lt;br&gt;
+虽然这次电子阳痿的间歇期在购买 Steam Deck 之前就出现了，但是确实承认没有 Steam Deck 的话这次间歇期应该不会有这么长。不仅玩游戏的时间长了，甚至对于一些成就不是过于困难的游戏竟然都有精力去打一打全成就了。&lt;br&gt;
+果然技术能解决很多问题（不是）。&lt;br&gt;
+这里只提一些想提的游戏吧，之前基本上是通关游戏之后会写一篇记录，但是发现自己打游戏的速度比记录的速度要快（当然也只是暂时的，因为玩的几个游戏体量都比较小），所以后面也都没写详细的记录。&lt;/p&gt;
+&lt;h3 id=&#34;巴别号漫游指南&#34;&gt;巴别号漫游指南
+&lt;/h3&gt;&lt;p&gt;很有自己风格的国产独立游戏，不论是画面风格还是剧情。个人非常喜欢，期待续作。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/09/26/kCDurAgpH48MNVW.jpg&#34;
+	width=&#34;600&#34;
+	height=&#34;900&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;66&#34;
+		data-flex-basis=&#34;160px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h3 id=&#34;去月球&#34;&gt;去月球
+&lt;/h3&gt;&lt;p&gt;大名鼎鼎的作品，剧情向游戏，基本没有玩法可言。但是靠着无比过硬的感人剧情在这个领域达到了天花板水平。&lt;br&gt;
+当年手机上买了一份玩完了，这次看这个系列打折就把系列都给买了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/09/26/AWvPteZ25gYyXpB.jpg&#34;
+	width=&#34;460&#34;
+	height=&#34;215&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;213&#34;
+		data-flex-basis=&#34;513px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;读书&#34;&gt;读书
+&lt;/h2&gt;&lt;h3 id=&#34;读一页就上瘾的唐朝史&#34;&gt;读一页就上瘾的唐朝史
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://book.douban.com/subject/36357164/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;《读一页就上瘾的唐朝史》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;书名挺 low 的，但是内容还可以，在通俗性和专业性上找到了一个我还能接受的平衡点。也是补一补对唐朝这个中国最鼎盛的历史时期之一的了解。&lt;br&gt;
+目前最大的感触是门阀制度真 tmd 不是个好东西：李唐攻打天下的时候，坚持对着干、城里开始吃人都不投降的对手因为有贵族身份，所以被捉后留了条命；关心自己领地百姓就顺势降唐的，被捉了之后因为是农民起义军，甚至都不肯给个体面的死法在闹市给砍了。秦朝就喊出的“王侯将相宁有种乎”不肯听，活该末期“内库烧为锦绣灰，天街踏尽公卿骨！”。&lt;/p&gt;
+&lt;h2 id=&#34;追番&#34;&gt;追番
+&lt;/h2&gt;&lt;p&gt;用一个周末 1.5~2 倍速补完了几部之前几个季度评价还可以或者看简介比较感兴趣的番剧。&lt;/p&gt;
+&lt;h3 id=&#34;迷宫饭&#34;&gt;迷宫饭
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://movie.douban.com/subject/35801594/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;《迷宫饭》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;之前看到一半结果发现是半年番果断停止等完结，但是直到上周才补完。&lt;br&gt;
+和《异种族风俗娘评鉴指南》一样，是把某个冷门设定一下顶到天花板的作品。相比之下主体的剧情和人物反而不是那么出彩了。&lt;/p&gt;
+&lt;details&gt;
+    &lt;summary&gt;以下内容为纯个人主观意见，不做任何说服他人的尝试仅为自我表达：&lt;/summary&gt;
+    另外还有一点想说：我对目前男女对　的风气其实并不反对，毕竟作为底层男性，不管哪一边占据上风都无所谓，我也没有繁殖癌、对性的需求也没有那么大，所以无论怎样都吃不了多少亏。男权占上风不用说，即使是女权占上风被打倒的也包括男权中的“父权”，从好的来看一进一出没准还能受益，从坏的来看也不会比现在更差了——扯远了，我想说的是，男女对立或者说平权或者说女权都可以，但是不能因为这个就把自己对所有事情的评价都两极化了。&lt;br&gt;
+不管是迷宫饭还是上面说到的唐朝史，都有因为作品里对某个女角色的描绘不如自己预期就一棍子打死的评价，而且还往往排序占据非常高的位置，点进去之后除此之外的优缺点完全没提。&lt;br&gt;
+我理解这种行为，但是我不赞同，因为这种风气养成之后会形成另一种“审核”制度。现有的官方审核为人诟病，却在形成另一种“消费者”的审核——说实在的，现行的各种审核规定当年不也是这么来的么。
+&lt;/details&gt;
+&lt;h3 id=&#34;素晴第三季&#34;&gt;素晴第三季
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://movie.douban.com/subject/34948226/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;《为美好的世界献上祝福！ 第三季》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;能有什么好说的呢？希望能继续出。素晴这个风格来说动画版确实比原作够味儿一些。&lt;/p&gt;
+&lt;h3 id=&#34;从lv2开始开外挂的前勇者候补过着悠哉异世界生活&#34;&gt;从Lv2开始开外挂的前勇者候补过着悠哉异世界生活
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://movie.douban.com/subject/36603547/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;《从Lv2开始开外挂的前勇者候补过着悠哉异世界生活》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;每个季度都应该要有的、不能但也不用带脑子看、用来打发时间也没什么大问题的番。&lt;br&gt;
+相比一些剧情明明也没什么东西但是看的时候多多少少还是得用脑子的番来说，我更喜欢这种无脑厕纸。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>游戏记录 碳酸危机</title>
         <link>https://cbconne.github.io/p/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E7%A2%B3%E9%85%B8%E5%8D%B1%E6%9C%BA/</link>
         <pubDate>Wed, 18 Sep 2024 12:27:04 +0800</pubDate>
