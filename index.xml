@@ -7,7 +7,47 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Tue, 01 Oct 2024 07:54:53 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 12 Oct 2024 09:24:42 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>20241006 周记</title>
+        <link>https://cbconne.github.io/p/20241006-%E5%91%A8%E8%AE%B0/</link>
+        <pubDate>Wed, 09 Oct 2024 14:23:31 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/p/20241006-%E5%91%A8%E8%AE%B0/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;因为国庆假期所以内容比较少，放假就应该舒舒服服躺着！&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;技术&#34;&gt;技术
+&lt;/h1&gt;&lt;p&gt;🈚️&lt;/p&gt;
+&lt;h1 id=&#34;生活&#34;&gt;生活
+&lt;/h1&gt;&lt;h2 id=&#34;游戏&#34;&gt;游戏
+&lt;/h2&gt;&lt;h3 id=&#34;潜水员戴夫&#34;&gt;潜水员戴夫
+&lt;/h3&gt;&lt;p&gt;非常大杂烩的一款游戏，主体的捕鱼玩法之外，种菜、养殖、模拟经营一个不落。论单点都是非常容易腻的玩法，但是这款游戏聪明在一段时间就会给一些新鲜的要素，一直保持这种节奏到主线故事结束。至于其他内容，感兴趣的自然会去清，不感兴趣的也可以功成身退了。我个人挺喜欢这种设计的。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/12/Zu85gf7EnL4BUTw.jpg&#34;
+	width=&#34;600&#34;
+	height=&#34;900&#34;
+	
+	loading=&#34;lazy&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;66&#34;
+		data-flex-basis=&#34;160px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;h2 id=&#34;读书&#34;&gt;读书
+&lt;/h2&gt;&lt;h3 id=&#34;推理群星闪耀时&#34;&gt;推理群星闪耀时
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://book.douban.com/subject/36209186/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;《推理群星闪耀时》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;江户川乱步整理的历史推理短篇小说集，在如今“推理”基本上是被日本作者霸占的情况下，了解一下当年侦探小说的发祥地欧美的作品还是很有必要的。&lt;br&gt;
+不过还是那个问题，很多“推理小说”能不能算“推理”其实是值得商榷的。&lt;/p&gt;
+&lt;h2 id=&#34;动漫&#34;&gt;动漫
+&lt;/h2&gt;&lt;h3 id=&#34;迷宫饭&#34;&gt;迷宫饭
+&lt;/h3&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://movie.douban.com/subject/35801594/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;《迷宫饭》&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这周还是迷宫饭——不过是漫画。看漫画长度再来一个半年番应该就完结了，下半部分在整体的故事上确实完整了，但是在“美食番”这个层面上就不可避免地弱化了很多。算是属于故事性和“整活”性之间的权衡吧。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>20240929 周记</title>
         <link>https://cbconne.github.io/p/20240929-%E5%91%A8%E8%AE%B0/</link>
         <pubDate>Tue, 01 Oct 2024 07:54:53 +0800</pubDate>
@@ -176,7 +216,11 @@ Zen 也是有类似 Space 的功能，但实际体验下来和 Arc 的还是有�
         <pubDate>Wed, 18 Sep 2024 12:18:47 +0800</pubDate>
         
         <guid>https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/</guid>
-        <description>&lt;h1 id=&#34;背景说明&#34;&gt;背景说明
+        <description>&lt;blockquote&gt;
+&lt;p&gt;2024-10-09 update:&lt;br&gt;
+补充离线游戏时长&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;背景说明&#34;&gt;背景说明
 &lt;/h1&gt;&lt;p&gt;终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。&lt;/p&gt;
 &lt;h1 id=&#34;具体实现&#34;&gt;具体实现
 &lt;/h1&gt;&lt;h2 id=&#34;steam-api-寻找&#34;&gt;Steam API 寻找
@@ -230,7 +274,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;li&gt;新建一个 GitHub Action，配置定时执行，自动拉取该仓库并执行脚本，最后将数据通过 commit 和 push 保存到该仓库中。&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;图表绘制&#34;&gt;图表绘制
-&lt;/h2&gt;&lt;p&gt;这个暂时先不做，目前先实现纯文本记录。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;这个暂时只是临时绘制，没有形成具体的方案，就不在这记录了。&lt;/p&gt;
 &lt;h1 id=&#34;代码&#34;&gt;代码
 &lt;/h1&gt;&lt;h2 id=&#34;游戏时长获取&#34;&gt;游戏时长获取
 &lt;/h2&gt;&lt;p&gt;以下为游戏时长获取脚本，使用 Python 实现。&lt;/p&gt;
@@ -424,6 +468,11 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;186
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;187
 &lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;188
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;189
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;190
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;191
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;192
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;193
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kn&#34;&gt;import&lt;/span&gt; &lt;span class=&#34;nn&#34;&gt;requests&lt;/span&gt;
@@ -578,11 +627,16 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;how&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;left&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;suffixes&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;_new&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;_old&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 计算游戏时长&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;c1&#34;&gt;# 计算游戏时长，需要加上 disconnected 的时长&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;merge_game_info&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playing_time&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;merge_game_info&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;apply&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;lambda&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_forever_new&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;lambda&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_forever_new&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_disconnected_new&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;pd&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;isna&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_forever_old&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_forever_new&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_forever_old&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;k&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;nb&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_forever_new&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_disconnected_new&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_forever_old&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;playtime_disconnected_old&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;axis&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
