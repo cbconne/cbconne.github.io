@@ -57,6 +57,9 @@ Restricts results to the appids passed here. This is an array and should be pass
 验证过程中发现该方案的问题：&lt;code&gt;GetOwnedGames&lt;/code&gt; 如同字面意思，只能返回“Owned”的游戏，而 Steam 最近的新家庭共享功能可以让我玩到我没有购买但是家庭组内其他成员购买的游戏。在这种情况下，通过 &lt;code&gt;GetOwnedGames&lt;/code&gt; 获取到的信息中是缺少这些游戏的。&lt;br&gt;
 最后思考下来的解决方案是仍然需要使用 &lt;code&gt;GetRecentlyPlayedGames&lt;/code&gt; 来进行补充，该接口能够正常显示两周内玩过的家庭共享游戏信息，包括总游戏时长。因此，在使用 &lt;code&gt;GetOwnedGames&lt;/code&gt; 获取数据后，再通过 &lt;code&gt;GetRecentlyPlayedGames&lt;/code&gt; 获取数据并对其中缺失的游戏进行补充，即可有效获取到所有游戏时长信息。&lt;br&gt;
 随后的事情就比较简单了，用今天的数据和前一天的数据做差值计算，即可得到当天的各游戏时长；如果存在昨天不存在的游戏数据说明是今天第一次玩的，直接用现有的游戏总时长即可。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;2025/05/27 update&lt;/p&gt;
+&lt;p&gt;由于 &lt;code&gt;GetRecentlyPlayedGames&lt;/code&gt; 仅获取两周内游戏时长，因此若家庭组内游戏超过两周未游玩，下次游玩时则会错误将总时长作为当天游戏时长，该情况下处理逻辑暂未实现，需要手动校准。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;定时脚本执行及数据保存方案&#34;&gt;定时脚本执行及数据保存方案
 &lt;/h2&gt;&lt;p&gt;一开始其实考虑过在自己买的云服务器上定时运行脚本并，但是想了想后面云服务器到期大概率不太会继续续用了，即使续用大概率也会购买另一家云厂商的，到时候再进行数据迁移会比较麻烦。&lt;br&gt;
 最后考虑了多种方案还是决定白嫖 GitHub 的资源，使用 GitHub Actions 来实现定时的脚本执行，并使用 GitHub 仓库本身来保存数据。&lt;br&gt;
