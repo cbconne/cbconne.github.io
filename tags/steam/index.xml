@@ -15,8 +15,7 @@
         <guid>https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;2024-10-09 update:&lt;br&gt;
-补充离线游戏时长&lt;/p&gt;
-&lt;/blockquote&gt;
+补充离线游戏时长&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h1 id=&#34;背景说明&#34;&gt;背景说明
 &lt;/h1&gt;&lt;p&gt;终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。&lt;/p&gt;
 &lt;h1 id=&#34;具体实现&#34;&gt;具体实现
@@ -30,30 +29,26 @@
     &gt;Steam Web API Documentation&lt;/a&gt;（GitHub 地址：&lt;a class=&#34;link&#34; href=&#34;https://github.com/xPaw/SteamWebAPIDocumentation&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;SteamWebAPIDocumentation&lt;/a&gt;），看说明来源是通过 Steam 官方提供的 API 来获取所有支持的 API。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&amp;rsquo;s protobuf files.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&amp;rsquo;s protobuf files.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;但是实际测下来，即使是 Steam 官方接口返回的接口调用信息也是不准确的，如：GetOwnedGames 接口显示可以通过 appids_filter 来筛选需要查询的游戏，但是实际不生效，然后看到 &lt;a class=&#34;link&#34; href=&#34;https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp_.28v0001.29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Steam Web API&lt;/a&gt; 里又写到：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;appids_filter&lt;br&gt;
-You can optionally filter the list to a set of appids. Note that these cannot be passed as a URL parameter, instead you must use the JSON format described in Steam_Web_API#Calling_Service_interfaces. The expected input is an array of integers (in JSON: &amp;ldquo;appids_filter: [ 440, 500, 550 ]&amp;rdquo; )&lt;/p&gt;
-&lt;/blockquote&gt;
+You can optionally filter the list to a set of appids. Note that these cannot be passed as a URL parameter, instead you must use the JSON format described in Steam_Web_API#Calling_Service_interfaces. The expected input is an array of integers (in JSON: &amp;ldquo;appids_filter: [ 440, 500, 550 ]&amp;rdquo; )&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;和&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Calling Service interfaces&lt;br&gt;
 There is a new style of WebAPI which we refer to as &amp;ldquo;Services&amp;rdquo;. They function in many ways like the WebAPIs you are used to, the main difference being that all service APIs will accept their arguments as a single JSON blob in addition to taking them as GET or POST parameters. To pass in data as JSON, invoke the webapi with a parameter set like:&lt;br&gt;
 &lt;code&gt;?key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&amp;amp;format=json&amp;amp;input_json={steamid: 76561197972495328}&lt;/code&gt;&lt;br&gt;
 Note that the JSON will need to be URL-encoded. The &amp;ldquo;key&amp;rdquo; and &amp;ldquo;format&amp;rdquo; fields should still be passed as separate parameters, as before. POST requests are supported as well.&lt;br&gt;
-You can identify if a WebAPI is a &amp;ldquo;Service&amp;rdquo; by the name of the interface; if it ends in &amp;ldquo;Service&amp;rdquo; like &amp;ldquo;IPlayerService&amp;rdquo;, then it supports this additional method of passing parameter data. Some Service methods have parameters that are more complex structures and require this different input format.&lt;/p&gt;
-&lt;/blockquote&gt;
+You can identify if a WebAPI is a &amp;ldquo;Service&amp;rdquo; by the name of the interface; if it ends in &amp;ldquo;Service&amp;rdquo; like &amp;ldquo;IPlayerService&amp;rdquo;, then it supports this additional method of passing parameter data. Some Service methods have parameters that are more complex structures and require this different input format.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;但是实际上都是在扯淡……按照文档说明的规则去写同样调不通。&lt;br&gt;
 查下来有个已经归档的&lt;a class=&#34;link&#34; href=&#34;https://github.com/pfroud/steam-playtime-log/blob/main/log_playtime.py&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;项目&lt;/a&gt;里的说法是，参考 &lt;a class=&#34;link&#34; href=&#34;https://wiki.teamfortress.com/wiki/WebAPI/GetOwnedGames#Method-specific_parameters&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;TF2 wiki&lt;/a&gt; 内的说法，需要使用以下格式：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;appids_filter (Optional) (uint32)&lt;br&gt;
-Restricts results to the appids passed here. This is an array and should be passed like &lt;code&gt;appids_filter[0]=440&amp;amp;appids_filter[1]=570&lt;/code&gt;&lt;/p&gt;
-&lt;/blockquote&gt;
+Restricts results to the appids passed here. This is an array and should be passed like &lt;code&gt;appids_filter[0]=440&amp;amp;appids_filter[1]=570&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;经过验证以上方式调用是有效的。&lt;br&gt;
 同时，文档里说可以使用 &lt;code&gt;language&lt;/code&gt; 参数来修改返回的 appinfo 的语言，这个实测下来也无效——或者这个参数非常偏门，不是 zh-CN、Chinese 之类正常逻辑能想到的。好在也不太有这个需求&amp;amp;有中文信息的游戏也不多。&lt;/p&gt;
 &lt;h2 id=&#34;游戏时长获取方案&#34;&gt;游戏时长获取方案
@@ -545,7 +540,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sd&#34;&gt;          git config --local user.email &amp;#34;action@github.com&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sd&#34;&gt;          git config --local user.name &amp;#34;GitHub Action&amp;#34;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sd&#34;&gt;          git add .
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sd&#34;&gt;          git commit -m &amp;#34;Update Steam Playtime Data `TZ=&amp;#39;Asia/Shanghai&amp;#39; date +&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;`&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;          
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;sd&#34;&gt;          git commit -m &amp;#34;Update Steam Playtime Data `TZ=&amp;#39;Asia/Shanghai&amp;#39; date +&amp;#39;%Y-%m-%d %H:%M:%S&amp;#39;`&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;      &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Push changes&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;uses&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ad-m/github-push-action@master&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;        &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;with&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;

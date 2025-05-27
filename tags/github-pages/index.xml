@@ -28,8 +28,7 @@
 &lt;p&gt;前者仓库名称随意，后者名称固定为 &lt;code&gt;&amp;lt;用户名&amp;gt;.github.io&lt;/code&gt;。&lt;/p&gt;
 &lt;h2 id=&#34;创建-hugo-项目&#34;&gt;创建 Hugo 项目
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;此处省略安装 Hugo 的步骤，安装参考官方文档或网络上的教程。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;此处省略安装 Hugo 的步骤，安装参考官方文档或网络上的教程。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
@@ -68,8 +67,7 @@
 &lt;/h2&gt;&lt;p&gt;这里省略将上述 Hugo 项目通过 git 上传到私有仓库的步骤。&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;WARN：&lt;/p&gt;
-&lt;p&gt;由于时间比较久，部分配置过程的环节可能有所遗漏，后续如果我想起来或者我按自己这篇文档都走不通 &lt;del&gt;（那还写个屁啊！）&lt;/del&gt; 的时候会再补充。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;由于时间比较久，部分配置过程的环节可能有所遗漏，后续如果我想起来或者我按自己这篇文档都走不通 &lt;del&gt;（那还写个屁啊！）&lt;/del&gt; 的时候会再补充。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;在私有仓库的 &lt;code&gt;.github/workflows&lt;/code&gt; 目录下创建一个名为 &lt;code&gt;deploy.yml&lt;/code&gt; 的文件，内容可参考如下：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
 &lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;

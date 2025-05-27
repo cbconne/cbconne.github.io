@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 
-<link rel="stylesheet" href="/scss/style.min.9900c426122f1ae2961c3e7b3c8cd517e6d66864cc67229130d31499c9479829.css"><meta property='og:title' content="使用 Github Actions 实现 Steam 每天游戏时长记录">
+<link rel="stylesheet" href="/scss/style.min.ab9dac82568c9b4e602ae458f6e46bca245e45af6690c5ebf6c24ccdd471f342.css"><meta property='og:title' content="使用 Github Actions 实现 Steam 每天游戏时长记录">
 <meta property='og:description' content=" 2024-10-09 update:\n补充离线游戏时长\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
 <meta property='og:url' content='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 <meta property='og:site_name' content='CBC_onne&#39;s Site'>
@@ -383,8 +383,7 @@
     
     <blockquote>
 <p>2024-10-09 update:<br>
-补充离线游戏时长</p>
-</blockquote>
+补充离线游戏时长</p></blockquote>
 <h1 id="背景说明">背景说明
 </h1><p>终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。</p>
 <h1 id="具体实现">具体实现
@@ -398,30 +397,26 @@
     >Steam Web API Documentation</a>（GitHub 地址：<a class="link" href="https://github.com/xPaw/SteamWebAPIDocumentation"  target="_blank" rel="noopener"
     >SteamWebAPIDocumentation</a>），看说明来源是通过 Steam 官方提供的 API 来获取所有支持的 API。</p>
 <blockquote>
-<p>This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&rsquo;s protobuf files.</p>
-</blockquote>
+<p>This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&rsquo;s protobuf files.</p></blockquote>
 <p>但是实际测下来，即使是 Steam 官方接口返回的接口调用信息也是不准确的，如：GetOwnedGames 接口显示可以通过 appids_filter 来筛选需要查询的游戏，但是实际不生效，然后看到 <a class="link" href="https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp_.28v0001.29"  target="_blank" rel="noopener"
     >Steam Web API</a> 里又写到：</p>
 <blockquote>
 <p>appids_filter<br>
-You can optionally filter the list to a set of appids. Note that these cannot be passed as a URL parameter, instead you must use the JSON format described in Steam_Web_API#Calling_Service_interfaces. The expected input is an array of integers (in JSON: &ldquo;appids_filter: [ 440, 500, 550 ]&rdquo; )</p>
-</blockquote>
+You can optionally filter the list to a set of appids. Note that these cannot be passed as a URL parameter, instead you must use the JSON format described in Steam_Web_API#Calling_Service_interfaces. The expected input is an array of integers (in JSON: &ldquo;appids_filter: [ 440, 500, 550 ]&rdquo; )</p></blockquote>
 <p>和</p>
 <blockquote>
 <p>Calling Service interfaces<br>
 There is a new style of WebAPI which we refer to as &ldquo;Services&rdquo;. They function in many ways like the WebAPIs you are used to, the main difference being that all service APIs will accept their arguments as a single JSON blob in addition to taking them as GET or POST parameters. To pass in data as JSON, invoke the webapi with a parameter set like:<br>
 <code>?key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&amp;format=json&amp;input_json={steamid: 76561197972495328}</code><br>
 Note that the JSON will need to be URL-encoded. The &ldquo;key&rdquo; and &ldquo;format&rdquo; fields should still be passed as separate parameters, as before. POST requests are supported as well.<br>
-You can identify if a WebAPI is a &ldquo;Service&rdquo; by the name of the interface; if it ends in &ldquo;Service&rdquo; like &ldquo;IPlayerService&rdquo;, then it supports this additional method of passing parameter data. Some Service methods have parameters that are more complex structures and require this different input format.</p>
-</blockquote>
+You can identify if a WebAPI is a &ldquo;Service&rdquo; by the name of the interface; if it ends in &ldquo;Service&rdquo; like &ldquo;IPlayerService&rdquo;, then it supports this additional method of passing parameter data. Some Service methods have parameters that are more complex structures and require this different input format.</p></blockquote>
 <p>但是实际上都是在扯淡……按照文档说明的规则去写同样调不通。<br>
 查下来有个已经归档的<a class="link" href="https://github.com/pfroud/steam-playtime-log/blob/main/log_playtime.py"  target="_blank" rel="noopener"
     >项目</a>里的说法是，参考 <a class="link" href="https://wiki.teamfortress.com/wiki/WebAPI/GetOwnedGames#Method-specific_parameters"  target="_blank" rel="noopener"
     >TF2 wiki</a> 内的说法，需要使用以下格式：</p>
 <blockquote>
 <p>appids_filter (Optional) (uint32)<br>
-Restricts results to the appids passed here. This is an array and should be passed like <code>appids_filter[0]=440&amp;appids_filter[1]=570</code></p>
-</blockquote>
+Restricts results to the appids passed here. This is an array and should be passed like <code>appids_filter[0]=440&amp;appids_filter[1]=570</code></p></blockquote>
 <p>经过验证以上方式调用是有效的。<br>
 同时，文档里说可以使用 <code>language</code> 参数来修改返回的 appinfo 的语言，这个实测下来也无效——或者这个参数非常偏门，不是 zh-CN、Chinese 之类正常逻辑能想到的。好在也不太有这个需求&amp;有中文信息的游戏也不多。</p>
 <h2 id="游戏时长获取方案">游戏时长获取方案
@@ -913,7 +908,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.email &#34;action@github.com&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.name &#34;GitHub Action&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">          git add .
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -m &#34;Update Steam Playtime Data `TZ=&#39;Asia/Shanghai&#39; date +&#39;%Y-%m-%d %H:%M:%S&#39;`&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -m &#34;Update Steam Playtime Data `TZ=&#39;Asia/Shanghai&#39; date +&#39;%Y-%m-%d %H:%M:%S&#39;`&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Push changes</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">ad-m/github-push-action@master</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
@@ -1056,12 +1051,12 @@ Restricts results to the appids passed here. This is an array and should be pass
         
             2023 - 
         
-        2024 CBC
+        2025 CBC
     </section>
     
     <section class="powerby">
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.27.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.30.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1150,7 +1145,7 @@ Restricts results to the appids passed here. This is an array and should be pass
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.1e9a3bafd846ced4c345d084b355fb8c7bae75701c338f8a1f8a82c780137826.js" defer></script>
 <link rel='stylesheet'
     href='https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkaibright/dist/LXGWBright-Regular/result.css' />
 <link rel='stylesheet' href='https://chinese-fonts-cdn.deno.dev/packages/sypxzs/dist/思源屏显臻宋/result.css' />
