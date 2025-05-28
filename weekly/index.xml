@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>周记 on CBC_onne&#39;s Site</title>
-        <link>https://cbconne.github.io/categories/%E5%91%A8%E8%AE%B0/</link>
-        <description>Recent content in 周记 on CBC_onne&#39;s Site</description>
+        <title>Weeklies on CBC_onne&#39;s Site</title>
+        <link>https://cbconne.github.io/weekly/</link>
+        <description>Recent content in Weeklies on CBC_onne&#39;s Site</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Tue, 15 Oct 2024 15:11:53 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/categories/%E5%91%A8%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 15 Oct 2024 15:11:53 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/weekly/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>20241015 周记</title>
         <link>https://cbconne.github.io/weekly/20241013-%E5%91%A8%E8%AE%B0/</link>
         <pubDate>Tue, 15 Oct 2024 15:11:53 +0800</pubDate>
