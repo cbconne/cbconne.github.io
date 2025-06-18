@@ -7,7 +7,32 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Wed, 09 Oct 2024 14:29:39 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 18 Jun 2025 13:38:00 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>潜伏 IGN 中国多年，只为发这个视频</title>
+        <link>https://cbconne.github.io/p/%E6%BD%9C%E4%BC%8F-ign-%E4%B8%AD%E5%9B%BD%E5%A4%9A%E5%B9%B4%E5%8F%AA%E4%B8%BA%E5%8F%91%E8%BF%99%E4%B8%AA%E8%A7%86%E9%A2%91/</link>
+        <pubDate>Wed, 18 Jun 2025 13:38:00 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/p/%E6%BD%9C%E4%BC%8F-ign-%E4%B8%AD%E5%9B%BD%E5%A4%9A%E5%B9%B4%E5%8F%AA%E4%B8%BA%E5%8F%91%E8%BF%99%E4%B8%AA%E8%A7%86%E9%A2%91/</guid>
+        <description>&lt;p&gt;有点标题党了，事情本身是这样的：随着 Switch2 的发布，IGN 中国发布了一个 Switch2 《黑暗之魂 复刻版》实机演示视频，但是因为视频中行云流水般且还带着魂系列玩家看到会心一笑的操作，意外（？）吸引了大量的魂系列玩家、云玩家（比如我）甚至非魂系列玩家，播放量一路走高。现在已经是奔着持续更新的实况视频去了。&lt;/p&gt;
+&lt;p&gt;原视频地址：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1fPMKzpEfA/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;【IGN】Switch 2版《黑暗之魂 复刻版》22分钟实机演示&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;这件事对玩家来说有趣的点非常多，包括但不限于：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;IGN 作为一个游戏媒体竟然真的有会玩游戏的高手&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因为 IGN （主要是海外）此前有过各种游戏编辑游戏水平很差甚至不会玩游戏的前科（比如茶杯头无法通过新手教程、DOOM惊人准头暴露显然没用手柄玩过 FPS 游戏等），因此 IGN 中国突然发了一个甚至可以算速通的“实机演示”，反差感一下就出来了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;这样做实机演示是吧？&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;实机演示原本是用来演示游戏画面、性能表现情况的，但这个视频的侧重点基本完全在“怎么高效率地打通黑魂1”上，甚至有跳hCG、利用 BUG、邪道过关、小退游戏等各种熟练操作，这个反差感就更大了。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;有梗&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在以上基础上，如果视频是非常单纯的、一点失误都没有的速通肯定也不会像如今这么火。能火很重要的一个是录视频的哥/姐们儿（个人感觉应该大概率哥们儿吧）非常有梗：素质下指、偶发失误、唯一不跳的 CG 等等，都是魂系列玩家看到会会心一笑的。&lt;/p&gt;
+&lt;p&gt;但最后话又说回来，即使天时地利人和加身，这个（系列）视频（第一期）也就将将破百万播放，总的来说圈子确实还是不大。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
         <link>https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Wed, 18 Sep 2024 12:18:47 +0800</pubDate>
