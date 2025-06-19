@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update:\n补充离线游戏时长\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
 <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 
 <link rel="stylesheet" href="/scss/style.min.ab9dac82568c9b4e602ae458f6e46bca245e45af6690c5ebf6c24ccdd471f342.css"><meta property='og:title' content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta property='og:description' content=" 2024-10-09 update:\n补充离线游戏时长\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta property='og:description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
 <meta property='og:url' content='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Github Actions' /><meta property='article:tag' content='Steam' /><meta property='article:published_time' content='2024-09-18T12:18:47&#43;08:00'/><meta property='article:modified_time' content='2024-10-09T14:29:39&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Github Actions' /><meta property='article:tag' content='Steam' /><meta property='article:tag' content='game' /><meta property='article:published_time' content='2024-09-18T12:18:47&#43;08:00'/><meta property='article:modified_time' content='2024-10-09T14:29:39&#43;08:00'/>
 <meta name="twitter:title" content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta name="twitter:description" content=" 2024-10-09 update:\n补充离线游戏时长\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name="twitter:description" content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 
@@ -285,6 +285,7 @@
     <li><a href="#代码">代码</a>
       <ol>
         <li><a href="#游戏时长获取">游戏时长获取</a></li>
+        <li><a href="#保存图表">保存图表</a></li>
         <li><a href="#github-actions-yaml-配置">GitHub Actions yaml 配置</a></li>
       </ol>
     </li>
@@ -353,7 +354,7 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 7 分钟
+                阅读时长: 9 分钟
             </time>
         </div>
         <div>
@@ -367,7 +368,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 3328
+                字数: 4415
             </time>
         </div>
         
@@ -382,8 +383,11 @@
     
     
     <blockquote>
-<p>2024-10-09 update:<br>
-补充离线游戏时长</p></blockquote>
+<p><em><strong>2024-10-09 update</strong></em><br>
+补充离线游戏时长</p>
+<p><em><strong>2025-06-19 update</strong></em><br>
+新增图表绘制</p></blockquote>
+<hr>
 <h1 id="背景说明">背景说明
 </h1><p>终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。</p>
 <h1 id="具体实现">具体实现
@@ -437,7 +441,8 @@ Restricts results to the appids passed here. This is an array and should be pass
 <li>新建一个 GitHub Action，配置定时执行，自动拉取该仓库并执行脚本，最后将数据通过 commit 和 push 保存到该仓库中。</li>
 </ol>
 <h2 id="图表绘制">图表绘制
-</h2><p>这个暂时只是临时绘制，没有形成具体的方案，就不在这记录了。</p>
+</h2><p>(20250619 update)
+长期是另外写一个 jupyter 脚本来拉数据画图表，今天想着还是写一个画图的脚本每天执行，将结果放到 README.md 中。</p>
 <h1 id="代码">代码
 </h1><h2 id="游戏时长获取">游戏时长获取
 </h2><p>以下为游戏时长获取脚本，使用 Python 实现。</p>
@@ -833,6 +838,248 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl">    <span class="n">get_playing_time</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
+</div><h2 id="保存图表">保存图表
+</h2><p>（20250619 update）</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># script/plot_generator.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
+</span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 配置 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s2">&#34;data/playing_time_data&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">CHART_OUTPUT_PATH_PNG</span> <span class="o">=</span> <span class="s2">&#34;images/playing_time_chart.png&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">CHART_OUTPUT_PATH_HTML</span> <span class="o">=</span> <span class="s2">&#34;docs/index.html&#34;</span>  <span class="c1"># 用于 GitHub Pages</span>
+</span></span><span class="line"><span class="cl"><span class="n">DAYS_TO_SHOW</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># 定义要展示的天数</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 1. 创建一个完整的日期范围 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">date_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">today</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">DAYS_TO_SHOW</span><span class="p">)]</span> <span class="c1"># 凌晨执行所以天数-1</span>
+</span></span><span class="line"><span class="cl"><span class="n">date_range</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>  <span class="c1"># 从小到大排序</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 将日期转换为字符串格式 YYYY-MM-DD，方便后续处理</span>
+</span></span><span class="line"><span class="cl"><span class="n">date_range_str</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">date_range</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 2. 数据加载与合并 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">all_files</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&#34;playing_time_&#34;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&#34;.csv&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">all_files</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;No data files found. Exiting.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 读取并合并所有 CSV 数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 确保 &#39;playtime_date&#39; 是日期时间类型，并提取日期部分</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 筛选出在日期范围内的数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">df_recent</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">date_range_str</span><span class="p">)]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 3. 数据透视与填充 ---</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 pivot_table 将数据重塑，游戏名为列，日期为索引，时长为值</span>
+</span></span><span class="line"><span class="cl"><span class="n">pivot_df</span> <span class="o">=</span> <span class="n">df_recent</span><span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">index</span><span class="o">=</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="n">values</span><span class="o">=</span><span class="s2">&#34;playing_time&#34;</span><span class="p">,</span> <span class="n">aggfunc</span><span class="o">=</span><span class="s2">&#34;sum&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 使用 reindex 确保所有日期都在 DataFrame 中，缺失的用 0 填充</span>
+</span></span><span class="line"><span class="cl"><span class="n">pivot_df</span> <span class="o">=</span> <span class="n">pivot_df</span><span class="o">.</span><span class="n">reindex</span><span class="p">(</span><span class="n">date_range_str</span><span class="p">,</span> <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 计算每日总时长</span>
+</span></span><span class="line"><span class="cl"><span class="n">daily_totals</span> <span class="o">=</span> <span class="n">pivot_df</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 将数据从宽格式转回长格式，以便 Plotly Express 使用</span>
+</span></span><span class="line"><span class="cl"><span class="n">plot_df</span> <span class="o">=</span> <span class="n">pivot_df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">()</span><span class="o">.</span><span class="n">melt</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">id_vars</span><span class="o">=</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">,</span> <span class="n">var_name</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="p">,</span> <span class="n">value_name</span><span class="o">=</span><span class="s2">&#34;playing_time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 4. 绘制堆积柱状图 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">plot_df</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">x</span><span class="o">=</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">y</span><span class="o">=</span><span class="s2">&#34;playing_time&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">color</span><span class="o">=</span><span class="s2">&#34;name&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">title</span><span class="o">=</span><span class="s2">&#34;近7日游戏时长统计&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">labels</span><span class="o">=</span><span class="p">{</span><span class="s2">&#34;playing_time&#34;</span><span class="p">:</span> <span class="s2">&#34;游戏时长 (分钟)&#34;</span><span class="p">,</span> <span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;游戏名称&#34;</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="n">text</span><span class="o">=</span><span class="s2">&#34;playing_time&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 5. 更新图表布局和样式 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">font_family</span><span class="o">=</span><span class="s2">&#34;Noto Sans CJK SC&#34;</span><span class="p">,</span> <span class="c1"># 指定字体，避免中文显示问题</span>
+</span></span><span class="line"><span class="cl">    <span class="n">barmode</span><span class="o">=</span><span class="s2">&#34;stack&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xaxis_title</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>  <span class="c1"># 移除X轴标题</span>
+</span></span><span class="line"><span class="cl">    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&#34;游戏时长 (分钟)&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 设置X轴为分类轴，并明确指定顺序和格式</span>
+</span></span><span class="line"><span class="cl">    <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">type</span><span class="o">=</span><span class="s2">&#34;category&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">categoryorder</span><span class="o">=</span><span class="s2">&#34;array&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">categoryarray</span><span class="o">=</span><span class="n">date_range_str</span><span class="p">,</span>  <span class="c1"># 保证日期从左到右依次增大</span>
+</span></span><span class="line"><span class="cl">        <span class="n">tickformat</span><span class="o">=</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">),</span>
+</span></span><span class="line"><span class="cl">    <span class="n">legend_title_text</span><span class="o">=</span><span class="s2">&#34;游戏列表&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="o">.</span><span class="n">update_traces</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="n">textposition</span><span class="o">=</span><span class="s2">&#34;inside&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">textfont_size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">texttemplate</span><span class="o">=</span><span class="s2">&#34;%</span><span class="si">{text:.0f}</span><span class="s2">&#34;</span><span class="p">,</span>  <span class="c1"># 将文本格式化为不带小数的整数</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 6. 添加每日总时长标注 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">annotations</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="n">date_val</span><span class="p">,</span> <span class="n">total_minutes</span> <span class="ow">in</span> <span class="n">daily_totals</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># 只有在总时长大于0时才添加标注</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">total_minutes</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="nb">dict</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">x</span><span class="o">=</span><span class="n">date_val</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">y</span><span class="o">=</span><span class="n">total_minutes</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">text</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">total_minutes</span><span class="p">)),</span>  <span class="c1"># 格式为纯数字</span>
+</span></span><span class="line"><span class="cl">                <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">xanchor</span><span class="o">=</span><span class="s2">&#34;center&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">yanchor</span><span class="o">=</span><span class="s2">&#34;bottom&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">12</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&#34;black&#34;</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">annotations</span><span class="o">=</span><span class="n">annotations</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 7. 保存图表 ---</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 确保输出目录存在</span>
+</span></span><span class="line"><span class="cl"><span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&#34;images&#34;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 保存为静态 PNG 图片</span>
+</span></span><span class="line"><span class="cl"><span class="n">fig</span><span class="o">.</span><span class="n">write_image</span><span class="p">(</span><span class="n">CHART_OUTPUT_PATH_PNG</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">height</span><span class="o">=</span><span class="mi">600</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Static chart saved to </span><span class="si">{</span><span class="n">CHART_OUTPUT_PATH_PNG</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div><h2 id="github-actions-yaml-配置">GitHub Actions yaml 配置
 </h2><p>以下为 GitHub Actions 的 yaml 配置文件。<br>
 基本都是 GitHub Actions 的八股文，可以参考官方文档或者网络上其他文档。</p>
@@ -918,6 +1165,100 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.ref }}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
+</div><p>（20250619 update）<br>
+新增执行绘图脚本的 job</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">generate_chart</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 这个 job 依赖于上一个 job 的成功完成</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l">get_steam_playtime_data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 拉取最新的代码，包括刚刚被上一个 job 推送的数据</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.ref }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up Python</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-python@v5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.12&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;pip&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">cache-dependency-path</span><span class="p">:</span><span class="w"> </span><span class="l">./script/requirements.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install dependencies</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">pip install -r ./script/requirements.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 安装中文字体，避免显示问题</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install Chinese fonts</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        sudo apt-get update
+</span></span></span><span class="line"><span class="cl"><span class="sd">        sudo apt-get install -y fonts-noto-cjk</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Generate chart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python ./script/plot_generator.py</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit and push chart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git config --local user.email &#34;action@github.com&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git config --local user.name &#34;GitHub Action&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git add images/playing_time_chart.png
+</span></span></span><span class="line"><span class="cl"><span class="sd">        # 检查是否有文件变更
+</span></span></span><span class="line"><span class="cl"><span class="sd">        if ! git diff --staged --quiet; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git commit -m &#34;Update chart `TZ=&#39;Asia/Shanghai&#39; date +&#39;%Y-%m-%d %H:%M:%S&#39;`&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        git push
+</span></span></span><span class="line"><span class="cl"><span class="sd">        else
+</span></span></span><span class="line"><span class="cl"><span class="sd">        echo &#34;No chart changes to commit.&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        fi</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
 </div><h1 id="最终效果">最终效果
 </h1><p><img src="https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png"
 	width="2674"
@@ -947,6 +1288,20 @@ Restricts results to the appids passed here. This is an array and should be pass
 		data-flex-basis="1455px"
 	
 ></p>
+<p><img src="https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png"
+	width="1702"
+	height="1466"
+	
+	loading="lazy"
+	
+		alt="图表展示"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="116"
+		data-flex-basis="278px"
+	
+></p>
 
 </section>
 
@@ -958,6 +1313,8 @@ Restricts results to the appids passed here. This is an array and should be pass
             <a href="/tags/github-actions/">Github Actions</a>
         
             <a href="/tags/steam/">Steam</a>
+        
+            <a href="/tags/game/">Game</a>
         
     </section>
 
