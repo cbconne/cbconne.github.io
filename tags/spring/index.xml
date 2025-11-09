@@ -171,7 +171,8 @@
     &gt;Distributed lock with Redis and Spring Boot&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;In some situations, you might need to acquire a lock but not release it. For example, you have a @Scheduled task that runs each 15 seconds on each instance and you don’t want it to be run more often than once per 15 seconds.&lt;br&gt;
-To do it you can get a lock and exit from a method without releasing. In such cases, I suggest calling lockRegistry.expireUnusedOlderThan(TTL) each time before obtaining a lock (actually it is better to call it for all cases). This method removes old not released locks from the map locks and prevents the situation when one instance has a map with old locks and all threads of this instance (except the one which acquired this lock) cannot acquire it.&lt;/p&gt;&lt;/blockquote&gt;
+To do it you can get a lock and exit from a method without releasing. In such cases, I suggest calling lockRegistry.expireUnusedOlderThan(TTL) each time before obtaining a lock (actually it is better to call it for all cases). This method removes old not released locks from the map locks and prevents the situation when one instance has a map with old locks and all threads of this instance (except the one which acquired this lock) cannot acquire it.&lt;/p&gt;
+&lt;/blockquote&gt;
 &lt;p&gt;按以上的介绍，建议每次获取锁前都调用一次&lt;code&gt;lockRegistry.expireUnusedOlderThan(TTL)&lt;/code&gt;来避免问题，按这种方法来进行操作确实解决了该问题。
 （不得不吐槽一句，使用中文检索到的相关博文没有看到有提到这一点的……）&lt;/p&gt;
 </description>
