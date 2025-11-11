@@ -7,7 +7,24 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Tue, 12 Aug 2025 13:03:35 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 10 Nov 2025 10:18:43 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>终端工具选择</title>
+        <link>https://cbconne.github.io/p/%E7%BB%88%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9/</link>
+        <pubDate>Mon, 10 Nov 2025 10:18:43 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/p/%E7%BB%88%E7%AB%AF%E5%B7%A5%E5%85%B7%E9%80%89%E6%8B%A9/</guid>
+        <description>&lt;p&gt;我长期使用的终端工具一直是 &lt;a class=&#34;link&#34; href=&#34;https://www.warp.dev/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Warp&lt;/a&gt;，但在最近突然发现它原来居然不支持 &lt;a class=&#34;link&#34; href=&#34;https://github.com/warpdotdev/Warp/issues/1811&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;shell 层面的自动补全&lt;/a&gt;。&lt;/p&gt;
+&lt;p&gt;一方面惊讶于它自带的补全功能已经足够强大，以至于我这么久都没有察觉到；另一方面，我立刻开始准备切换终端工具：“如果我没见过太阳，我本可以忍受黑暗”。&lt;/p&gt;
+&lt;p&gt;首先自然是换回 iTerm2：无论如何，选择最普遍的选项通常不会出错。不过，iTerm2 的设置项过于繁杂，而且主要依赖 UI 界面进行配置（或许也可以通过修改配置文件实现，但我没有找到明确方法）。在我需要尽量保持个人电脑和公司电脑功能一致的场景下，确保两边的设置同步就变得相当麻烦。&lt;/p&gt;
+&lt;p&gt;基于上述情况，我又寻找了几款性能较好的终端，最终选择了 &lt;a class=&#34;link&#34; href=&#34;https://ghostty.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ghostty&lt;/a&gt;。老实说，性能对我而言并非首要考量，目前命令行也还不是我的主力工作方式。真正戳中我的，是它的配置完全基于文件：这样我就可以轻松在不同设备间同步设置，并将其纳入我个人存放各类配置的版本库中。&lt;/p&gt;
+&lt;p&gt;另外，为了代替掉其实使用得并不多的 AI 功能，我找到了 &lt;a class=&#34;link&#34; href=&#34;https://github.com/TheR1D/shell_gpt&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;ShellGPT&lt;/a&gt;。使用下来感觉体感上甚至比 Warp 的 AI 功能还好一些。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>稳定输出的困难</title>
         <link>https://cbconne.github.io/p/%E7%A8%B3%E5%AE%9A%E8%BE%93%E5%87%BA%E7%9A%84%E5%9B%B0%E9%9A%BE/</link>
         <pubDate>Tue, 12 Aug 2025 13:03:35 +0800</pubDate>
