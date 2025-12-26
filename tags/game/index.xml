@@ -7,7 +7,7 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Tue, 16 Dec 2025 13:51:17 +0000</lastBuildDate><atom:link href="https://cbconne.github.io/tags/game/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 26 Dec 2025 12:07:57 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/tags/game/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
         <link>https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Wed, 18 Sep 2024 12:18:47 +0800</pubDate>
@@ -18,9 +18,15 @@
 补充离线游戏时长&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;&lt;strong&gt;2025-06-19 update&lt;/strong&gt;&lt;/em&gt;&lt;br&gt;
 新增图表绘制&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;2025-12-16 update&lt;/strong&gt;&lt;/em&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;2025-12-16 update&lt;/strong&gt;&lt;/em&gt;&lt;br&gt;
 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题&lt;/p&gt;
 &lt;/blockquote&gt;
+&lt;p&gt;todo：&lt;/p&gt;
+&lt;span class=&#34;begin-task-list&#34;&gt;&lt;/span&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 使用本地数据库代替 csv，避免数据持续线性增长&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 优化 action 脚本，避免一次任务多次提交&lt;/li&gt;
+&lt;/ul&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;背景说明&#34;&gt;背景说明
 &lt;/h1&gt;&lt;p&gt;终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。&lt;/p&gt;
@@ -70,11 +76,11 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;blockquote&gt;
 &lt;p&gt;&lt;del&gt;2025/05/27 update&lt;/del&gt;&lt;/p&gt;
 &lt;p&gt;&lt;del&gt;由于 &lt;code&gt;GetRecentlyPlayedGames&lt;/code&gt; 仅获取两周内游戏时长，因此若家庭组内游戏超过两周未游玩，下次游玩时则会错误将总时长作为当天游戏时长，该情况下处理逻辑暂未实现，需要手动校准。&lt;/del&gt;&lt;/p&gt;
-&lt;p&gt;2025/12/16 update
+&lt;p&gt;2025/12/16 update&lt;br&gt;
 已优化&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;h2 id=&#34;定时脚本执行及数据保存方案&#34;&gt;定时脚本执行及数据保存方案
-&lt;/h2&gt;&lt;p&gt;一开始其实考虑过在自己买的云服务器上定时运行脚本并，但是想了想后面云服务器到期大概率不太会继续续用了，即使续用大概率也会购买另一家云厂商的，到时候再进行数据迁移会比较麻烦。&lt;br&gt;
+&lt;/h2&gt;&lt;p&gt;一开始其实考虑过在自己买的云服务器上定时运行脚本，但是想了想后面云服务器到期大概率不太会续了，即使要续大概率也会购买另一家云厂商的，到时候进行程序&amp;amp;数据迁移会比较麻烦。&lt;br&gt;
 最后考虑了多种方案还是决定白嫖 GitHub 的资源，使用 GitHub Actions 来实现定时的脚本执行，并使用 GitHub 仓库本身来保存数据。&lt;br&gt;
 大致方案如下：&lt;/p&gt;
 &lt;ol&gt;
@@ -934,14 +940,14 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;get_steam_playtime_data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 定时执行，由于 GitHub Actions 使用 UTC 时间，因此此处设置为 18:00，表示在北京时间 02:00 执行&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;schedule&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;cron&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;0 18 * * *&amp;#34;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 允许手动触发，便于调试&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;workflow_dispatch&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;jobs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;jobs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;  &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;get_steam_playtime_data&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;runs-on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ubuntu-latest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;steps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -1022,11 +1028,11 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
 &lt;td class=&#34;lntd&#34;&gt;
 &lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-yaml&#34; data-lang=&#34;yaml&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;generate_chart&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 这个 job 依赖于上一个 job 的成功完成&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;needs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;get_steam_playtime_data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;runs-on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ubuntu-latest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c&#34;&gt;# 这个 job 依赖于上一个 job 的成功完成&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;needs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;get_steam_playtime_data&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;runs-on&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;ubuntu-latest&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;steps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nt&#34;&gt;steps&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;- &lt;span class=&#34;nt&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;Checkout repository&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;nt&#34;&gt;uses&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;l&#34;&gt;actions/checkout@v4&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;c&#34;&gt;# 拉取最新的代码，包括刚刚被上一个 job 推送的数据&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -1070,7 +1076,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png&#34;
 	width=&#34;2674&#34;
 	height=&#34;580&#34;
-	
+	srcset=&#34;https://cbconne.github.io/oRIfrMwN3pxmeld_14391652306906845632_hu_f664598b7935d743.png 480w, https://cbconne.github.io/oRIfrMwN3pxmeld_14391652306906845632_hu_f70f09ea24fe2532.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;数据列表&#34;
@@ -1084,7 +1090,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png&#34;
 	width=&#34;1358&#34;
 	height=&#34;224&#34;
-	
+	srcset=&#34;https://cbconne.github.io/PbhgBxOoL52euXr_4882395254979787627_hu_fbcc3d99561d6512.png 480w, https://cbconne.github.io/PbhgBxOoL52euXr_4882395254979787627_hu_2c2a04fe16b2ab33.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;数据内容&#34;
@@ -1098,7 +1104,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png&#34;
 	width=&#34;1702&#34;
 	height=&#34;1466&#34;
-	
+	srcset=&#34;https://cbconne.github.io/CwzL5TefP2os7Bj_2028340218531195635_hu_158e42b131a027d5.png 480w, https://cbconne.github.io/CwzL5TefP2os7Bj_2028340218531195635_hu_b03f4e433cca0e64.png 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;图表展示&#34;

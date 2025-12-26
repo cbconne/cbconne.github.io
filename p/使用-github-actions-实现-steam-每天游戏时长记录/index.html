@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
 <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 
-<link rel="stylesheet" href="/scss/style.min.8301acad46437fd625ba6f9a298f1839087e1b36d309196e8c6a7ba404e90aa6.css"><meta property='og:title' content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta property='og:description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<link rel="stylesheet" href="/scss/style.min.dda7e36bb4c1c904954efe46361016b44127bb15546c7c640e773ac318a409a2.css"><meta property='og:title' content="使用 Github Actions 实现 Steam 每天游戏时长记录">
+<meta property='og:description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
 <meta property='og:url' content='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Github Actions' /><meta property='article:tag' content='Steam' /><meta property='article:tag' content='game' /><meta property='article:published_time' content='2024-09-18T12:18:47&#43;08:00'/><meta property='article:modified_time' content='2025-12-16T13:51:17&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Github Actions' /><meta property='article:tag' content='Steam' /><meta property='article:tag' content='game' /><meta property='article:published_time' content='2024-09-18T12:18:47&#43;08:00'/><meta property='article:modified_time' content='2025-12-26T12:07:57&#43;08:00'/>
 <meta name="twitter:title" content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta name="twitter:description" content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name="twitter:description" content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 
@@ -21,7 +21,7 @@
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
       <script>
         var doNotTrack = false;
-        if ( false ) {
+        if ( true ) {
           var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
           var doNotTrack = (dnt == "1" || dnt == "yes");
         }
@@ -368,7 +368,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 4310
+                字数: 4356
             </time>
         </div>
         
@@ -387,9 +387,15 @@
 补充离线游戏时长</p>
 <p><em><strong>2025-06-19 update</strong></em><br>
 新增图表绘制</p>
-<p><em><strong>2025-12-16 update</strong></em>
+<p><em><strong>2025-12-16 update</strong></em><br>
 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题</p>
 </blockquote>
+<p>todo：</p>
+<span class="begin-task-list"></span>
+<ul>
+<li><input disabled="" type="checkbox"> 使用本地数据库代替 csv，避免数据持续线性增长</li>
+<li><input disabled="" type="checkbox"> 优化 action 脚本，避免一次任务多次提交</li>
+</ul>
 <hr>
 <h1 id="背景说明">背景说明
 </h1><p>终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。</p>
@@ -439,11 +445,11 @@ Restricts results to the appids passed here. This is an array and should be pass
 <blockquote>
 <p><del>2025/05/27 update</del></p>
 <p><del>由于 <code>GetRecentlyPlayedGames</code> 仅获取两周内游戏时长，因此若家庭组内游戏超过两周未游玩，下次游玩时则会错误将总时长作为当天游戏时长，该情况下处理逻辑暂未实现，需要手动校准。</del></p>
-<p>2025/12/16 update
+<p>2025/12/16 update<br>
 已优化</p>
 </blockquote>
 <h2 id="定时脚本执行及数据保存方案">定时脚本执行及数据保存方案
-</h2><p>一开始其实考虑过在自己买的云服务器上定时运行脚本并，但是想了想后面云服务器到期大概率不太会继续续用了，即使续用大概率也会购买另一家云厂商的，到时候再进行数据迁移会比较麻烦。<br>
+</h2><p>一开始其实考虑过在自己买的云服务器上定时运行脚本，但是想了想后面云服务器到期大概率不太会续了，即使要续大概率也会购买另一家云厂商的，到时候进行程序&amp;数据迁移会比较麻烦。<br>
 最后考虑了多种方案还是决定白嫖 GitHub 的资源，使用 GitHub Actions 来实现定时的脚本执行，并使用 GitHub 仓库本身来保存数据。<br>
 大致方案如下：</p>
 <ol>
@@ -1303,14 +1309,14 @@ Restricts results to the appids passed here. This is an array and should be pass
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">get_steam_playtime_data</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 定时执行，由于 GitHub Actions 使用 UTC 时间，因此此处设置为 18:00，表示在北京时间 02:00 执行</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0 18 * * *&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 允许手动触发，便于调试</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">get_steam_playtime_data</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
@@ -1391,11 +1397,11 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">generate_chart</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># 这个 job 依赖于上一个 job 的成功完成</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l">get_steam_playtime_data</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># 这个 job 依赖于上一个 job 的成功完成</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l">get_steam_playtime_data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">steps</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repository</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 拉取最新的代码，包括刚刚被上一个 job 推送的数据</span><span class="w">
@@ -1439,7 +1445,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 </h1><p><img src="https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png"
 	width="2674"
 	height="580"
-	
+	srcset="/oRIfrMwN3pxmeld_14391652306906845632_hu_f664598b7935d743.png 480w, /oRIfrMwN3pxmeld_14391652306906845632_hu_f70f09ea24fe2532.png 1024w"
 	loading="lazy"
 	
 		alt="数据列表"
@@ -1453,7 +1459,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 <p><img src="https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png"
 	width="1358"
 	height="224"
-	
+	srcset="/PbhgBxOoL52euXr_4882395254979787627_hu_fbcc3d99561d6512.png 480w, /PbhgBxOoL52euXr_4882395254979787627_hu_2c2a04fe16b2ab33.png 1024w"
 	loading="lazy"
 	
 		alt="数据内容"
@@ -1467,7 +1473,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 <p><img src="https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png"
 	width="1702"
 	height="1466"
-	
+	srcset="/CwzL5TefP2os7Bj_2028340218531195635_hu_158e42b131a027d5.png 480w, /CwzL5TefP2os7Bj_2028340218531195635_hu_b03f4e433cca0e64.png 1024w"
 	loading="lazy"
 	
 		alt="图表展示"
@@ -1518,7 +1524,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 
 
         <span>
-            最后更新于 2025/12/16 13:51:17
+            最后更新于 2025/12/26 12:07:57
         </span>
     </section></footer>
 
@@ -1592,7 +1598,7 @@ Restricts results to the appids passed here. This is an array and should be pass
     
     <section class="powerby">
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.32.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.33.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1674,6 +1680,7 @@ Restricts results to the appids passed here. This is an array and should be pass
                 rel="stylesheet" 
                 href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
             >
+    
 
             </main>
         </div>
