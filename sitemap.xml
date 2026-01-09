@@ -3,34 +3,42 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://cbconne.github.io/</loc>
-    <lastmod>2026-01-04T12:19:34+08:00</lastmod>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
-    <loc>https://cbconne.github.io/weekly/20250104/</loc>
+    <loc>https://cbconne.github.io/weekly/20260109/</loc>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/categories/</loc>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/tags/nvim/</loc>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/tags/</loc>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/weekly/</loc>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/tags/%E8%AF%BB%E4%B9%A6/</loc>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/categories/%E5%91%A8%E8%AE%B0/</loc>
+    <lastmod>2026-01-09T17:30:46+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/weekly/20260104/</loc>
     <lastmod>2026-01-04T12:19:34+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://cbconne.github.io/tags/ai/</loc>
-    <lastmod>2026-01-04T12:19:34+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://cbconne.github.io/categories/</loc>
-    <lastmod>2026-01-04T12:19:34+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://cbconne.github.io/tags/</loc>
-    <lastmod>2026-01-04T12:19:34+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://cbconne.github.io/weekly/</loc>
-    <lastmod>2026-01-04T12:19:34+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://cbconne.github.io/tags/%E8%AF%BB%E4%B9%A6/</loc>
-    <lastmod>2026-01-04T12:19:34+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://cbconne.github.io/categories/%E5%91%A8%E8%AE%B0/</loc>
     <lastmod>2026-01-04T12:19:34+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
