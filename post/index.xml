@@ -156,18 +156,20 @@
         
         <guid>https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;blockquote&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;2024-10-09 update&lt;/strong&gt;&lt;/em&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;2024-10-09 update&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;
 补充离线游戏时长&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;2025-06-19 update&lt;/strong&gt;&lt;/em&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;2025-06-19 update&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;
 新增图表绘制&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;&lt;strong&gt;2025-12-16 update&lt;/strong&gt;&lt;/em&gt;&lt;br&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;2025-12-16 update&lt;/em&gt;&lt;/strong&gt;&lt;br&gt;
 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;2026-01-16 update&lt;/em&gt;&lt;/strong&gt;
+优化数据存储方式：CSV&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;todo：&lt;/p&gt;
 &lt;span class=&#34;begin-task-list&#34;&gt;&lt;/span&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 使用本地数据库代替 csv，避免数据持续线性增长&lt;/li&gt;
-&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 优化 action 脚本，避免一次任务多次提交&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 使用本地数据库代替 csv，避免数据持续线性增长&lt;/li&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 优化 action 脚本，避免一次任务多次提交&lt;/li&gt;
 &lt;/ul&gt;
 &lt;hr&gt;
 &lt;h1 id=&#34;背景说明&#34;&gt;背景说明
@@ -185,7 +187,7 @@
 &lt;blockquote&gt;
 &lt;p&gt;This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&amp;rsquo;s protobuf files.&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;但是实际测下来，即使是 Steam 官方接口返回的接口调用信息也是不准确的，如：GetOwnedGames 接口显示可以通过 appids_filter 来筛选需要查询的游戏，但是实际不生效，然后看到 &lt;a class=&#34;link&#34; href=&#34;https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp_.28v0001.29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;p&gt;但是实际测下来，即使是 Steam 官方接口返回的接口调用信息也是不准确的，如：GetOwnedGames 接口显示可以通过 appids*filter 来筛选需要查询的游戏，但是实际不生效，然后看到 &lt;a class=&#34;link&#34; href=&#34;https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp*.28v0001.29&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Steam Web API&lt;/a&gt; 里又写到：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;appids_filter&lt;br&gt;

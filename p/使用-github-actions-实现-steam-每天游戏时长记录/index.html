@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update 优化数据存储方式：CSV\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
 <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 
 <link rel="stylesheet" href="/scss/style.min.0a04ca6b4b0994eb505763a582a19c979acbc87ca4cf1a3e2b80152b49abc024.css"><meta property='og:title' content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta property='og:description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta property='og:description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update 优化数据存储方式：CSV\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
 <meta property='og:url' content='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Github Actions' /><meta property='article:tag' content='Steam' /><meta property='article:tag' content='game' /><meta property='article:published_time' content='2024-09-18T12:18:47&#43;08:00'/><meta property='article:modified_time' content='2025-12-26T12:07:57&#43;08:00'/>
 <meta name="twitter:title" content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta name="twitter:description" content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name="twitter:description" content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update 优化数据存储方式：CSV\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 
@@ -368,7 +368,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 4356
+                字数: 4370
             </time>
         </div>
         
@@ -383,18 +383,20 @@
     
     
     <blockquote>
-<p><em><strong>2024-10-09 update</strong></em><br>
+<p><strong><em>2024-10-09 update</em></strong><br>
 补充离线游戏时长</p>
-<p><em><strong>2025-06-19 update</strong></em><br>
+<p><strong><em>2025-06-19 update</em></strong><br>
 新增图表绘制</p>
-<p><em><strong>2025-12-16 update</strong></em><br>
+<p><strong><em>2025-12-16 update</em></strong><br>
 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题</p>
+<p><strong><em>2026-01-16 update</em></strong>
+优化数据存储方式：CSV</p>
 </blockquote>
 <p>todo：</p>
 <span class="begin-task-list"></span>
 <ul>
-<li><input disabled="" type="checkbox"> 使用本地数据库代替 csv，避免数据持续线性增长</li>
-<li><input disabled="" type="checkbox"> 优化 action 脚本，避免一次任务多次提交</li>
+<li><input checked="" disabled="" type="checkbox"> 使用本地数据库代替 csv，避免数据持续线性增长</li>
+<li><input checked="" disabled="" type="checkbox"> 优化 action 脚本，避免一次任务多次提交</li>
 </ul>
 <hr>
 <h1 id="背景说明">背景说明
@@ -412,7 +414,7 @@
 <blockquote>
 <p>This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&rsquo;s protobuf files.</p>
 </blockquote>
-<p>但是实际测下来，即使是 Steam 官方接口返回的接口调用信息也是不准确的，如：GetOwnedGames 接口显示可以通过 appids_filter 来筛选需要查询的游戏，但是实际不生效，然后看到 <a class="link" href="https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp_.28v0001.29"  target="_blank" rel="noopener"
+<p>但是实际测下来，即使是 Steam 官方接口返回的接口调用信息也是不准确的，如：GetOwnedGames 接口显示可以通过 appids*filter 来筛选需要查询的游戏，但是实际不生效，然后看到 <a class="link" href="https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp*.28v0001.29"  target="_blank" rel="noopener"
     >Steam Web API</a> 里又写到：</p>
 <blockquote>
 <p>appids_filter<br>
