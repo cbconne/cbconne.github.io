@@ -7,7 +7,52 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Fri, 09 Jan 2026 17:30:46 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/categories/%E5%91%A8%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 14 Jan 2026 10:01:47 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/categories/%E5%91%A8%E8%AE%B0/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>20260118 周记</title>
+        <link>https://cbconne.github.io/weekly/20250116/</link>
+        <pubDate>Wed, 14 Jan 2026 10:01:47 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/weekly/20250116/</guid>
+        <description>&lt;h1 id=&#34;摘录&#34;&gt;摘录
+&lt;/h1&gt;&lt;h2 id=&#34;kindle-退出的影响&#34;&gt;Kindle 退出的影响
+&lt;/h2&gt;&lt;p&gt;上周刚好提了相关事情，这周翻之前的摘录的时候看到了之前收藏的一篇文章：&lt;a class=&#34;link&#34; href=&#34;https://1q43.blog/post/12078/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Kindle 中国拾遗&lt;/a&gt;，其中内容虽然和上周提到的不完全一致，但是很多事情是相通的。&lt;/p&gt;
+&lt;p&gt;Kindle 离开中国不管怎么说、对任何人都不是好事情，哪怕不是他的目标用户。&lt;/p&gt;
+&lt;h1 id=&#34;折腾&#34;&gt;折腾
+&lt;/h1&gt;&lt;h2 id=&#34;nvim&#34;&gt;NVIM
+&lt;/h2&gt;&lt;p&gt;毫不奇怪本周还是在继续折腾我的 NVIM 配置，又迭代了几个版本调整了一些插件/配置。甚至为了确保真·全平台我在 Windows 上也把 VSCode 卸了配上 NVIM —— 按说我在我的游戏本上开发概率不高（除非将来要用到显卡），偶尔打开几个文件用 VSCode 不是挺好的吗，在 Windows 上折腾 NVIM 作甚！甚至因为 NVIM 又重新把 Windows 上的终端重新配置了一次，除了证明 Windows 确实不适合开发之外，没有更多的好处了，何苦来哉！&lt;/p&gt;
+&lt;h2 id=&#34;双拼&#34;&gt;双拼
+&lt;/h2&gt;&lt;p&gt;其实也算 NVIM 相关：因为 flash 插件理所当然的不支持中文，&lt;del&gt;一直&lt;/del&gt;偶尔深受其累。刷博客刷到了 &lt;a class=&#34;link&#34; href=&#34;https://github.com/rainzm/flash-zh.nvim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;flash-zh&lt;/a&gt; 这么个插件，能将 flash 的能力带到中文，但是只支持小鹤双拼。&lt;/p&gt;
+&lt;p&gt;虽然除了 blog 之外，NVIM 中大量存在中文的场合确实不多，也没必要非得为此学习新的输入方式。虽然双拼熟练之后确实是更快，但是花上几周甚至一两个月的时间来适应新的输入方式确实是谈不上什么投入产出比…………&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;然后我就打印了一张小鹤双拼键位图放在显示器下面，用双拼龟速打下了这段内容（以及本文后续内容 ）。&lt;/span&gt;&lt;/p&gt;
+&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;其实稍微练习了一两个小时基本已经可以不看键位图盲打了，虽然还是需要想一下&amp;和肌肉记忆打架速度提不起来。&lt;/span&gt;
+&lt;h2 id=&#34;桌面布局调整&#34;&gt;桌面布局调整
+&lt;/h2&gt;&lt;p&gt;为了不再带自己电脑上班，把公司的笔记本重装了 Linux，所以自己的 MacBook 空出来了，调整了一下桌面布局，把它放上了自己的电脑桌。&lt;/p&gt;
+&lt;p&gt;现在的布局大概是：左边游戏本，中间显示器，右边 MacBook。显示器都接，用显示器自带的切换功能；键鼠目前的方案是用 deskflow 实现软件 KVM 效果，用一套键鼠控制两台电脑。&lt;/p&gt;
+&lt;p&gt;目前 deskflow + Rime 有一个莫名其妙的 &lt;a class=&#34;link&#34; href=&#34;https://github.com/deskflow/deskflow/issues/9200&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;BUG&lt;/a&gt;。因此也有考虑买一个 KVM，但是因为打游戏还需要高刷，不确定 KVM 中转之后是否会有影响，因此即使买也只是切键鼠，目前 deskflow 的除了 BUG 有些恼人之外其实体验还不错，就感觉花个 100 多买个 KVM 未必有必要。总之先这样，之后再考虑吧。&lt;/p&gt;
+&lt;h2 id=&#34;steam-每日游戏时长统计数据迁移&#34;&gt;steam 每日游戏时长统计数据迁移
+&lt;/h2&gt;&lt;p&gt;其实改了挺久的了，一直在 feature 分支和 main 分支的 csv 版本并行运行确认可靠性。差不多已经一个月了，基本没问题，本周把它合并了。&lt;/p&gt;
+&lt;p&gt;改动比较大，后续考虑重新把那篇文章写一遍。&lt;/p&gt;
+&lt;h1 id=&#34;思考&#34;&gt;思考
+&lt;/h1&gt;&lt;h2 id=&#34;新三国吐槽&#34;&gt;新三国吐槽
+&lt;/h2&gt;&lt;p&gt;最近在看新三国吐槽，确实发现这部剧有太多槽点。但是 100 多期看下来其实吐槽本身也不能说没问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;很多《三国演义》本身就有的问题放过了，并没有吐槽，这是对的；但是还是有部分原著就有的问题被额外吐槽了一遍，印象比较深的有吐槽鲁肃知道煮酒论英雄的事，其实原著刘表也知道。既然刘表能知道，鲁肃能知道也不奇怪吧。&lt;/li&gt;
+&lt;li&gt;部分吐槽略显用力过猛，或者说吹毛求疵。当然这是基准不一致：up 主为了“节目效果”，部分吐槽点的基准很高，基本上是拿着老三国的长处比的——打个比方的话，老三国是 5A1C 的面板数值，新三国是 1B5C 的面板，拿着“A”当基准线来评价肯定处处不行。但其实还是有地方新三是在“正常”水平的，拿着“顶尖”的要求去比较肯定都是槽点，甚至老三国也经不起这种比较方法。
+&lt;blockquote&gt;
+&lt;p&gt;我这里提到的“节目效果”并非贬义：up 主制作的视频节目追求节目效果非常正常，从 up 角度出发，没节目效果如何确保播放量；从观众角度出发，没节目效果还看啥？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;li&gt;以上还算 up 层面的事，而从弹幕来看，就更是难评了。很多弹幕甚至都没看过老三国更别说原著了，很多时候弹幕“迫不及待”地开始吐槽的槽点其实原著就这么写的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;无效争论&#34;&gt;无效争论
+&lt;/h2&gt;&lt;p&gt;互联网待得越久，我就越羡慕很多网友的精力：我每天上班并且客观来说工作压力和强度并不大，下班之后也只想着休息，看小说打游戏都嫌时间不够，他们竟然还有精力在互联网上互喷。&lt;/p&gt;
+&lt;p&gt;甚至争论的都是一些什么玩意儿啊：楼主坚持自己电动车逆行撞了一个“逆行”的行人对方也有责任；杀戮尖塔一个纯单机游戏 S/L 算不算作弊……&lt;/p&gt;
+&lt;p&gt;我承认有一部分阴阳怪气成分，但是也是真的羡慕。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>20260111 周记</title>
         <link>https://cbconne.github.io/weekly/20260109/</link>
         <pubDate>Fri, 09 Jan 2026 13:38:21 +0800</pubDate>
