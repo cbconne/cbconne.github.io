@@ -32,7 +32,7 @@
 &lt;p&gt;目前 deskflow + Rime 有一个莫名其妙的 &lt;a class=&#34;link&#34; href=&#34;https://github.com/deskflow/deskflow/issues/9200&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;BUG&lt;/a&gt;。因此也有考虑买一个 KVM，但是因为打游戏还需要高刷，不确定 KVM 中转之后是否会有影响，因此即使买也只是切键鼠，目前 deskflow 的除了 BUG 有些恼人之外其实体验还不错，就感觉花个 100 多买个 KVM 未必有必要。总之先这样，之后再考虑吧。&lt;/p&gt;
 &lt;h2 id=&#34;steam-每日游戏时长统计数据迁移&#34;&gt;steam 每日游戏时长统计数据迁移
-&lt;/h2&gt;&lt;p&gt;其实改了挺久的了，一直在 feature 分支和 main 分支的 csv 版本并行运行确认可靠性。差不多已经一个月了，基本没问题，本周把它合并了。&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;主要是把数据保存方式改了：从 CSV 保存改为使用 DuckDB，避免数据量持续线性增长。其实改了挺久的了，一直在 feature 分支和 main 分支的 csv 版本并行运行确认可靠性。差不多已经一个月了，基本没问题，本周把它合并了。&lt;/p&gt;
 &lt;p&gt;改动比较大，后续考虑重新把那篇文章写一遍。&lt;/p&gt;
 &lt;h1 id=&#34;思考&#34;&gt;思考
 &lt;/h1&gt;&lt;h2 id=&#34;新三国吐槽&#34;&gt;新三国吐槽

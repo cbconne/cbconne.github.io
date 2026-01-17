@@ -374,7 +374,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 1557
+                字数: 1597
             </time>
         </div>
         
@@ -407,7 +407,7 @@
 <p>目前 deskflow + Rime 有一个莫名其妙的 <a class="link" href="https://github.com/deskflow/deskflow/issues/9200"  target="_blank" rel="noopener"
     >BUG</a>。因此也有考虑买一个 KVM，但是因为打游戏还需要高刷，不确定 KVM 中转之后是否会有影响，因此即使买也只是切键鼠，目前 deskflow 的除了 BUG 有些恼人之外其实体验还不错，就感觉花个 100 多买个 KVM 未必有必要。总之先这样，之后再考虑吧。</p>
 <h2 id="steam-每日游戏时长统计数据迁移">steam 每日游戏时长统计数据迁移
-</h2><p>其实改了挺久的了，一直在 feature 分支和 main 分支的 csv 版本并行运行确认可靠性。差不多已经一个月了，基本没问题，本周把它合并了。</p>
+</h2><p>主要是把数据保存方式改了：从 CSV 保存改为使用 DuckDB，避免数据量持续线性增长。其实改了挺久的了，一直在 feature 分支和 main 分支的 csv 版本并行运行确认可靠性。差不多已经一个月了，基本没问题，本周把它合并了。</p>
 <p>改动比较大，后续考虑重新把那篇文章写一遍。</p>
 <h1 id="思考">思考
 </h1><h2 id="新三国吐槽">新三国吐槽
