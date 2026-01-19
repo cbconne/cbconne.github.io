@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh-cn" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update 优化数据存储方式：CSV\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update\n优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长\n">
 <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 
 <link rel="stylesheet" href="/scss/style.min.0a04ca6b4b0994eb505763a582a19c979acbc87ca4cf1a3e2b80152b49abc024.css"><meta property='og:title' content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta property='og:description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update 优化数据存储方式：CSV\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta property='og:description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update\n优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长\n">
 <meta property='og:url' content='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Github Actions' /><meta property='article:tag' content='Steam' /><meta property='article:tag' content='game' /><meta property='article:published_time' content='2024-09-18T12:18:47&#43;08:00'/><meta property='article:modified_time' content='2025-12-26T12:07:57&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Github Actions' /><meta property='article:tag' content='Steam' /><meta property='article:tag' content='game' /><meta property='article:published_time' content='2024-09-18T12:18:47&#43;08:00'/><meta property='article:modified_time' content='2026-01-19T14:25:27&#43;08:00'/>
 <meta name="twitter:title" content="使用 Github Actions 实现 Steam 每天游戏时长记录">
-<meta name="twitter:description" content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update 优化数据存储方式：CSV\ntodo：\n使用本地数据库代替 csv，避免数据持续线性增长 优化 action 脚本，避免一次任务多次提交 背景说明 终于还是购买了 Steam Deck，在金钱的督促下最近电子阳痿缓解了很多，每天也多多少少会玩一会儿游戏。然后在折腾 Steam Deck 的过程中发现有个插件能够记录 Steam Deck 上的游戏时长，因此启发了我：既然我大多数时候游戏都是 Steam 在线游玩的，那是否能够通过 Steam 本身的一些 API 来实现记录每天的游戏时长呢？然后将每天的信息存下来，就能通过简单的减法来计算出每日各个游戏的时长了。\n">
+<meta name="twitter:description" content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update\n优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长\n">
     <link rel="shortcut icon" href="/favicon.ico" />
 
 
@@ -286,6 +286,7 @@
       <ol>
         <li><a href="#游戏时长获取">游戏时长获取</a></li>
         <li><a href="#保存图表">保存图表</a></li>
+        <li><a href="#数据库初始化">数据库初始化</a></li>
         <li><a href="#github-actions-yaml-配置">GitHub Actions yaml 配置</a></li>
       </ol>
     </li>
@@ -354,7 +355,7 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 9 分钟
+                阅读时长: 10 分钟
             </time>
         </div>
         <div>
@@ -368,7 +369,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 4370
+                字数: 4945
             </time>
         </div>
         
@@ -389,8 +390,10 @@
 新增图表绘制</p>
 <p><strong><em>2025-12-16 update</em></strong><br>
 优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题</p>
-<p><strong><em>2026-01-16 update</em></strong>
-优化数据存储方式：CSV</p>
+<p><strong><em>2026-01-16 update</em></strong><br>
+优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长</p>
+<p><strong><em>2026-01-19 update</em></strong><br>
+逻辑及代码实现调整较多，使用 AI 更新文档，<strong>暂未校对，仅作参考</strong></p>
 </blockquote>
 <p>todo：</p>
 <span class="begin-task-list"></span>
@@ -452,15 +455,16 @@ Restricts results to the appids passed here. This is an array and should be pass
 </blockquote>
 <h2 id="定时脚本执行及数据保存方案">定时脚本执行及数据保存方案
 </h2><p>一开始其实考虑过在自己买的云服务器上定时运行脚本，但是想了想后面云服务器到期大概率不太会续了，即使要续大概率也会购买另一家云厂商的，到时候进行程序&amp;数据迁移会比较麻烦。<br>
-最后考虑了多种方案还是决定白嫖 GitHub 的资源，使用 GitHub Actions 来实现定时的脚本执行，并使用 GitHub 仓库本身来保存数据。<br>
+最后考虑了多种方案还是决定白嫖 GitHub 的资源，使用 GitHub Actions 来实现定时的脚本执行，并使用 DuckDB 嵌入式数据库保存数据到 GitHub 仓库。<br>
 大致方案如下：</p>
 <ol>
 <li>新建私有仓库，将上述游戏时长获取脚本保存到该仓库中；</li>
-<li>新建一个 GitHub Action，配置定时执行，自动拉取该仓库并执行脚本，最后将数据通过 commit 和 push 保存到该仓库中。</li>
+<li>使用 DuckDB 作为数据存储方案，替代原先的 CSV 文件，避免数据文件持续线性增长；</li>
+<li>新建一个 GitHub Action，配置定时执行，自动拉取该仓库并执行脚本，最后将数据库文件通过 commit 和 push 保存到该仓库中。</li>
 </ol>
 <h2 id="图表绘制">图表绘制
-</h2><p>(20250619 update)
-长期是另外写一个 jupyter 脚本来拉数据画图表，今天想着还是写一个画图的脚本每天执行，将结果放到 README.md 中。</p>
+</h2><p>(20250619 update)<br>
+长期另外写一个 jupyter 脚本来拉数据画图表，今天计划还是写一个脚本每天执行，并将结果放到 README.md 中。</p>
 <h1 id="代码">代码
 </h1><h2 id="游戏时长获取">游戏时长获取
 </h2><p>以下为游戏时长获取脚本，使用 Python 实现。</p>
@@ -742,15 +746,37 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span><span class="lnt">274
 </span><span class="lnt">275
 </span><span class="lnt">276
+</span><span class="lnt">277
+</span><span class="lnt">278
+</span><span class="lnt">279
+</span><span class="lnt">280
+</span><span class="lnt">281
+</span><span class="lnt">282
+</span><span class="lnt">283
+</span><span class="lnt">284
+</span><span class="lnt">285
+</span><span class="lnt">286
+</span><span class="lnt">287
+</span><span class="lnt">288
+</span><span class="lnt">289
+</span><span class="lnt">290
+</span><span class="lnt">291
+</span><span class="lnt">292
+</span><span class="lnt">293
+</span><span class="lnt">294
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># script/get_playtime.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">datetime</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">duckdb</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pytz</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">requests</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">requests.adapters</span> <span class="kn">import</span> <span class="n">HTTPAdapter</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">urllib3.util.retry</span> <span class="kn">import</span> <span class="n">Retry</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">datetime</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pytz</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">retry_strategy</span> <span class="o">=</span> <span class="n">Retry</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">    <span class="n">total</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
@@ -809,20 +835,27 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl">        <span class="n">all_steam_df</span><span class="p">[</span><span class="s2">&#34;playtime_2weeks&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">            <span class="n">all_steam_df</span><span class="p">[</span><span class="s2">&#34;playtime_2weeks&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&#34;./data/steam_data&#34;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">all_steam_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s2">&#34;./data/steam_data/steam_data_</span><span class="si">{</span><span class="n">now_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.csv&#34;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Save to DuckDB</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        INSERT INTO steam_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM all_steam_df
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">recently_response</span> <span class="o">=</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">recently_url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">recently_res</span> <span class="o">=</span> <span class="n">recently_response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;response&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;games&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">steam_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">recently_res</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">steam_df</span><span class="p">[</span><span class="s2">&#34;created_time&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">now_time</span>
-</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&#34;./data/playtime_2week_data&#34;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">steam_df</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s2">&#34;./data/playtime_2week_data/steam_playtime_2week_</span><span class="si">{</span><span class="n">now_time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">&#39;</span><span class="p">)</span><span class="si">}</span><span class="s2">.csv&#34;</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Save to DuckDB</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        INSERT INTO playtime_2week_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM steam_df
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">merge_steam_data</span><span class="p">():</span>
@@ -831,14 +864,24 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span></span><span class="line"><span class="cl"><span class="s2">    because the all game data without the game from family share
 </span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># today_date（UTC+8)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;%Y%m</span><span class="si">%d</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">all_game_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;./data/steam_data/steam_data_</span><span class="si">{</span><span class="n">today_date</span><span class="si">}</span><span class="s2">.csv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">recently_game_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s2">&#34;./data/playtime_2week_data/steam_playtime_2week_</span><span class="si">{</span><span class="n">today_date</span><span class="si">}</span><span class="s2">.csv&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Read from DuckDB</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">all_game_info</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM steam_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WHERE DATE(creation_time AT TIME ZONE &#39;Asia/Shanghai&#39;) = ?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">recently_game_info</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM playtime_2week_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WHERE DATE(created_time AT TIME ZONE &#39;Asia/Shanghai&#39;) = ?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># get the data in recently_game_info but not in all game data</span>
 </span></span><span class="line"><span class="cl">    <span class="n">not_in_all_game_info</span> <span class="o">=</span> <span class="n">recently_game_info</span><span class="p">[</span>
@@ -848,9 +891,6 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl">    <span class="n">now_time</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">not_in_all_game_info</span><span class="o">.</span><span class="n">iterrows</span><span class="p">():</span>
 </span></span><span class="line"><span class="cl">        <span class="n">new_row</span> <span class="o">=</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="c1"># appid,playtime_forever,playtime_windows_forever,</span>
-</span></span><span class="line"><span class="cl">            <span class="c1"># playtime_mac_forever,playtime_linux_forever,playtime_deck_forever,</span>
-</span></span><span class="line"><span class="cl">            <span class="c1"># rtime_last_played,playtime_disconnected,playtime_2weeks,creation_time</span>
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;appid&#34;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;appid&#34;</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;name&#34;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;name&#34;</span><span class="p">],</span>
 </span></span><span class="line"><span class="cl">            <span class="s2">&#34;playtime_forever&#34;</span><span class="p">:</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;playtime_forever&#34;</span><span class="p">],</span>
@@ -870,8 +910,21 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl">    <span class="n">all_game_info</span><span class="p">[</span><span class="s2">&#34;playtime_disconnected&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="n">all_game_info</span><span class="p">[</span><span class="s2">&#34;playtime_disconnected&#34;</span><span class="p">]</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># save the data</span>
-</span></span><span class="line"><span class="cl">    <span class="n">all_game_info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;./data/steam_data/steam_data_</span><span class="si">{</span><span class="n">today_date</span><span class="si">}</span><span class="s2">.csv&#34;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Update data in DuckDB</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        DELETE FROM steam_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WHERE DATE(creation_time AT TIME ZONE &#39;Asia/Shanghai&#39;) = ?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        INSERT INTO steam_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM all_game_info
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">find_last_record</span><span class="p">(</span><span class="n">appid</span><span class="p">):</span>
@@ -884,52 +937,26 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span></span><span class="line"><span class="cl"><span class="s2">    Returns:
 </span></span></span><span class="line"><span class="cl"><span class="s2">        A tuple of (playtime_forever, playtime_disconnected) if found, otherwise (None, None)
 </span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">data_dir</span> <span class="o">=</span> <span class="s2">&#34;./data/steam_data&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Get all historical data files</span>
-</span></span><span class="line"><span class="cl">    <span class="n">all_files</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">        <span class="n">f</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">data_dir</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&#34;steam_data_&#34;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&#34;.csv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Query from DuckDB</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">result</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT playtime_forever, playtime_disconnected
+</span></span></span><span class="line"><span class="cl"><span class="s2">        FROM steam_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WHERE appid = ? AND DATE(creation_time AT TIME ZONE &#39;Asia/Shanghai&#39;) &lt; ?
+</span></span></span><span class="line"><span class="cl"><span class="s2">        ORDER BY creation_time DESC
+</span></span></span><span class="line"><span class="cl"><span class="s2">        LIMIT 1
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">appid</span><span class="p">,</span> <span class="n">today_date</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="ow">not</span> <span class="n">all_files</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">result</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Read and combine all CSV files into one DataFrame</span>
-</span></span><span class="line"><span class="cl">    <span class="n">combined_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="p">[</span>
-</span></span><span class="line"><span class="cl">            <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">data_dir</span><span class="p">,</span> <span class="n">f</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="p">],</span>
-</span></span><span class="line"><span class="cl">        <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">combined_df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Convert creation_time to datetime for comparison</span>
-</span></span><span class="line"><span class="cl">    <span class="n">combined_df</span><span class="p">[</span><span class="s2">&#34;creation_time&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">combined_df</span><span class="p">[</span><span class="s2">&#34;creation_time&#34;</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># today_date（UTC+8)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;%Y%m</span><span class="si">%d</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Filter for the target appid</span>
-</span></span><span class="line"><span class="cl">    <span class="n">game_records</span> <span class="o">=</span> <span class="n">combined_df</span><span class="p">[</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="n">combined_df</span><span class="p">[</span><span class="s2">&#34;appid&#34;</span><span class="p">]</span> <span class="o">==</span> <span class="n">appid</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">combined_df</span><span class="p">[</span><span class="s2">&#34;creation_time&#34;</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">today_date</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">game_records</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1"># Sort by creation_time (descending) and get the most recent record</span>
-</span></span><span class="line"><span class="cl">    <span class="n">game_records</span> <span class="o">=</span> <span class="n">game_records</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&#34;creation_time&#34;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">latest_record</span> <span class="o">=</span> <span class="n">game_records</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">latest_record</span><span class="p">[</span><span class="s2">&#34;playtime_forever&#34;</span><span class="p">],</span> <span class="n">latest_record</span><span class="p">[</span><span class="s2">&#34;playtime_disconnected&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">get_playing_time</span><span class="p">():</span>
@@ -938,22 +965,29 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># today_date (UTC+8)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">today_date</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="s2">&#34;%Y%m</span><span class="si">%d</span><span class="s2">&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># yesterday_date</span>
-</span></span><span class="line"><span class="cl">    <span class="n">yesterday_date</span> <span class="o">=</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y%m</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">yesterday</span> <span class="o">=</span> <span class="n">today</span> <span class="o">-</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">today_game_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;./data/steam_data/steam_data_</span><span class="si">{</span><span class="n">today_date</span><span class="si">}</span><span class="s2">.csv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">yesterday_game_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s2">&#34;./data/steam_data/steam_data_</span><span class="si">{</span><span class="n">yesterday_date</span><span class="si">}</span><span class="s2">.csv&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Read from DuckDB</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">today_game_info</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM steam_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WHERE DATE(creation_time AT TIME ZONE &#39;Asia/Shanghai&#39;) = ?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">today</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">yesterday_game_info</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM steam_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        WHERE DATE(creation_time AT TIME ZONE &#39;Asia/Shanghai&#39;) = ?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="p">[</span><span class="n">yesterday</span><span class="p">],</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1"># Calculate the today playing time</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># today playtime_forever - yesterday playtime_forever for each appid</span>
-</span></span><span class="line"><span class="cl">    <span class="c1"># Use left join because today&#39;s game count might be more than yesterday&#39;s</span>
 </span></span><span class="line"><span class="cl">    <span class="n">merge_game_info</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span>
 </span></span><span class="line"><span class="cl">        <span class="n">today_game_info</span><span class="p">,</span>
 </span></span><span class="line"><span class="cl">        <span class="n">yesterday_game_info</span><span class="p">,</span>
@@ -990,8 +1024,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="s2">&#34;playtime_forever_new&#34;</span><span class="p">]</span> <span class="o">+</span> <span class="n">row</span><span class="p">[</span><span class="s2">&#34;playtime_disconnected_new&#34;</span><span class="p">])</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="n">merge_game_info</span><span class="p">[</span><span class="s2">&#34;playing_time&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">merge_game_info</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="n">calculate_playing_time</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="n">calculate_playing_time</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="c1"># keep only one name field: remove name_old, rename name_new to name</span>
 </span></span><span class="line"><span class="cl">    <span class="n">merge_game_info</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&#34;name_old&#34;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -1010,10 +1043,17 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl">    <span class="p">)</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">    <span class="n">merge_game_info</span><span class="p">[</span><span class="s2">&#34;creation_time&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">time</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="s2">&#34;./data/playing_time_data&#34;</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">merge_game_info</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span>
-</span></span><span class="line"><span class="cl">        <span class="sa">f</span><span class="s2">&#34;./data/playing_time_data/playing_time_</span><span class="si">{</span><span class="n">today_date</span><span class="si">}</span><span class="s2">.csv&#34;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># Save to DuckDB</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">        INSERT INTO playing_time_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">        SELECT * FROM merge_game_info
+</span></span></span><span class="line"><span class="cl"><span class="s2">        ON CONFLICT (appid, playtime_date) DO UPDATE SET
+</span></span></span><span class="line"><span class="cl"><span class="s2">            name = EXCLUDED.name,
+</span></span></span><span class="line"><span class="cl"><span class="s2">            playing_time = EXCLUDED.playing_time,
+</span></span></span><span class="line"><span class="cl"><span class="s2">            creation_time = EXCLUDED.creation_time
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
@@ -1143,6 +1183,13 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span><span class="lnt">115
 </span><span class="lnt">116
 </span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># script/plot_generator.py</span>
@@ -1151,36 +1198,43 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 </span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">plotly.express</span> <span class="k">as</span> <span class="nn">px</span>
 </span></span><span class="line"><span class="cl"><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">timedelta</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">pytz</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">duckdb</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># --- 配置 ---</span>
-</span></span><span class="line"><span class="cl"><span class="n">DATA_DIR</span> <span class="o">=</span> <span class="s2">&#34;data/playing_time_data&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="n">CHART_OUTPUT_PATH_PNG</span> <span class="o">=</span> <span class="s2">&#34;images/playing_time_chart.png&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="n">CHART_OUTPUT_PATH_HTML</span> <span class="o">=</span> <span class="s2">&#34;docs/index.html&#34;</span>  <span class="c1"># 用于 GitHub Pages</span>
 </span></span><span class="line"><span class="cl"><span class="n">DAYS_TO_SHOW</span> <span class="o">=</span> <span class="mi">7</span>  <span class="c1"># 定义要展示的天数</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># --- 1. 创建一个完整的日期范围 ---</span>
-</span></span><span class="line"><span class="cl"><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">(</span><span class="n">pytz</span><span class="o">.</span><span class="n">timezone</span><span class="p">(</span><span class="s2">&#34;Asia/Shanghai&#34;</span><span class="p">))</span><span class="o">.</span><span class="n">date</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl"><span class="n">date_range</span> <span class="o">=</span> <span class="p">[</span><span class="n">today</span> <span class="o">-</span> <span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">DAYS_TO_SHOW</span><span class="p">)]</span> <span class="c1"># 凌晨执行所以天数-1</span>
 </span></span><span class="line"><span class="cl"><span class="n">date_range</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>  <span class="c1"># 从小到大排序</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># 将日期转换为字符串格式 YYYY-MM-DD，方便后续处理</span>
 </span></span><span class="line"><span class="cl"><span class="n">date_range_str</span> <span class="o">=</span> <span class="p">[</span><span class="n">d</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">date_range</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># --- 2. 数据加载与合并 ---</span>
-</span></span><span class="line"><span class="cl"><span class="n">all_files</span> <span class="o">=</span> <span class="p">[</span>
-</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">DATA_DIR</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&#34;playing_time_&#34;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&#34;.csv&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># --- 2. 从DuckDB加载数据 ---</span>
+</span></span><span class="line"><span class="cl"><span class="n">DB_PATH</span> <span class="o">=</span> <span class="s2">&#34;./data/steam_data.duckdb&#34;</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">all_files</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;No data files found. Exiting.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;Database file not found. Exiting.&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 读取并合并所有 CSV 数据</span>
-</span></span><span class="line"><span class="cl"><span class="n">df_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">f</span><span class="p">)</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">all_files</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_list</span><span class="p">,</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># 连接数据库并查询最近N天的数据</span>
+</span></span><span class="line"><span class="cl"><span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">DB_PATH</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="n">df</span> <span class="o">=</span> <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">    SELECT appid, name, playing_time, playtime_date
+</span></span></span><span class="line"><span class="cl"><span class="s2">    FROM playing_time_data
+</span></span></span><span class="line"><span class="cl"><span class="s2">    WHERE playtime_date &gt;= ?
+</span></span></span><span class="line"><span class="cl"><span class="s2">    ORDER BY playtime_date
+</span></span></span><span class="line"><span class="cl"><span class="s2">&#34;&#34;&#34;</span><span class="p">,</span> <span class="p">[</span><span class="n">date_range</span><span class="p">[</span><span class="mi">0</span><span class="p">]])</span><span class="o">.</span><span class="n">df</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1"># 确保 &#39;playtime_date&#39; 是日期时间类型，并提取日期部分</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">empty</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="s2">&#34;No data found in database. Exiting.&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">exit</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># 确保 &#39;playtime_date&#39; 是字符串格式</span>
 </span></span><span class="line"><span class="cl"><span class="n">df</span><span class="p">[</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&#34;playtime_date&#34;</span><span class="p">])</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&#34;%Y-%m-</span><span class="si">%d</span><span class="s2">&#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="c1"># 筛选出在日期范围内的数据</span>
@@ -1264,93 +1318,9 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl"><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Static chart saved to </span><span class="si">{</span><span class="n">CHART_OUTPUT_PATH_PNG</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="github-actions-yaml-配置">GitHub Actions yaml 配置
-</h2><p>以下为 GitHub Actions 的 yaml 配置文件。<br>
-基本都是 GitHub Actions 的八股文，可以参考官方文档或者网络上其他文档。</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">get_steam_playtime_data</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 定时执行，由于 GitHub Actions 使用 UTC 时间，因此此处设置为 18:00，表示在北京时间 02:00 执行</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0 18 * * *&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># 允许手动触发，便于调试</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">get_steam_playtime_data</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up Python</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-python@v5</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.12&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;pip&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache-dependency-path</span><span class="p">:</span><span class="w"> </span><span class="l">./script/requirements.txt</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install dependencies</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">pip install -r ./script/requirements.txt</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run script</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">STEAM_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.STEAM_KEY }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">STEAM_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ vars.STEAM_ID }}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python ./script/get_playtime.py</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit changes</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># 此处使用命令在 commit message 中添加时间信息</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.email &#34;action@github.com&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.name &#34;GitHub Action&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git add .
-</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -m &#34;Update Steam Playtime Data `TZ=&#39;Asia/Shanghai&#39; date +&#39;%Y-%m-%d %H:%M:%S&#39;`&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Push changes</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">ad-m/github-push-action@master</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.ref }}</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>（20250619 update）<br>
-新增执行绘图脚本的 job</p>
+</div><h2 id="数据库初始化">数据库初始化
+</h2><p>（20260116 update）<br>
+使用 DuckDB 作为数据存储方案后，需要先初始化数据库结构。</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -1396,68 +1366,368 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span><span class="lnt">41
 </span><span class="lnt">42
 </span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">generate_chart</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c"># 这个 job 依赖于上一个 job 的成功完成</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l">get_steam_playtime_data</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="c1"># script/db_init.py</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">duckdb</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">os</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">def</span> <span class="nf">init_database</span><span class="p">(</span><span class="n">db_path</span><span class="o">=</span><span class="s2">&#34;./data/steam_data.duckdb&#34;</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;&#34;&#34;Initialize DuckDB database with required tables&#34;&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Ensure data directory exists</span>
+</span></span><span class="line"><span class="cl">    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">db_path</span><span class="p">),</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Connect to database (creates if not exists)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span> <span class="o">=</span> <span class="n">duckdb</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">db_path</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create steam_data table - stores all game information</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE TABLE IF NOT EXISTS steam_data (
+</span></span></span><span class="line"><span class="cl"><span class="s2">    appid INTEGER NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    name VARCHAR,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    img_icon_url VARCHAR,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    content_descriptorids VARCHAR,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_forever INTEGER CHECK (playtime_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_windows_forever INTEGER CHECK (playtime_windows_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_mac_forever INTEGER CHECK (playtime_mac_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_linux_forever INTEGER CHECK (playtime_linux_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_deck_forever INTEGER CHECK (playtime_deck_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_disconnected INTEGER CHECK (playtime_disconnected &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    rtime_last_played BIGINT,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_2weeks INTEGER CHECK (playtime_2weeks &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    has_community_visible_stats BOOLEAN,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    has_leaderboards BOOLEAN,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    creation_time TIMESTAMPTZ,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    PRIMARY KEY (appid, creation_time)
+</span></span></span><span class="line"><span class="cl"><span class="s2">)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create playtime_2week_data table - stores recent 2-week playtime</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE TABLE IF NOT EXISTS playtime_2week_data (
+</span></span></span><span class="line"><span class="cl"><span class="s2">    appid INTEGER NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    name VARCHAR,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    img_icon_url VARCHAR,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_2weeks INTEGER CHECK (playtime_2weeks &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_forever INTEGER CHECK (playtime_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_windows_forever INTEGER CHECK (playtime_windows_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_mac_forever INTEGER CHECK (playtime_mac_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_linux_forever INTEGER CHECK (playtime_linux_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_deck_forever INTEGER CHECK (playtime_deck_forever &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    created_time TIMESTAMPTZ,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    PRIMARY KEY (appid, created_time)
+</span></span></span><span class="line"><span class="cl"><span class="s2">)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create playing_time_data table - stores daily playtime increments</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE TABLE IF NOT EXISTS playing_time_data (
+</span></span></span><span class="line"><span class="cl"><span class="s2">    appid INTEGER NOT NULL,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    name VARCHAR,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playing_time INTEGER CHECK (playing_time &gt;= 0),
+</span></span></span><span class="line"><span class="cl"><span class="s2">    playtime_date DATE,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    creation_time TIMESTAMPTZ,
+</span></span></span><span class="line"><span class="cl"><span class="s2">    PRIMARY KEY (appid, playtime_date)
+</span></span></span><span class="line"><span class="cl"><span class="s2">)
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1"># Create indexes for better query performance</span>
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE INDEX IF NOT EXISTS idx_steam_creation_time ON steam_data(creation_time);
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE INDEX IF NOT EXISTS idx_steam_appid_creation ON steam_data(appid, creation_time);
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE INDEX IF NOT EXISTS idx_playtime_date ON playing_time_data(playtime_date);
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE INDEX IF NOT EXISTS idx_appid_creation_time ON playing_time_data(appid, creation_time);
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&#34;&#34;&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s2">CREATE INDEX IF NOT EXISTS idx_2week_appid_created ON playtime_2week_data(appid, created_time);
+</span></span></span><span class="line"><span class="cl"><span class="s2">    &#34;&#34;&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">con</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&#34;Database initialized successfully at </span><span class="si">{</span><span class="n">db_path</span><span class="si">}</span><span class="s2">&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">db_path</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&#34;__main__&#34;</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">init_database</span><span class="p">()</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="github-actions-yaml-配置">GitHub Actions yaml 配置
+</h2><p>以下为 GitHub Actions 的 yaml 配置文件。<br>
+基本都是 GitHub Actions 的八股文，可以参考官方文档或者网络上其他文档。</p>
+<p>（20260116 update）<br>
+优化了工作流，将数据获取和图表生成合并到一个 job 中，减少不必要的 commit 次数。<br>
+同时支持多分支并行执行，便于新功能开发后对比。</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span><span class="lnt">63
+</span><span class="lnt">64
+</span><span class="lnt">65
+</span><span class="lnt">66
+</span><span class="lnt">67
+</span><span class="lnt">68
+</span><span class="lnt">69
+</span><span class="lnt">70
+</span><span class="lnt">71
+</span><span class="lnt">72
+</span><span class="lnt">73
+</span><span class="lnt">74
+</span><span class="lnt">75
+</span><span class="lnt">76
+</span><span class="lnt">77
+</span><span class="lnt">78
+</span><span class="lnt">79
+</span><span class="lnt">80
+</span><span class="lnt">81
+</span><span class="lnt">82
+</span><span class="lnt">83
+</span><span class="lnt">84
+</span><span class="lnt">85
+</span><span class="lnt">86
+</span><span class="lnt">87
+</span><span class="lnt">88
+</span><span class="lnt">89
+</span><span class="lnt">90
+</span><span class="lnt">91
+</span><span class="lnt">92
+</span><span class="lnt">93
+</span><span class="lnt">94
+</span><span class="lnt">95
+</span><span class="lnt">96
+</span><span class="lnt">97
+</span><span class="lnt">98
+</span><span class="lnt">99
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Get Steam Playtime Data and Generate Chart (All Branches)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nt">steps</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repository</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 拉取最新的代码，包括刚刚被上一个 job 推送的数据</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">${{ github.ref }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># UTC 18:00 = 北京时间 02:00</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0 18 * * *&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up Python</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-python@v5</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">with</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.12&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;pip&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">cache-dependency-path</span><span class="p">:</span><span class="w"> </span><span class="l">./script/requirements.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">permissions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l">write</span><span class="w"> </span><span class="c"># 允许 workflow push 代码</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install dependencies</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">pip install -r ./script/requirements.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">get-branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Detect all branches</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c"># 安装中文字体，避免显示问题</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install Chinese fonts</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">        sudo apt-get update
-</span></span></span><span class="line"><span class="cl"><span class="sd">        sudo apt-get install -y fonts-noto-cjk</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">outputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="l">${{ steps.set-matrix.outputs.branches }}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Generate chart</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python ./script/plot_generator.py</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit and push chart</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">        git config --local user.email &#34;action@github.com&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        git config --local user.name &#34;GitHub Action&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        git add images/playing_time_chart.png
-</span></span></span><span class="line"><span class="cl"><span class="sd">        # 检查是否有文件变更
-</span></span></span><span class="line"><span class="cl"><span class="sd">        if ! git diff --staged --quiet; then
-</span></span></span><span class="line"><span class="cl"><span class="sd">        git commit -m &#34;Update chart `TZ=&#39;Asia/Shanghai&#39; date +&#39;%Y-%m-%d %H:%M:%S&#39;`&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        git push
-</span></span></span><span class="line"><span class="cl"><span class="sd">        else
-</span></span></span><span class="line"><span class="cl"><span class="sd">        echo &#34;No chart changes to commit.&#34;
-</span></span></span><span class="line"><span class="cl"><span class="sd">        fi</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Generate branch matrix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">set-matrix</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          echo &#34;Fetching all remote branches...&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git fetch --all
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          branches=$(git branch -r \
+</span></span></span><span class="line"><span class="cl"><span class="sd">          | grep -v -- &#39;-&gt;&#39; \
+</span></span></span><span class="line"><span class="cl"><span class="sd">          | sed &#39;s|origin/||&#39; \
+</span></span></span><span class="line"><span class="cl"><span class="sd">          | sed &#39;s/^[[:space:]]*//;s/[[:space:]]*$//&#39; \
+</span></span></span><span class="line"><span class="cl"><span class="sd">          | grep -vE &#39;^(gh-pages|dependabot/)&#39; )
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          json=$(printf &#39;%s\n&#39; &#34;$branches&#34; \
+</span></span></span><span class="line"><span class="cl"><span class="sd">          | jq -R -s -c &#39;split(&#34;\n&#34;) | map(select(length &gt; 0))&#39;)
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          echo &#34;Detected branches: $json&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          echo &#34;branches=$json&#34; &gt;&gt; &#34;$GITHUB_OUTPUT&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run-on-all-branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run workflow on each branch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">needs</span><span class="p">:</span><span class="w"> </span><span class="l">get-branches</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">strategy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">fail-fast</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">max-parallel</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">matrix</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">branch</span><span class="p">:</span><span class="w"> </span><span class="l">${{ fromJSON(needs.get-branches.outputs.branches) }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout branch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">${{ matrix.branch }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">fetch-depth</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up Python</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-python@v5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.12&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;pip&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">cache-dependency-path</span><span class="p">:</span><span class="w"> </span><span class="l">./script/requirements.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install dependencies</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">pip install -r ./script/requirements.txt</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install Chinese fonts</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          sudo apt-get update
+</span></span></span><span class="line"><span class="cl"><span class="sd">          sudo apt-get install -y fonts-noto-cjk</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Get Steam playtime data</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">STEAM_KEY</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.STEAM_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">STEAM_ID</span><span class="p">:</span><span class="w"> </span><span class="l">${{ vars.STEAM_ID }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python ./script/get_playtime.py</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Generate chart</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python ./script/plot_generator.py</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit and push changes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.email &#34;action@github.com&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.name &#34;GitHub Action&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git add data/ images/
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if ! git diff --staged --quiet; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git commit -m &#34;Update Steam playtime &amp; chart (${{ matrix.branch }}) \
+</span></span></span><span class="line"><span class="cl"><span class="sd">            `TZ=&#39;Asia/Shanghai&#39; date +&#39;%Y-%m-%d %H:%M:%S&#39;`&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git push origin &#34;HEAD:${{ matrix.branch }}&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          else
+</span></span></span><span class="line"><span class="cl"><span class="sd">            echo &#34;No changes on branch ${{ matrix.branch }}&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="最终效果">最终效果
-</h1><p><img src="https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png"
+</h1><p><del><img src="https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png"
 	width="2674"
 	height="580"
 	srcset="/oRIfrMwN3pxmeld_14391652306906845632_hu_f664598b7935d743.png 480w, /oRIfrMwN3pxmeld_14391652306906845632_hu_f70f09ea24fe2532.png 1024w"
 	loading="lazy"
 	
-		alt="数据列表"
+		alt="数据列表(outdated)"
 	
 	
 		class="gallery-image" 
 		data-flex-grow="461"
 		data-flex-basis="1106px"
 	
-></p>
+></del></p>
 <p><img src="https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png"
 	width="1358"
 	height="224"
@@ -1526,7 +1796,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 
 
         <span>
-            最后更新于 2025/12/26 12:07:57
+            最后更新于 2026/01/19 14:25:27
         </span>
     </section></footer>
 
