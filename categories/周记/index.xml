@@ -25,7 +25,7 @@
 &lt;/h2&gt;&lt;p&gt;其实也算 NVIM 相关：因为 flash 插件理所当然的不支持中文，&lt;del&gt;一直&lt;/del&gt;偶尔深受其累。刷博客刷到了 &lt;a class=&#34;link&#34; href=&#34;https://github.com/rainzm/flash-zh.nvim&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;flash-zh&lt;/a&gt; 这么个插件，能将 flash 的能力带到中文，但是只支持小鹤双拼。&lt;/p&gt;
 &lt;p&gt;虽然除了 blog 之外，NVIM 中大量存在中文的场合确实不多，也没必要非得为此学习新的输入方式。虽然双拼熟练之后确实是更快，但是花上几周甚至一两个月的时间来适应新的输入方式确实是谈不上什么投入产出比…………&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;然后我就打印了一张小鹤双拼键位图放在显示器下面，用双拼龟速打下了这段内容（以及本文后续内容 ）。&lt;/span&gt;&lt;/p&gt;
-&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;其实稍微练习了一两个小时基本已经可以不看键位图盲打了，虽然还是需要想一下&amp;和肌肉记忆打架速度提不起来。&lt;/span&gt;
+&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;其实稍微练习了一两个小时基本已经可以不看键位图盲打了，虽然还是需要想一下&amp;amp;和肌肉记忆打架速度提不起来。&lt;/span&gt;
 &lt;h2 id=&#34;桌面布局调整&#34;&gt;桌面布局调整
 &lt;/h2&gt;&lt;p&gt;为了不再带自己电脑上班，把公司的笔记本重装了 Linux，所以自己的 MacBook 空出来了，调整了一下桌面布局，把它放上了自己的电脑桌。&lt;/p&gt;
 &lt;p&gt;现在的布局大概是：左边游戏本，中间显示器，右边 MacBook。显示器都接，用显示器自带的切换功能；键鼠目前的方案是用 deskflow 实现软件 KVM 效果，用一套键鼠控制两台电脑。&lt;/p&gt;
