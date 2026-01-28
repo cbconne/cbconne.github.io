@@ -7,7 +7,168 @@
 
 <link rel='canonical' href='https://cbconne.github.io/'>
 
-<link rel="stylesheet" href="/scss/style.min.0a04ca6b4b0994eb505763a582a19c979acbc87ca4cf1a3e2b80152b49abc024.css"><meta property='og:title' content="CBC's Site">
+<link rel="stylesheet" href="/scss/style.min.dc55789cc1de64e3f1b4472fad14052e5525f11d8eeaeecb1127c9e3e001711e.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+
+
+<link rel='stylesheet'
+    href='https://unpkg.com/@chinese-fonts/lxgwwenkaibright@2.0.0/dist/LXGWBright-Medium/result.css' />
+<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+
+
+<style>
+    :root {
+        --sys-font-family: "Douyin Sans";
+        --zh-font-family: "LXGW Bright Medium";
+        --base-font-family: "Douyin Sans";
+        --code-font-family: "JetBrains Mono";
+        --article-font-family: "LXGW Bright Medium";
+    }
+    
+     
+    html.page-loading body {
+        opacity: 0;
+    }
+    
+    body {
+        transition: opacity 0.3s ease-in;
+    }
+    
+     
+    html.page-loading body::before {
+        content: '';
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 50px;
+        height: 50px;
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        border-top-color: var(--accent-color, #4a90e2);
+        border-radius: 50%;
+        animation: initial-page-loading-spinner 0.8s linear infinite;
+        z-index: 10000;
+    }
+    
+    @keyframes initial-page-loading-spinner {
+        to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+    
+     
+    [data-scheme="dark"] html.page-loading body::before {
+        border-color: rgba(255, 255, 255, 0.1);
+        border-top-color: var(--accent-color, #4a90e2);
+    }
+</style>
+
+
+<script>
+    (function() {
+        
+        var isInitialLoad = !window.performance || 
+                           window.performance.navigation.type === 0 || 
+                           window.performance.navigation.type === undefined;
+        
+        
+        
+        document.documentElement.classList.add('page-loading');
+        
+        
+        window.pageReadyState = {
+            isInitialLoad: isInitialLoad,
+            fontsLoaded: !isInitialLoad,      
+            panguProcessed: !isInitialLoad,   
+            galleryProcessed: false,          
+            forceShowTimeout: null
+        };
+        
+        
+        window.notifyGalleryReady = function() {
+            window.pageReadyState.galleryProcessed = true;
+            checkAndShow();
+        };
+        
+        function checkAndShow() {
+            var state = window.pageReadyState;
+            
+            if (state.fontsLoaded && state.panguProcessed && state.galleryProcessed) {
+                document.documentElement.classList.remove('page-loading');
+                if (state.forceShowTimeout) {
+                    clearTimeout(state.forceShowTimeout);
+                    state.forceShowTimeout = null;
+                }
+            }
+        }
+        
+        
+        if (isInitialLoad) {
+            
+            if (document.fonts && document.fonts.ready) {
+                document.fonts.ready.then(function() {
+                    window.pageReadyState.fontsLoaded = true;
+                    checkAndShow();
+                }).catch(function() {
+                    
+                    window.pageReadyState.fontsLoaded = true;
+                    checkAndShow();
+                });
+            } else {
+                
+                window.pageReadyState.fontsLoaded = true;
+            }
+            
+            
+            var script = document.createElement('script');
+            script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
+            script.onload = function() {
+                if (window.pangu) {
+                    try {
+                        pangu.spacingPage();
+                    } catch (e) {
+                        console.warn('Pangu.js 执行出错:', e);
+                    }
+                }
+                window.pageReadyState.panguProcessed = true;
+                checkAndShow();
+            };
+            script.onerror = function() {
+                
+                console.warn('Pangu.js 加载失败，将继续显示页面');
+                window.pageReadyState.panguProcessed = true;
+                checkAndShow();
+            };
+            document.head.appendChild(script);
+        }
+        
+        
+        
+        var timeout = isInitialLoad ? 800 : 300;
+        window.pageReadyState.forceShowTimeout = setTimeout(function() {
+            if (document.documentElement.classList.contains('page-loading')) {
+                console.warn('页面加载超时，强制显示内容');
+                window.pageReadyState.fontsLoaded = true;
+                window.pageReadyState.panguProcessed = true;
+                window.pageReadyState.galleryProcessed = true;
+                document.documentElement.classList.remove('page-loading');
+            }
+        }, timeout);
+    })();
+</script>
+
+
+<script>
+    (function() {
+        
+        var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed') === 'true';
+        if (tocCollapsed) {
+            
+            document.documentElement.classList.add('toc-preload-collapsed');
+        }
+    })();
+</script><meta property='og:title' content="CBC's Site">
 <meta property='og:description' content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。">
 <meta property='og:url' content='https://cbconne.github.io/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
@@ -426,12 +587,7 @@
     </aside>
 
 
-            <main class="main full-width">
-    
-    
-    
-
-    <section class="article-list">
+            <main class="main full-width"><section class="article-list">
         
             
 <article class="">
@@ -1284,7 +1440,7 @@
     
     <section class="powerby">
         使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.33.0">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
     </section>
 </footer>
 
@@ -1294,25 +1450,8 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.c922af694cc257bf1ecc41c0dd7b0430f9114ec280ccf67cd2c6ad55f5316c4e.js" defer></script>
-<link rel='stylesheet'
-    href='https://unpkg.com/@chinese-fonts/lxgwwenkaibright@2.0.0/dist/LXGWBright-Medium/result.css' />
+            </script><script type="text/javascript" src="/ts/main.05b84924e58163cbed443fdfdd671d56e976b02850a233317eafe94a59115223.js" defer></script>
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
-<style>
-    :root {
-         
-        --sys-font-family: "Douyin Sans"
-        --zh-font-family: "LXGW Bright Medium";
-         
-        --base-font-family: "Douyin Sans";
-        --code-font-family: "JetBrains Mono";
-        --article-font-family: "LXGW Bright Medium";
-    }
-</style>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
@@ -1320,17 +1459,9 @@
             t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
             y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
         })(window, document, "clarity", "script", "nq4skyjk39");
-
-        (function (u, c) {
-            var d = document, t = 'script', o = d.createElement(t),
-                s = d.getElementsByTagName(t)[0];
-            o.src = u;
-            if (c) { o.addEventListener('load', function (e) { c(e); }); }
-            s.parentNode.insertBefore(o, s);
-        })('//cdn.bootcss.com/pangu/4.0.7/pangu.min.js', function () {
-            pangu.spacingPage();
-        });
     }
 </script>
+
+
     </body>
 </html>
