@@ -1,12 +1,150 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr">
-    <head><meta charset='utf-8'>
+<html lang="zh-cn" dir="ltr"
+    style="background: #f5f5fa;"
+    data-scheme="light">
+    <head>
+        
+        <script>
+            (function() {
+                var html = document.documentElement;
+                var colorSchemeKey = 'StackColorScheme';
+                var colorSchemeItem = localStorage.getItem(colorSchemeKey);
+                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+                var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
+                var bgColor = isDark ? '#303030' : '#f5f5fa';
+                html.dataset.scheme = isDark ? 'dark' : 'light';
+                html.style.background = bgColor;
+                window.__themeBackground = bgColor;
+                window.__themeDark = isDark;
+            })();
+        </script>
+        
+        <style id="loading-overlay-style">
+            #page-loading-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+             
+            #page-loading-overlay::after {
+                content: '';
+                width: 60px;
+                height: 60px;
+                border: 5px solid rgba(0, 0, 0, 0.1);
+                border-top-color: #34495e;
+                border-radius: 50%;
+                animation: __loading_spin 0.8s linear infinite;
+                opacity: 0;
+                transition: opacity 200ms ease;
+            }
+            #page-loading-overlay.show-spinner::after {
+                opacity: 1;
+            }
+            @keyframes __loading_spin {
+                to { transform: rotate(360deg); }
+            }
+        </style><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。">
 <title>周记</title>
 
 <link rel='canonical' href='https://cbconne.github.io/categories/%E5%91%A8%E8%AE%B0/'>
 
 <link rel="stylesheet" href="/scss/style.min.dc55789cc1de64e3f1b4472fad14052e5525f11d8eeaeecb1127c9e3e001711e.css">
+<script>
+    (function() {
+        
+        window.pageReadyState = {
+            fontsLoaded: false,
+            panguProcessed: false,
+            galleryProcessed: false,
+            forceShowTimeout: null
+        };
+        
+        
+        function removeOverlay() {
+            
+            if (window.__spinnerTimer) {
+                clearTimeout(window.__spinnerTimer);
+                window.__spinnerTimer = null;
+            }
+            var overlay = document.getElementById('page-loading-overlay');
+            if (overlay && overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+            }
+        }
+        
+        
+        function checkAndShow() {
+            var state = window.pageReadyState;
+            if (state.fontsLoaded && state.panguProcessed && state.galleryProcessed) {
+                removeOverlay();
+                if (state.forceShowTimeout) {
+                    clearTimeout(state.forceShowTimeout);
+                    state.forceShowTimeout = null;
+                }
+            }
+        }
+        
+        
+        window.notifyGalleryReady = function() {
+            window.pageReadyState.galleryProcessed = true;
+            checkAndShow();
+        };
+        
+        
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function() {
+                window.pageReadyState.fontsLoaded = true;
+                checkAndShow();
+            }).catch(function() {
+                window.pageReadyState.fontsLoaded = true;
+                checkAndShow();
+            });
+        } else {
+            window.pageReadyState.fontsLoaded = true;
+        }
+        
+        
+        var script = document.createElement('script');
+        script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
+        script.onload = function() {
+            if (window.pangu) {
+                try { pangu.spacingPage(); } catch (e) {}
+            }
+            window.pageReadyState.panguProcessed = true;
+            checkAndShow();
+        };
+        script.onerror = function() {
+            window.pageReadyState.panguProcessed = true;
+            checkAndShow();
+        };
+        document.head.appendChild(script);
+        
+        
+        window.addEventListener('pageshow', function(event) {
+            
+            if (event.persisted && window.pangu) {
+                try { pangu.spacingPage(); } catch (e) {}
+            }
+        });
+        
+        
+        window.pageReadyState.forceShowTimeout = setTimeout(function() {
+            window.pageReadyState.fontsLoaded = true;
+            window.pageReadyState.panguProcessed = true;
+            window.pageReadyState.galleryProcessed = true;
+            removeOverlay();
+        }, 800);
+    })();
+</script>
+
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://unpkg.com">
@@ -26,136 +164,7 @@
         --code-font-family: "JetBrains Mono";
         --article-font-family: "LXGW Bright Medium";
     }
-    
-     
-    html.page-loading body {
-        opacity: 0;
-    }
-    
-    body {
-        transition: opacity 0.3s ease-in;
-    }
-    
-     
-    html.page-loading body::before {
-        content: '';
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 50px;
-        height: 50px;
-        border: 4px solid rgba(0, 0, 0, 0.1);
-        border-top-color: var(--accent-color, #4a90e2);
-        border-radius: 50%;
-        animation: initial-page-loading-spinner 0.8s linear infinite;
-        z-index: 10000;
-    }
-    
-    @keyframes initial-page-loading-spinner {
-        to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-    
-     
-    [data-scheme="dark"] html.page-loading body::before {
-        border-color: rgba(255, 255, 255, 0.1);
-        border-top-color: var(--accent-color, #4a90e2);
-    }
 </style>
-
-
-<script>
-    (function() {
-        
-        var isInitialLoad = !window.performance || 
-                           window.performance.navigation.type === 0 || 
-                           window.performance.navigation.type === undefined;
-        
-        
-        
-        document.documentElement.classList.add('page-loading');
-        
-        
-        window.pageReadyState = {
-            isInitialLoad: isInitialLoad,
-            fontsLoaded: !isInitialLoad,      
-            panguProcessed: !isInitialLoad,   
-            galleryProcessed: false,          
-            forceShowTimeout: null
-        };
-        
-        
-        window.notifyGalleryReady = function() {
-            window.pageReadyState.galleryProcessed = true;
-            checkAndShow();
-        };
-        
-        function checkAndShow() {
-            var state = window.pageReadyState;
-            
-            if (state.fontsLoaded && state.panguProcessed && state.galleryProcessed) {
-                document.documentElement.classList.remove('page-loading');
-                if (state.forceShowTimeout) {
-                    clearTimeout(state.forceShowTimeout);
-                    state.forceShowTimeout = null;
-                }
-            }
-        }
-        
-        
-        if (isInitialLoad) {
-            
-            if (document.fonts && document.fonts.ready) {
-                document.fonts.ready.then(function() {
-                    window.pageReadyState.fontsLoaded = true;
-                    checkAndShow();
-                }).catch(function() {
-                    
-                    window.pageReadyState.fontsLoaded = true;
-                    checkAndShow();
-                });
-            } else {
-                
-                window.pageReadyState.fontsLoaded = true;
-            }
-            
-            
-            var script = document.createElement('script');
-            script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
-            script.onload = function() {
-                if (window.pangu) {
-                    try {
-                        pangu.spacingPage();
-                    } catch (e) {
-                        console.warn('Pangu.js 执行出错:', e);
-                    }
-                }
-                window.pageReadyState.panguProcessed = true;
-                checkAndShow();
-            };
-            script.onerror = function() {
-                
-                console.warn('Pangu.js 加载失败，将继续显示页面');
-                window.pageReadyState.panguProcessed = true;
-                checkAndShow();
-            };
-            document.head.appendChild(script);
-        }
-        
-        
-        
-        var timeout = isInitialLoad ? 800 : 300;
-        window.pageReadyState.forceShowTimeout = setTimeout(function() {
-            if (document.documentElement.classList.contains('page-loading')) {
-                console.warn('页面加载超时，强制显示内容');
-                window.pageReadyState.fontsLoaded = true;
-                window.pageReadyState.panguProcessed = true;
-                window.pageReadyState.galleryProcessed = true;
-                document.documentElement.classList.remove('page-loading');
-            }
-        }, timeout);
-    })();
-</script>
 
 
 <script>
@@ -195,7 +204,33 @@
       </script>
 
     </head>
-    <body class="">
+    <body class="" style="background: #f5f5fa;">
+        
+        <div id="page-loading-overlay"></div>
+        <script>
+            (function() {
+                var overlay = document.getElementById('page-loading-overlay');
+                var bgColor = window.__themeBackground || '#f5f5fa';
+                var isDark = window.__themeDark;
+                
+                overlay.style.background = bgColor;
+                
+                document.body.style.background = bgColor;
+                
+                if (isDark) {
+                    var style = document.getElementById('loading-overlay-style');
+                    style.textContent = style.textContent
+                        .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
+                        .replace('#34495e', '#ecf0f1');
+                }
+                
+                window.__spinnerTimer = setTimeout(function() {
+                    if (overlay) {
+                        overlay.classList.add('show-spinner');
+                    }
+                }, 300);
+            })();
+        </script>
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -695,7 +730,7 @@
                 src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
                 
                 >
-            </script><script type="text/javascript" src="/ts/main.05b84924e58163cbed443fdfdd671d56e976b02850a233317eafe94a59115223.js" defer></script>
+            </script><script type="text/javascript" src="/ts/main.e00e8d39eda01199cae4ced3cd9a18c9f3ac8e19123c97ca20c2f4471dd590ea.js" defer></script>
 
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
