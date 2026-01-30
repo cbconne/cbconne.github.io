@@ -7,7 +7,51 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Sat, 17 Jan 2026 18:27:40 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/weekly/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 30 Jan 2026 16:22:53 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/weekly/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>20260201 周记</title>
+        <link>https://cbconne.github.io/weekly/20260126/</link>
+        <pubDate>Mon, 26 Jan 2026 15:49:15 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/weekly/20260126/</guid>
+        <description>&lt;p&gt;其实这篇应该是上周的，因为偷懒以及感觉确实没啥能写的，拖到了周一，那拖都拖了，直接写两周的吧。&lt;/p&gt;
+&lt;h1 id=&#34;游戏&#34;&gt;游戏
+&lt;/h1&gt;&lt;h2 id=&#34;galgame&#34;&gt;GalGame
+&lt;/h2&gt;&lt;p&gt;其实我 GalGame 玩得很少，只玩过一些特别有名的：石头门、Fate（只打了 Fate 线）、秋之回忆（6、1和8，6 打了封面两个女主和学姐线；1印象里打了一条线感觉风格太古早剧情也没看懂就没玩了；8 记得是打了个开头，然后被剧透了，其实剧透我是无所谓能接着玩的，但被透的剧情不是很喜欢就弃了）。&lt;/p&gt;
+&lt;p&gt;此外还有一些有些许印象但名字忘记了，就不费尽心思去回忆了。&lt;/p&gt;
+&lt;p&gt;这周因为着实电子 ED 得厉害，为了缓解一下把之前在打但吃灰了很久的一款 GalGame 捡起来了。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2026/01/26/SMhGtsw7zPTlkDo.jpg&#34;
+	width=&#34;1500&#34;
+	height=&#34;1064&#34;
+	srcset=&#34;https://cbconne.github.io/SMhGtsw7zPTlkDo_7403409202261078213_hu_82355442076b6c1e.jpg 480w, https://cbconne.github.io/SMhGtsw7zPTlkDo_7403409202261078213_hu_f8fc4575c97bda37.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;樱色之云＊绯色之恋&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;140&#34;
+		data-flex-basis=&#34;338px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;说是之前在打，但其实存档也就在刚刚推完共通/日常线的地方，而且这款 GalGame 有一点不同就是虽然确实有“分支”，但实际上就一条线——或者理解为分支顺序是强制的。这点也和剧情设定有关（大概）&lt;/p&gt;
+&lt;p&gt;因为现在也就只能说将将打了一半（而且一般最后的一条线信息量才最大），所以还不能总体评价剧情。&lt;/p&gt;
+&lt;p&gt;本作女角色的人设我真不咋吃，&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;主要是&lt;del&gt;除了所长外&lt;/del&gt;不管是人设还是立绘都不够戳我 XP ，无感到工口部分都跳过了，&lt;/span&gt;所以希望剧情上能让我满意。&lt;/p&gt;
+&lt;h1 id=&#34;折腾&#34;&gt;折腾
+&lt;/h1&gt;&lt;h2 id=&#34;blog&#34;&gt;Blog
+&lt;/h2&gt;&lt;p&gt;利用 AI 实现了创建当时就想实现的目录折叠功能，并且针对 Blog 的加载问题进行了优化——此前经常是点进来之后很多 js 才加载好，导致页面有一个明显的布局变化。&lt;/p&gt;
+&lt;p&gt;AI 确实挺好用——我很想这么说，但它确实有很多问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;我明确提出的新功能的实现上确实挺靠谱，但是因为 AI “看不见”实际的页面只能看到代码，所以总有些美观上的问题，真的有 UI 上的高要求还是得自己调。&lt;/li&gt;
+&lt;li&gt;我对 HTML、CSS、JS 确实不是很了解，而且还很懒——否则也就不用 AI 来帮我实现了。但我看完 AI 生成的部分 CSS 直觉告诉我肯定有不够“优雅”的东西，但是我不是很懂，并且“能跑”效果也还可以，所以改起来也缺乏动力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;最后反复多次大体上还算是调出了我的理想效果，但代价就是多了很多我不完全理解的代码，如果沟通个十来轮 AI 都无法理解、需要我自己修改实现的话会非常痛苦。&lt;/p&gt;
+&lt;h2 id=&#34;树莓派&#34;&gt;树莓派
+&lt;/h2&gt;&lt;p&gt;之前从公司“白嫖”来的树莓派吃灰很久了，这段时间又想起来所以又重装了一次系统上了电放着。&lt;/p&gt;
+&lt;p&gt;目前装了 podman 代替 docker（虽然好像也没什么特别的意义，单纯只是想试一下 docker 以外的东西吧），跑了一个 Caddy 做反向代理（因为在公司自用的服务器上就用的 Caddy。印象里性能是不如 Nginx 的，但是好像确实越来越流行。），安了一个 Tailscale 用来内网穿透（但是因为公司内网穿透管得比较严，只能装自己手机上）。&lt;/p&gt;
+&lt;p&gt;目前最大的问题和当年一样，不知道要拿这玩意儿干啥……&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>20260118 周记</title>
         <link>https://cbconne.github.io/weekly/20250116/</link>
         <pubDate>Wed, 14 Jan 2026 10:01:47 +0800</pubDate>
