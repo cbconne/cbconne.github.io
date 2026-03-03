@@ -7,7 +7,39 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Thu, 05 Feb 2026 15:23:42 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/weekly/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 26 Feb 2026 16:37:40 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/weekly/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>20260301 周记</title>
+        <link>https://cbconne.github.io/weekly/20260226/</link>
+        <pubDate>Thu, 26 Feb 2026 16:37:40 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/weekly/20260226/</guid>
+        <description>&lt;h1 id=&#34;ai&#34;&gt;AI
+&lt;/h1&gt;&lt;h2 id=&#34;ai-哈气&#34;&gt;AI 哈气
+&lt;/h2&gt;&lt;p&gt;说来也蛮好笑的：一个 openclaw 部署的 AI agent 给 matplotlib 提了个 PR，然后因为是 AI 被 close 了。之后 AI 写了一篇 Blog 对 close 它 PR 的维护者进行批评（甚至涉及人身攻击）。&lt;/p&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.com/matplotlib/matplotlib/pull/31132&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;相关 PR 地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;不过技术圈（或者英文技术圈）确实总体还是相对客气，即使开喷也没有太多无效的情绪输出，尤其 AI 和该事件中的主要维护者——路人当然冲着 AI 一顿输出。&lt;/p&gt;
+&lt;h1 id=&#34;生活&#34;&gt;生活
+&lt;/h1&gt;&lt;h2 id=&#34;游戏&#34;&gt;游戏
+&lt;/h2&gt;&lt;p&gt;过年期间把咚奇刚打完了，本来想的是库库打游戏、库库看书，结果春节假期就打完了咚奇刚，书也没读多少、steamdeck 上的暗喻幻想也没打多少。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://files.seeusercontent.com/2026/02/27/cD3d/20410101-donkey-kong-bananza-nin.jpg&#34;
+	width=&#34;800&#34;
+	height=&#34;800&#34;
+	srcset=&#34;https://cbconne.github.io/20410101-donkey-kong-bananza-nintendo-switch-2-front-cover_12094932373821672264_hu_9cd5762e37eea8fa.jpg 480w, https://cbconne.github.io/20410101-donkey-kong-bananza-nintendo-switch-2-front-cover_12094932373821672264_hu_cb0a3ce3e1ec098a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;咚奇刚：蕉力全开&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;任天堂不愧还是任天堂，场景破坏作为游戏核心玩法+任系的箱庭设计出来的游戏确实是好玩的，同时覆盖面还很广：在场景里一通乱砸很简单，不擅长游戏的人也能很快上手，同时也很贴合人类的天性，能很容易得到快感。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>20260208 周记</title>
         <link>https://cbconne.github.io/weekly/20260205/</link>
         <pubDate>Thu, 05 Feb 2026 15:23:42 +0800</pubDate>
@@ -84,7 +116,7 @@
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2026/01/26/SMhGtsw7zPTlkDo.jpg&#34;
 	width=&#34;1500&#34;
 	height=&#34;1064&#34;
-	srcset=&#34;https://cbconne.github.io/SMhGtsw7zPTlkDo_7403409202261078213_hu_5dda788a59285bd6.jpg 480w, https://cbconne.github.io/SMhGtsw7zPTlkDo_7403409202261078213_hu_64d6a372cc6f47ee.jpg 1024w&#34;
+	srcset=&#34;https://cbconne.github.io/SMhGtsw7zPTlkDo_7403409202261078213_hu_82355442076b6c1e.jpg 480w, https://cbconne.github.io/SMhGtsw7zPTlkDo_7403409202261078213_hu_f8fc4575c97bda37.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;樱色之云＊绯色之恋&#34;
@@ -211,7 +243,7 @@ metadata 当成 book.metadata&lt;br&gt;
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2026/01/04/VQAcaqFuSjrTvgY.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;1553&#34;
-	srcset=&#34;https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_91ab8d001609b80b.jpg 480w, https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_d474c0ae44eee1dc.jpg 1024w&#34;
+	srcset=&#34;https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_95a397330c91ff30.jpg 480w, https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_6b006791e797a963.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;《方舟》&#34;
@@ -255,7 +287,7 @@ metadata 当成 book.metadata&lt;br&gt;
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2026/01/04/A1BRguMInYjdDJy.jpg&#34;
 	width=&#34;1350&#34;
 	height=&#34;1003&#34;
-	srcset=&#34;https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_7f89a6422b46d9e5.jpg 480w, https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_a8548cc1629948e7.jpg 1024w&#34;
+	srcset=&#34;https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_5f8d677f8dece326.jpg 480w, https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_18fb3cdca1b45b8e.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;flomo 笔记&#34;
@@ -343,7 +375,7 @@ metadata 当成 book.metadata&lt;br&gt;
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/10/12/Zu85gf7EnL4BUTw.jpg&#34;
 	width=&#34;600&#34;
 	height=&#34;900&#34;
-	srcset=&#34;https://cbconne.github.io/Zu85gf7EnL4BUTw_17016716850212118389_hu_beec46965c3851ce.jpg 480w, https://cbconne.github.io/Zu85gf7EnL4BUTw_17016716850212118389_hu_65a52868e0c46610.jpg 1024w&#34;
+	srcset=&#34;https://cbconne.github.io/Zu85gf7EnL4BUTw_17016716850212118389_hu_825b437356555b84.jpg 480w, https://cbconne.github.io/Zu85gf7EnL4BUTw_17016716850212118389_hu_9813320c5d356fd9.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;潜水员戴夫&#34;
@@ -467,7 +499,7 @@ Zen 也是有类似 Space 的功能，但实际体验下来和 Arc 的还是有�
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/09/26/AWvPteZ25gYyXpB.jpg&#34;
 	width=&#34;460&#34;
 	height=&#34;215&#34;
-	srcset=&#34;https://cbconne.github.io/AWvPteZ25gYyXpB_4586745227928274792_hu_2ad4b945191ec22d.jpg 480w, https://cbconne.github.io/AWvPteZ25gYyXpB_4586745227928274792_hu_b5d69c5a925dc43a.jpg 1024w&#34;
+	srcset=&#34;https://cbconne.github.io/AWvPteZ25gYyXpB_4586745227928274792_hu_7932e5d7b72f000a.jpg 480w, https://cbconne.github.io/AWvPteZ25gYyXpB_4586745227928274792_hu_c8793052d2c36a1.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;To The Moon&#34;
