@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr"
+    style="background: #f5f5fa;"
+    data-scheme="light">
+    <head>
+        
+        <script>
+            (function() {
+                var html = document.documentElement;
+                var colorSchemeKey = 'StackColorScheme';
+                var colorSchemeItem = localStorage.getItem(colorSchemeKey);
+                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+                var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
+                var bgColor = isDark ? '#303030' : '#f5f5fa';
+                html.dataset.scheme = isDark ? 'dark' : 'light';
+                html.style.background = bgColor;
+                window.__themeBackground = bgColor;
+                window.__themeDark = isDark;
+            })();
+        </script>
+        
+        <style id="loading-overlay-style">
+            #page-loading-overlay {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 99999;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+             
+            #page-loading-overlay::after {
+                content: '';
+                width: 60px;
+                height: 60px;
+                border: 5px solid rgba(0, 0, 0, 0.1);
+                border-top-color: #34495e;
+                border-radius: 50%;
+                animation: __loading_spin 0.8s linear infinite;
+                opacity: 0;
+                transition: opacity 200ms ease;
+            }
+            #page-loading-overlay.show-spinner::after {
+                opacity: 1;
+            }
+            @keyframes __loading_spin {
+                to { transform: rotate(360deg); }
+            }
+        </style><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="个人一周记录（20260323-20260329)">
+<title>20260329 周记</title>
+
+<link rel='canonical' href='https://cbconne.github.io/weekly/20260323/'>
+
+<link rel="stylesheet" href="/scss/style.min.9405df568ce3547d26f7fd4cd4cc7e8b8b63d41ca915c0c3c14e68534a2b553c.css">
+<script>
+    (function() {
+        
+        window.pageReadyState = {
+            fontsLoaded: false,
+            panguProcessed: false,
+            galleryProcessed: false,
+            forceShowTimeout: null
+        };
+        
+        
+        function removeOverlay() {
+            
+            if (window.__spinnerTimer) {
+                clearTimeout(window.__spinnerTimer);
+                window.__spinnerTimer = null;
+            }
+            var overlay = document.getElementById('page-loading-overlay');
+            if (overlay && overlay.parentNode) {
+                overlay.parentNode.removeChild(overlay);
+            }
+        }
+        
+        
+        function checkAndShow() {
+            var state = window.pageReadyState;
+            if (state.fontsLoaded && state.panguProcessed && state.galleryProcessed) {
+                removeOverlay();
+                if (state.forceShowTimeout) {
+                    clearTimeout(state.forceShowTimeout);
+                    state.forceShowTimeout = null;
+                }
+            }
+        }
+        
+        
+        window.notifyGalleryReady = function() {
+            window.pageReadyState.galleryProcessed = true;
+            checkAndShow();
+        };
+        
+        
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function() {
+                window.pageReadyState.fontsLoaded = true;
+                checkAndShow();
+            }).catch(function() {
+                window.pageReadyState.fontsLoaded = true;
+                checkAndShow();
+            });
+        } else {
+            window.pageReadyState.fontsLoaded = true;
+        }
+        
+        
+        var script = document.createElement('script');
+        script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
+        script.onload = function() {
+            if (window.pangu) {
+                try { pangu.spacingPage(); } catch (e) {}
+            }
+            window.pageReadyState.panguProcessed = true;
+            checkAndShow();
+        };
+        script.onerror = function() {
+            window.pageReadyState.panguProcessed = true;
+            checkAndShow();
+        };
+        document.head.appendChild(script);
+        
+        
+        window.addEventListener('pageshow', function(event) {
+            
+            if (event.persisted && window.pangu) {
+                try { pangu.spacingPage(); } catch (e) {}
+            }
+        });
+        
+        
+        window.pageReadyState.forceShowTimeout = setTimeout(function() {
+            window.pageReadyState.fontsLoaded = true;
+            window.pageReadyState.panguProcessed = true;
+            window.pageReadyState.galleryProcessed = true;
+            removeOverlay();
+        }, 800);
+    })();
+</script>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+
+
+<link rel='stylesheet'
+    href='https://unpkg.com/@chinese-fonts/lxgwwenkaibright@2.0.0/dist/LXGWBright-Medium/result.css' />
+<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+
+
+<style>
+    :root {
+        --sys-font-family: "Douyin Sans";
+        --zh-font-family: "LXGW Bright Medium";
+        --base-font-family: "Douyin Sans";
+        --code-font-family: "JetBrains Mono";
+        --article-font-family: "LXGW Bright Medium";
+    }
+</style>
+
+
+<script>
+    (function() {
+        
+        var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed') === 'true';
+        if (tocCollapsed) {
+            
+            document.documentElement.classList.add('toc-preload-collapsed');
+        }
+    })();
+</script><meta property='og:title' content="20260329 周记">
+<meta property='og:description' content="个人一周记录（20260323-20260329)">
+<meta property='og:url' content='https://cbconne.github.io/weekly/20260323/'>
+<meta property='og:site_name' content='CBC&#39;s Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Weekly' /><meta property='article:published_time' content='2026-03-23T12:51:14&#43;08:00'/><meta property='article:modified_time' content='2026-03-23T12:51:14&#43;08:00'/>
+<meta name="twitter:title" content="20260329 周记">
+<meta name="twitter:description" content="个人一周记录（20260323-20260329)">
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+
+
+    
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-62TS5Y5J35');
+        }
+      </script>
+
+    </head>
+    <body class="
+    article-page
+    " style="background: #f5f5fa;">
+        
+        <div id="page-loading-overlay"></div>
+        <script>
+            (function() {
+                var overlay = document.getElementById('page-loading-overlay');
+                var bgColor = window.__themeBackground || '#f5f5fa';
+                var isDark = window.__themeDark;
+                
+                overlay.style.background = bgColor;
+                
+                document.body.style.background = bgColor;
+                
+                if (isDark) {
+                    var style = document.getElementById('loading-overlay-style');
+                    style.textContent = style.textContent
+                        .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
+                        .replace('#34495e', '#ecf0f1');
+                }
+                
+                window.__spinnerTimer = setTimeout(function() {
+                    if (overlay) {
+                        overlay.classList.add('show-spinner');
+                    }
+                }, 300);
+            })();
+        </script>
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">CBC&#39;s Site</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/cbconne'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24"
+  height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path
+    d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+    stroke="currentColor" stroke-width="2" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:770663964@qq.com'
+                        target="_blank"
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="icon icon-tabler icons-tabler-outline icon-tabler-mail">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"
+        stroke="currentColor"
+        stroke-width="2" />
+    <path d="M3 7l9 6l9 -6"
+        stroke="currentColor"
+        stroke-width="1.5" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>暗色模式</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives toc-widget">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">目录</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ul>
+    <li><a href="#技术">技术</a>
+      <ul>
+        <li><a href="#hackernews">HackerNews</a></li>
+        <li><a href="#openclaw-322">OpenClaw 3.22</a></li>
+        <li><a href="#github-copilot数据使用政策更新">GitHub Copilot数据使用政策更新</a></li>
+        <li><a href="#steam-游戏时长推送">Steam 游戏时长推送</a></li>
+      </ul>
+    </li>
+    <li><a href="#生活">生活</a>
+      <ul>
+        <li><a href="#游戏">游戏</a></li>
+        <li><a href="#电影">电影</a></li>
+      </ul>
+    </li>
+    <li><a href="#其它">其它</a>
+      <ul>
+        <li><a href="#远程教学颜值影响成绩">远程教学+颜值影响成绩</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+        </div>
+    </section>
+
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+            周记
+        </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/weekly/20260323/">20260329 周记</a>
+        </h2>
+
+        
+        <h3 class="article-subtitle">
+            个人一周记录（20260323-20260329)
+        </h3>
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+            <time class="article-time--published">2026/03/23 12:51:14</time>
+        </div>
+        
+
+        
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+            <time class="article-time--reading">
+                阅读时长: 6 分钟
+            </time>
+        </div>
+        <div>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+    <path d="M9 17h6" />
+    <path d="M9 13h6" />
+</svg>
+            <time class="article-words">
+                字数: 2731
+            </time>
+        </div>
+        
+    </footer>
+    
+
+    
+</div>
+</header>
+
+    <section class="article-content">
+    
+    
+    <h1 id="技术">技术
+</h1><h2 id="hackernews">HackerNews
+</h2><p><del>写</del>生成了个脚本，能通过 HN 帖子的 id 号拉取内容并且用 LLM 翻译（虽然直接浏览器页面翻译就行但是我乐意），摸鱼起来更方便了（不是）。</p>
+<p>不得不说 HackerNews 的讨论质量还是比各种乱七八糟的地方要好很多，虽然也有自己的“主流观点”/“政治正确”，但总体还是在讨论问题的。</p>
+<p>放一些摘录：</p>
+<blockquote>
+<p>In practice what I see fail most often is not premature optimization but premature abstraction. People build elaborate indirection layers for flexibility they never need, and those layers impose real costs on every future reader of the code. The irony is that abstraction is supposed to manage complexity but prematurely applied it just creates a different kind.<br>
+在实践中，我最常看到的失败并非过早优化（premature optimization），而是过早抽象（premature abstraction）。人们为了从未需要的灵活性而构建复杂的间接层，这些层给后续每一位阅读代码的人带来了真实成本。讽刺的是，抽象本意是管理复杂度，但一旦过早应用，它只是制造了另一种形式的复杂度。</p>
+</blockquote>
+<blockquote>
+<p>That&rsquo;s a big part of what&rsquo;s so frustrating about Python generally: it seems to be a language used by lots of people who&rsquo;ve never used anything else and have an attitude like &ldquo;why would I ever try anything else&rdquo;?<br>
+这正是 Python 整体上让人抓狂的一大原因：它似乎被大量从未接触过其他语言的人使用，还带着一种“我为什么要尝试别的”的态度？</p>
+</blockquote>
+<blockquote>
+<p>Some people are exceptional at solving difficult but hard to explain problems while other are great solving direct business problems. No need to feel ashamed for both it’s just different work.<br>
+有些人擅长解决那些棘手却难以言喻的问题，而另一些人则精于处理直接的业务问题。不必为此感到羞愧，这不过是两种不同的工作罢了。</p>
+</blockquote>
+<h2 id="openclaw-322">OpenClaw 3.22
+</h2><p>TL;DR：OpenClaw 3.22 版本改动过大，导致很多插件失效。</p>
+<p>因为我没有实际在用，所以影响不大，当时钉钉插件挂了重装还不行大概就知道是升级的问题，扫了眼 issue 就没管了——反正会有人去修的（不管是 OpenClaw 还是插件）。</p>
+<p>但是这确实暴露出来很多问题，我愿意相信这玩意个人使用的话有人能玩出花头，但是当正儿八经的生产力？</p>
+<div style="text-align: center;">
+<pre class="mermaid">
+  graph TD
+    A[OpenClaw 遇到问题] --&gt; B{我有能力处理&lt;br&gt;OpenClaw 的问题吗？}
+    B --&gt;|Yes| C[99% 的概率能自己编程实现&lt;br&gt;并且编程也能用 AI]
+    B --&gt;|No| D[怎么解决 OpenClaw 自己的问题？]
+    C --&gt; E[结束]
+    D --&gt; E
+</pre>
+
+</div>
+<h2 id="github-copilot数据使用政策更新">GitHub Copilot数据使用政策更新
+</h2><p><a class="link" href="https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/"  target="_blank" rel="noopener"
+    >GitHub Copilot数据使用政策更新</a></p>
+<p>从 2026 年 4 月 24 日起，GitHub 将开始使用部分用户的交互数据来训练和改进其 AI 模型，除非用户主动选择退出（Opt-out）。</p>
+<p>当年刚出来没多久买了一年 Copilot（100 刀，还挺贵），到期之后就没用 Copilot 了，哪怕之后有了 Free 的挡位（虽然 Free 也不够用吧感觉）。看到提醒之后就去关掉了——虽然说实话我不是很在意。</p>
+<h2 id="steam-游戏时长推送">Steam 游戏时长推送
+</h2><p>时不时想起来就优化一下：</p>
+<p>这次添加了推送功能，每天会推送昨天游戏情况和时长，感谢<a class="link" href="https://wxpusher.zjiecode.com/docs/#/"  target="_blank" rel="noopener"
+    >WxPusher</a>提供的免费的推送服务，虽然需要使用独立的 APP 但都接入了主要厂商的后台推送，不需要长期后台运行，推送消息也支持 markdown 和 html，个人使用推送一些无甚要紧的消息的话相当可以了（毕竟免费，还要啥自行车？）</p>
+<p>此处 diss 一下企业微信，需要有域名或者公网 IP 才能完成配置并实现推送，本来想用的，遗憾放弃。</p>
+<h1 id="生活">生活
+</h1><h2 id="游戏">游戏
+</h2><p>最近电子 ED 又双叒叕有所缓解，Steam Deck、Switch、PC 多点开花。</p>
+<p>简单过一下最近通关的游戏：</p>
+<p><img src="https://files.seeusercontent.com/2026/03/06/gP6e/capsule_616x353.jpg"
+	width="616"
+	height="353"
+	srcset="/capsule_616x353_14316926564503622990_hu_8e111816ad5dac8b.jpg 480w, /capsule_616x353_14316926564503622990_hu_90352c3a57c08e86.jpg 1024w"
+	loading="lazy"
+	
+		alt="暗喻幻想"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="174"
+		data-flex-basis="418px"
+	
+></p>
+<p>不多说了，看图吧：</p>
+<p><img src="https://files.seeusercontent.com/2026/03/23/hL4d/Screenshot_20260323130730.jpg"
+	width="1440"
+	height="2318"
+	srcset="/Screenshot_20260323130730_15172521516526466297_hu_dcaf3af1f586eec1.jpg 480w, /Screenshot_20260323130730_15172521516526466297_hu_54c2aa3e29729d50.jpg 1024w"
+	loading="lazy"
+	
+		alt="通关破防"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="62"
+		data-flex-basis="149px"
+	
+></p>
+<hr>
+<p><img src="https://files.seeusercontent.com/2026/03/23/4Nhj/header_schinese.jpg"
+	width="460"
+	height="215"
+	srcset="/header_schinese_15105747506428834004_hu_4866a23daeae25f0.jpg 480w, /header_schinese_15105747506428834004_hu_c15ca3fddc11152a.jpg 1024w"
+	loading="lazy"
+	
+		alt="三相奇谈"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="213"
+		data-flex-basis="513px"
+	
+></p>
+<p>普普通通的一个横版解谜游戏，挺中规中矩的，很多让人会心一笑的彩蛋/梗。在“讲好自己的故事”这方面做到了 70 分，再加一些国产游戏独有的中国元素，我还是愿意好评的。</p>
+<h2 id="电影">电影
+</h2><p>上周末去看了《挽救计划》，是我为数不多：没观望口碑&amp;上映没多久就去看的电影，除此之外应该只有复联3/4和每年的哆啦A梦有此“殊荣”。</p>
+<p><img src="https://files.seeusercontent.com/2026/03/23/x5iK/vZvUHR5xoMfLFnqNxgwcTDeT7H7.jpg"
+	width="2000"
+	height="2965"
+	srcset="/vZvUHR5xoMfLFnqNxgwcTDeT7H7_3449137197494297965_hu_660ce2de6020428e.jpg 480w, /vZvUHR5xoMfLFnqNxgwcTDeT7H7_3449137197494297965_hu_8ad4a3db957fda9b.jpg 1024w"
+	loading="lazy"
+	
+		alt="电影海报（挺一般的）"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="67"
+		data-flex-basis="161px"
+	
+></p>
+<p>这部电影能吸引我去看主要还是因为四年前读过原著小说并且非常喜欢：</p>
+<p><img src="https://files.seeusercontent.com/2026/03/23/hj5Q/Screenshot_20260320143824.jpg"
+	width="1392"
+	height="1292"
+	srcset="/Screenshot_20260320143824_2204109721170292748_hu_81b04643a8815a77.jpg 480w, /Screenshot_20260320143824_2204109721170292748_hu_e119e12658006ce5.jpg 1024w"
+	loading="lazy"
+	
+		alt="当年小说的豆瓣评价"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="107"
+		data-flex-basis="258px"
+	
+></p>
+<p>电影相当不错——哪怕在我已知剧情的情况下，虽然小说改电影难免会有一些改动和精简，很多书里的桥段没拍出来我也确实有些遗憾，但瑕不掩瑜。</p>
+<p>个人感觉分 3~4 个小时能讲得更完整一些，但商业电影时间太长也不现实。</p>
+<p><img src="https://files.seeusercontent.com/2026/03/23/3Jcm/601979559.jpg"
+	width="1440"
+	height="2971"
+	srcset="/601979559_8150259034426434143_hu_b518d70800b07a44.jpg 480w, /601979559_8150259034426434143_hu_89bc45005d514121.jpg 1024w"
+	loading="lazy"
+	
+		alt="电影评价"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="48"
+		data-flex-basis="116px"
+	
+></p>
+<blockquote>
+<p>P.S. 发现由于电影上映 z-library 上这本 21 年的书也被顶起来了——中英文都是如此
+<img src="https://files.seeusercontent.com/2026/03/23/4bZa/20260323133739596.png"
+	width="1590"
+	height="668"
+	srcset="/20260323133739596_9060854125759141443_hu_b759c01b6b05fbce.png 480w, /20260323133739596_9060854125759141443_hu_74c3405acec18b87.png 1024w"
+	loading="lazy"
+	
+		alt="zlib"
+	
+	
+		class="gallery-image" 
+		data-flex-grow="238"
+		data-flex-basis="571px"
+	
+></p>
+</blockquote>
+<details>
+    <summary>记录一些小说和电影不一致的地方，可能有些许出入。以及惯例的 <strong>剧透警告</strong>：</summary>
+    <ul>
+<li>
+<p>主角醒来的时候是插着各种管子的——电影有体现，但是——包括导尿管和肛管。主角挣扎拔出时还受到了伤害（幻痛 ing）。</p>
+</li>
+<li>
+<p>飞船结构差很多，这点来说电影里更“科学”一些。</p>
+</li>
+<li>
+<p>主角还没进入驾驶舱（无法进入，计算机需要他回忆起自己的名字）看到舷窗就通过算 g 值判断自己在太空了；以及在记起名字（不记得自己的任务）、进入驾驶室看到恒星时，通过观察和计算恒星自转速度来判断自己不在太阳系。电影里是通过飞船计算机的数据得知的。</p>
+</li>
+<li>
+<p>书里主角发现波江星飞船时操控飞船移动并非逃跑，而是某种“试探”；同样，洛基向主角丢东西时主角也没有害怕是炸弹。</p>
+</li>
+<li>
+<p>书里对接通道里的氧气是主角打开门通过自己的飞船放到通道中的，没有电影里那么考验胆量和信任。</p>
+</li>
+<li>
+<p>洛基要看着主角睡觉/睡觉需要主角看着的原因电影里处理得比较“感性”：同伴睡过去了并没有醒来。但其实书里更“生理”一些，因为生理结构波江星人睡眠就是昏过去或者说瘫痪过去，而且时长不定，如果有危险是无法处理的，所以需要同伴看着，哪怕技术发展了没有安全问题也也已经培养成了一种文化习惯。</p>
+</li>
+<li>
+<p>此外电影没提，对于波江星人“吃饭”是很隐私的事情，所以不希望有人看着——有点类似于我们上厕所不希望有人一样。</p>
+</li>
+<li>
+<p>总体上来说书里很多比较具体的 SF 的部分电影都略过了：比如波江星人的生理构造、主角和洛基一些进化的猜想、波江星人和地球人的科技水平的对比……</p>
+</li>
+<li>
+<p>电影整体精简并且加速——尤其结尾部分加速了很多：很多事情放到了洛基昏迷时，书里发现 τ 星虫会被氮气毒死、培养抗氮的 τ 星虫都是两个人一起的。感觉电影这部分处理得比较一般，其他地方还能算略微简化以配合电影时长和节奏，结尾这里就有明显的“赶时间”的感觉了。</p>
+</li>
+<li>
+<p>主角放弃回家拯救洛基这里因为前面省略了太多东西，竟然连“主角会死”这件事都省略了：主角的食物有限，波江星人生理结构和地球人又差异太大，波江人的食物全都含对人类有毒的重金属，到了波江星之后会因为没有食物而死。电影里只体现了放弃回地球——实际上按我说这地球不回也罢——其实主角是牺牲自己拯救了洛基和波江星人。</p>
+</li>
+<li>
+<p>以上这个问题原著里是洛基提出可以吃 τ 星虫来获取基本的营养物质。到了波江星吃了几年 τ 星虫主角严重营养不良，直到波江星科学家实现了维生素的合成和主角细胞的“克隆”，主角终于吃上了“我肉汉堡”——字面意思。</p>
+</li>
+<li>
+<p>除了“我肉汉堡”这么一个有意思的梗之外还有一个是看到主角哭了洛基说“人类漏水了”，电影也省略了，很遗憾。</p>
+</li>
+</ul>
+
+</details>
+<h1 id="其它">其它
+</h1><h2 id="远程教学颜值影响成绩">远程教学+颜值影响成绩
+</h2><p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S016517652200283X"  target="_blank" rel="noopener"
+    >Student beauty and grades under in-person and remote teaching</a></p>
+<p>有些标题党了，研究结论是：在面对面授课时，长得好看的学生（尤其是女生）往往能获得更高的成绩；但当疫情期间转为线上网课后，这种“颜值红利”消失了，漂亮女生的成绩出现了显著下滑，但男生影响不大。</p>
+<p>就我个人理解来说，虽然文章很严谨，但数据量还是太小了，范围也局限于一所大学、一门课，图一乐可以，但说服力不高。</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>版权声明：本文为 CBC 原创，依据 <a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank" rel="noopener"
+    >CC BY-NC-SA 4.0</a> 许可证进行授权，转载请附上出处链接及本声明。</span>
+    </section>
+    </footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">相关文章</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/weekly/20260305/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">20260308 周记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/weekly/20260226/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">20260301 周记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/weekly/20260205/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">20260208 周记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/weekly/20260126/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">20260201 周记</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/weekly/20250116/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">20260118 周记</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 CBC
+    </section>
+    
+    <section class="powerby">
+        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
+        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+    
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.2/+esm';
+    mermaid.initialize({
+        startOnLoad: true,
+        theme: 'neutral',
+    });
+</script>
+
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.e00e8d39eda01199cae4ced3cd9a18c9f3ac8e19123c97ca20c2f4471dd590ea.js" defer></script>
+
+<script type="text/javascript">
+    if (!window.location.host.includes('localhost')) {
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "nq4skyjk39");
+    }
+</script>
+
+
+    </body>
+</html>

@@ -7,7 +7,218 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh-cn</language>
         <copyright>CBC</copyright>
-        <lastBuildDate>Thu, 05 Mar 2026 11:11:41 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/weekly/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 23 Mar 2026 12:51:14 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/weekly/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>20260329 周记</title>
+        <link>https://cbconne.github.io/weekly/20260323/</link>
+        <pubDate>Mon, 23 Mar 2026 12:51:14 +0800</pubDate>
+        
+        <guid>https://cbconne.github.io/weekly/20260323/</guid>
+        <description>&lt;h1 id=&#34;技术&#34;&gt;技术
+&lt;/h1&gt;&lt;h2 id=&#34;hackernews&#34;&gt;HackerNews
+&lt;/h2&gt;&lt;p&gt;&lt;del&gt;写&lt;/del&gt;生成了个脚本，能通过 HN 帖子的 id 号拉取内容并且用 LLM 翻译（虽然直接浏览器页面翻译就行但是我乐意），摸鱼起来更方便了（不是）。&lt;/p&gt;
+&lt;p&gt;不得不说 HackerNews 的讨论质量还是比各种乱七八糟的地方要好很多，虽然也有自己的“主流观点”/“政治正确”，但总体还是在讨论问题的。&lt;/p&gt;
+&lt;p&gt;放一些摘录：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In practice what I see fail most often is not premature optimization but premature abstraction. People build elaborate indirection layers for flexibility they never need, and those layers impose real costs on every future reader of the code. The irony is that abstraction is supposed to manage complexity but prematurely applied it just creates a different kind.&lt;br&gt;
+在实践中，我最常看到的失败并非过早优化（premature optimization），而是过早抽象（premature abstraction）。人们为了从未需要的灵活性而构建复杂的间接层，这些层给后续每一位阅读代码的人带来了真实成本。讽刺的是，抽象本意是管理复杂度，但一旦过早应用，它只是制造了另一种形式的复杂度。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;That&amp;rsquo;s a big part of what&amp;rsquo;s so frustrating about Python generally: it seems to be a language used by lots of people who&amp;rsquo;ve never used anything else and have an attitude like &amp;ldquo;why would I ever try anything else&amp;rdquo;?&lt;br&gt;
+这正是 Python 整体上让人抓狂的一大原因：它似乎被大量从未接触过其他语言的人使用，还带着一种“我为什么要尝试别的”的态度？&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Some people are exceptional at solving difficult but hard to explain problems while other are great solving direct business problems. No need to feel ashamed for both it’s just different work.&lt;br&gt;
+有些人擅长解决那些棘手却难以言喻的问题，而另一些人则精于处理直接的业务问题。不必为此感到羞愧，这不过是两种不同的工作罢了。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;openclaw-322&#34;&gt;OpenClaw 3.22
+&lt;/h2&gt;&lt;p&gt;TL;DR：OpenClaw 3.22 版本改动过大，导致很多插件失效。&lt;/p&gt;
+&lt;p&gt;因为我没有实际在用，所以影响不大，当时钉钉插件挂了重装还不行大概就知道是升级的问题，扫了眼 issue 就没管了——反正会有人去修的（不管是 OpenClaw 还是插件）。&lt;/p&gt;
+&lt;p&gt;但是这确实暴露出来很多问题，我愿意相信这玩意个人使用的话有人能玩出花头，但是当正儿八经的生产力？&lt;/p&gt;
+&lt;div style=&#34;text-align: center;&#34;&gt;
+&lt;pre class=&#34;mermaid&#34;&gt;
+  graph TD
+    A[OpenClaw 遇到问题] --&amp;gt; B{我有能力处理&amp;lt;br&amp;gt;OpenClaw 的问题吗？}
+    B --&amp;gt;|Yes| C[99% 的概率能自己编程实现&amp;lt;br&amp;gt;并且编程也能用 AI]
+    B --&amp;gt;|No| D[怎么解决 OpenClaw 自己的问题？]
+    C --&amp;gt; E[结束]
+    D --&amp;gt; E
+&lt;/pre&gt;
+
+&lt;/div&gt;
+&lt;h2 id=&#34;github-copilot数据使用政策更新&#34;&gt;GitHub Copilot数据使用政策更新
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;GitHub Copilot数据使用政策更新&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;从 2026 年 4 月 24 日起，GitHub 将开始使用部分用户的交互数据来训练和改进其 AI 模型，除非用户主动选择退出（Opt-out）。&lt;/p&gt;
+&lt;p&gt;当年刚出来没多久买了一年 Copilot（100 刀，还挺贵），到期之后就没用 Copilot 了，哪怕之后有了 Free 的挡位（虽然 Free 也不够用吧感觉）。看到提醒之后就去关掉了——虽然说实话我不是很在意。&lt;/p&gt;
+&lt;h2 id=&#34;steam-游戏时长推送&#34;&gt;Steam 游戏时长推送
+&lt;/h2&gt;&lt;p&gt;时不时想起来就优化一下：&lt;/p&gt;
+&lt;p&gt;这次添加了推送功能，每天会推送昨天游戏情况和时长，感谢&lt;a class=&#34;link&#34; href=&#34;https://wxpusher.zjiecode.com/docs/#/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;WxPusher&lt;/a&gt;提供的免费的推送服务，虽然需要使用独立的 APP 但都接入了主要厂商的后台推送，不需要长期后台运行，推送消息也支持 markdown 和 html，个人使用推送一些无甚要紧的消息的话相当可以了（毕竟免费，还要啥自行车？）&lt;/p&gt;
+&lt;p&gt;此处 diss 一下企业微信，需要有域名或者公网 IP 才能完成配置并实现推送，本来想用的，遗憾放弃。&lt;/p&gt;
+&lt;h1 id=&#34;生活&#34;&gt;生活
+&lt;/h1&gt;&lt;h2 id=&#34;游戏&#34;&gt;游戏
+&lt;/h2&gt;&lt;p&gt;最近电子 ED 又双叒叕有所缓解，Steam Deck、Switch、PC 多点开花。&lt;/p&gt;
+&lt;p&gt;简单过一下最近通关的游戏：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://files.seeusercontent.com/2026/03/06/gP6e/capsule_616x353.jpg&#34;
+	width=&#34;616&#34;
+	height=&#34;353&#34;
+	srcset=&#34;https://cbconne.github.io/capsule_616x353_14316926564503622990_hu_8e111816ad5dac8b.jpg 480w, https://cbconne.github.io/capsule_616x353_14316926564503622990_hu_90352c3a57c08e86.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;暗喻幻想&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;174&#34;
+		data-flex-basis=&#34;418px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;不多说了，看图吧：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://files.seeusercontent.com/2026/03/23/hL4d/Screenshot_20260323130730.jpg&#34;
+	width=&#34;1440&#34;
+	height=&#34;2318&#34;
+	srcset=&#34;https://cbconne.github.io/Screenshot_20260323130730_15172521516526466297_hu_dcaf3af1f586eec1.jpg 480w, https://cbconne.github.io/Screenshot_20260323130730_15172521516526466297_hu_54c2aa3e29729d50.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;通关破防&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;62&#34;
+		data-flex-basis=&#34;149px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;&lt;img src=&#34;https://files.seeusercontent.com/2026/03/23/4Nhj/header_schinese.jpg&#34;
+	width=&#34;460&#34;
+	height=&#34;215&#34;
+	srcset=&#34;https://cbconne.github.io/header_schinese_15105747506428834004_hu_4866a23daeae25f0.jpg 480w, https://cbconne.github.io/header_schinese_15105747506428834004_hu_c15ca3fddc11152a.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;三相奇谈&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;213&#34;
+		data-flex-basis=&#34;513px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;普普通通的一个横版解谜游戏，挺中规中矩的，很多让人会心一笑的彩蛋/梗。在“讲好自己的故事”这方面做到了 70 分，再加一些国产游戏独有的中国元素，我还是愿意好评的。&lt;/p&gt;
+&lt;h2 id=&#34;电影&#34;&gt;电影
+&lt;/h2&gt;&lt;p&gt;上周末去看了《挽救计划》，是我为数不多：没观望口碑&amp;amp;上映没多久就去看的电影，除此之外应该只有复联3/4和每年的哆啦A梦有此“殊荣”。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://files.seeusercontent.com/2026/03/23/x5iK/vZvUHR5xoMfLFnqNxgwcTDeT7H7.jpg&#34;
+	width=&#34;2000&#34;
+	height=&#34;2965&#34;
+	srcset=&#34;https://cbconne.github.io/vZvUHR5xoMfLFnqNxgwcTDeT7H7_3449137197494297965_hu_660ce2de6020428e.jpg 480w, https://cbconne.github.io/vZvUHR5xoMfLFnqNxgwcTDeT7H7_3449137197494297965_hu_8ad4a3db957fda9b.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;电影海报（挺一般的）&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;67&#34;
+		data-flex-basis=&#34;161px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;这部电影能吸引我去看主要还是因为四年前读过原著小说并且非常喜欢：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://files.seeusercontent.com/2026/03/23/hj5Q/Screenshot_20260320143824.jpg&#34;
+	width=&#34;1392&#34;
+	height=&#34;1292&#34;
+	srcset=&#34;https://cbconne.github.io/Screenshot_20260320143824_2204109721170292748_hu_81b04643a8815a77.jpg 480w, https://cbconne.github.io/Screenshot_20260320143824_2204109721170292748_hu_e119e12658006ce5.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;当年小说的豆瓣评价&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;107&#34;
+		data-flex-basis=&#34;258px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;p&gt;电影相当不错——哪怕在我已知剧情的情况下，虽然小说改电影难免会有一些改动和精简，很多书里的桥段没拍出来我也确实有些遗憾，但瑕不掩瑜。&lt;/p&gt;
+&lt;p&gt;个人感觉分 3~4 个小时能讲得更完整一些，但商业电影时间太长也不现实。&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://files.seeusercontent.com/2026/03/23/3Jcm/601979559.jpg&#34;
+	width=&#34;1440&#34;
+	height=&#34;2971&#34;
+	srcset=&#34;https://cbconne.github.io/601979559_8150259034426434143_hu_b518d70800b07a44.jpg 480w, https://cbconne.github.io/601979559_8150259034426434143_hu_89bc45005d514121.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;电影评价&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;48&#34;
+		data-flex-basis=&#34;116px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;P.S. 发现由于电影上映 z-library 上这本 21 年的书也被顶起来了——中英文都是如此
+&lt;img src=&#34;https://files.seeusercontent.com/2026/03/23/4bZa/20260323133739596.png&#34;
+	width=&#34;1590&#34;
+	height=&#34;668&#34;
+	srcset=&#34;https://cbconne.github.io/20260323133739596_9060854125759141443_hu_b759c01b6b05fbce.png 480w, https://cbconne.github.io/20260323133739596_9060854125759141443_hu_74c3405acec18b87.png 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;zlib&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;238&#34;
+		data-flex-basis=&#34;571px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;details&gt;
+    &lt;summary&gt;记录一些小说和电影不一致的地方，可能有些许出入。以及惯例的 &lt;strong&gt;剧透警告&lt;/strong&gt;：&lt;/summary&gt;
+    &lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;主角醒来的时候是插着各种管子的——电影有体现，但是——包括导尿管和肛管。主角挣扎拔出时还受到了伤害（幻痛 ing）。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;飞船结构差很多，这点来说电影里更“科学”一些。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;主角还没进入驾驶舱（无法进入，计算机需要他回忆起自己的名字）看到舷窗就通过算 g 值判断自己在太空了；以及在记起名字（不记得自己的任务）、进入驾驶室看到恒星时，通过观察和计算恒星自转速度来判断自己不在太阳系。电影里是通过飞船计算机的数据得知的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;书里主角发现波江星飞船时操控飞船移动并非逃跑，而是某种“试探”；同样，洛基向主角丢东西时主角也没有害怕是炸弹。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;书里对接通道里的氧气是主角打开门通过自己的飞船放到通道中的，没有电影里那么考验胆量和信任。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;洛基要看着主角睡觉/睡觉需要主角看着的原因电影里处理得比较“感性”：同伴睡过去了并没有醒来。但其实书里更“生理”一些，因为生理结构波江星人睡眠就是昏过去或者说瘫痪过去，而且时长不定，如果有危险是无法处理的，所以需要同伴看着，哪怕技术发展了没有安全问题也也已经培养成了一种文化习惯。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;此外电影没提，对于波江星人“吃饭”是很隐私的事情，所以不希望有人看着——有点类似于我们上厕所不希望有人一样。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;总体上来说书里很多比较具体的 SF 的部分电影都略过了：比如波江星人的生理构造、主角和洛基一些进化的猜想、波江星人和地球人的科技水平的对比……&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;电影整体精简并且加速——尤其结尾部分加速了很多：很多事情放到了洛基昏迷时，书里发现 τ 星虫会被氮气毒死、培养抗氮的 τ 星虫都是两个人一起的。感觉电影这部分处理得比较一般，其他地方还能算略微简化以配合电影时长和节奏，结尾这里就有明显的“赶时间”的感觉了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;主角放弃回家拯救洛基这里因为前面省略了太多东西，竟然连“主角会死”这件事都省略了：主角的食物有限，波江星人生理结构和地球人又差异太大，波江人的食物全都含对人类有毒的重金属，到了波江星之后会因为没有食物而死。电影里只体现了放弃回地球——实际上按我说这地球不回也罢——其实主角是牺牲自己拯救了洛基和波江星人。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;以上这个问题原著里是洛基提出可以吃 τ 星虫来获取基本的营养物质。到了波江星吃了几年 τ 星虫主角严重营养不良，直到波江星科学家实现了维生素的合成和主角细胞的“克隆”，主角终于吃上了“我肉汉堡”——字面意思。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;除了“我肉汉堡”这么一个有意思的梗之外还有一个是看到主角哭了洛基说“人类漏水了”，电影也省略了，很遗憾。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/details&gt;
+&lt;h1 id=&#34;其它&#34;&gt;其它
+&lt;/h1&gt;&lt;h2 id=&#34;远程教学颜值影响成绩&#34;&gt;远程教学+颜值影响成绩
+&lt;/h2&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.sciencedirect.com/science/article/pii/S016517652200283X&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Student beauty and grades under in-person and remote teaching&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;有些标题党了，研究结论是：在面对面授课时，长得好看的学生（尤其是女生）往往能获得更高的成绩；但当疫情期间转为线上网课后，这种“颜值红利”消失了，漂亮女生的成绩出现了显著下滑，但男生影响不大。&lt;/p&gt;
+&lt;p&gt;就我个人理解来说，虽然文章很严谨，但数据量还是太小了，范围也局限于一所大学、一门课，图一乐可以，但说服力不高。&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>20260308 周记</title>
         <link>https://cbconne.github.io/weekly/20260305/</link>
         <pubDate>Thu, 05 Mar 2026 11:11:41 +0800</pubDate>
@@ -348,7 +559,7 @@ metadata 当成 book.metadata&lt;br&gt;
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2026/01/04/VQAcaqFuSjrTvgY.jpg&#34;
 	width=&#34;1080&#34;
 	height=&#34;1553&#34;
-	srcset=&#34;https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_95a397330c91ff30.jpg 480w, https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_6b006791e797a963.jpg 1024w&#34;
+	srcset=&#34;https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_91ab8d001609b80b.jpg 480w, https://cbconne.github.io/VQAcaqFuSjrTvgY_9105916716689936143_hu_d474c0ae44eee1dc.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;《方舟》&#34;
@@ -392,7 +603,7 @@ metadata 当成 book.metadata&lt;br&gt;
 &lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2026/01/04/A1BRguMInYjdDJy.jpg&#34;
 	width=&#34;1350&#34;
 	height=&#34;1003&#34;
-	srcset=&#34;https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_7f89a6422b46d9e5.jpg 480w, https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_a8548cc1629948e7.jpg 1024w&#34;
+	srcset=&#34;https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_5f8d677f8dece326.jpg 480w, https://cbconne.github.io/A1BRguMInYjdDJy_2455941705462334263_hu_18fb3cdca1b45b8e.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;flomo 笔记&#34;
