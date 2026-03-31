@@ -1,61 +1,76 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr"
-    style="background: #f5f5fa;"
+
+<html lang="zh-cn" dir="ltr" style="background: #f5f5fa;"
     data-scheme="light">
-    <head>
-        
-        <script>
-            (function() {
-                var html = document.documentElement;
-                var colorSchemeKey = 'StackColorScheme';
-                var colorSchemeItem = localStorage.getItem(colorSchemeKey);
-                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
-                var bgColor = isDark ? '#303030' : '#f5f5fa';
-                html.dataset.scheme = isDark ? 'dark' : 'light';
-                html.style.background = bgColor;
-                window.__themeBackground = bgColor;
-                window.__themeDark = isDark;
-            })();
-        </script>
-        
-        <style id="loading-overlay-style">
-            #page-loading-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 99999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+
+<head>
+    
+    <script>
+        (function () {
+            var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
+            if (tocCollapsed === 'true') {
+                document.documentElement.classList.add('toc-preload-collapsed');
             }
-             
-            #page-loading-overlay::after {
-                content: '';
-                width: 60px;
-                height: 60px;
-                border: 5px solid rgba(0, 0, 0, 0.1);
-                border-top-color: #34495e;
-                border-radius: 50%;
-                animation: __loading_spin 0.8s linear infinite;
-                opacity: 0;
-                transition: opacity 200ms ease;
+        })();
+    </script>
+    
+    <script>
+        (function () {
+            var html = document.documentElement;
+            var colorSchemeKey = 'StackColorScheme';
+            var colorSchemeItem = localStorage.getItem(colorSchemeKey);
+            var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+            var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
+            var bgColor = isDark ? '#303030' : '#f5f5fa';
+            html.dataset.scheme = isDark ? 'dark' : 'light';
+            html.style.background = bgColor;
+            window.__themeBackground = bgColor;
+            window.__themeDark = isDark;
+        })();
+    </script>
+    
+    <style id="loading-overlay-style">
+        #page-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+         
+        #page-loading-overlay::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #34495e;
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            opacity: 0;
+            transition: opacity 200ms ease;
+        }
+
+        #page-loading-overlay.show-spinner::after {
+            opacity: 1;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
             }
-            #page-loading-overlay.show-spinner::after {
-                opacity: 1;
-            }
-            @keyframes __loading_spin {
-                to { transform: rotate(360deg); }
-            }
-        </style><meta charset='utf-8'>
+        }
+    </style><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="背景碎碎念 虽然说是说“最近”打完的游戏，但是实际上统计的是《丝之歌》缓解了我的电子 ED 之后到现在（2025/12/01）中间打通的游戏，主要有这么几个类型：\n">
 <title>最近打完的游戏</title>
 
 <link rel='canonical' href='https://cbconne.github.io/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/'>
 
-<link rel="stylesheet" href="/scss/style.min.9405df568ce3547d26f7fd4cd4cc7e8b8b63d41ca915c0c3c14e68534a2b553c.css">
+<link rel="stylesheet" href="/scss/style.min.e16164c6a84b59ca0977b301a9ca173cf3eeb7c3ebac7636e196da317e1a8235.css">
 <script>
     (function() {
         
@@ -203,36 +218,37 @@
         }
       </script>
 
-    </head>
-    <body class="
+</head>
+
+<body class="
     article-page
     " style="background: #f5f5fa;">
-        
-        <div id="page-loading-overlay"></div>
-        <script>
-            (function() {
-                var overlay = document.getElementById('page-loading-overlay');
-                var bgColor = window.__themeBackground || '#f5f5fa';
-                var isDark = window.__themeDark;
-                
-                overlay.style.background = bgColor;
-                
-                document.body.style.background = bgColor;
-                
-                if (isDark) {
-                    var style = document.getElementById('loading-overlay-style');
-                    style.textContent = style.textContent
-                        .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
-                        .replace('#34495e', '#ecf0f1');
+    
+    <div id="page-loading-overlay"></div>
+    <script>
+        (function () {
+            var overlay = document.getElementById('page-loading-overlay');
+            var bgColor = window.__themeBackground || '#f5f5fa';
+            var isDark = window.__themeDark;
+            
+            overlay.style.background = bgColor;
+            
+            document.body.style.background = bgColor;
+            
+            if (isDark) {
+                var style = document.getElementById('loading-overlay-style');
+                style.textContent = style.textContent
+                    .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
+                    .replace('#34495e', '#ecf0f1');
+            }
+            
+            window.__spinnerTimer = setTimeout(function () {
+                if (overlay) {
+                    overlay.classList.add('show-spinner');
                 }
-                
-                window.__spinnerTimer = setTimeout(function() {
-                    if (overlay) {
-                        overlay.classList.add('show-spinner');
-                    }
-                }, 300);
-            })();
-        </script>
+            }, 300);
+        })();
+    </script>
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -256,15 +272,13 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
     <header>
-        
-            
         
         
         <div class="site-meta">
@@ -276,7 +290,7 @@
                 <li>
                     <a 
                         href='https://github.com/cbconne'
-                        target="_blank"
+                        
                         title="GitHub"
                         rel="me"
                     >
@@ -297,7 +311,7 @@
                 <li>
                     <a 
                         href='mailto:770663964@qq.com'
-                        target="_blank"
+                        
                         title="Email"
                         rel="me"
                     >
@@ -325,8 +339,6 @@
         <li >
             <a href='/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="5 12 3 12 12 3 21 12 19 12" />
@@ -344,8 +356,6 @@
         
         <li >
             <a href='/archives/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -365,8 +375,6 @@
         <li >
             <a href='/search/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="10" cy="10" r="7" />
@@ -384,8 +392,6 @@
         <li >
             <a href='/%E9%93%BE%E6%8E%A5/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
@@ -402,8 +408,6 @@
         
         <li >
             <a href='/%E5%85%B3%E4%BA%8E/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -439,7 +443,7 @@
 
 
 
-                        <span>暗色模式</span>
+                        <span></span>
                     </li>
                 
             </ol>
@@ -451,9 +455,9 @@
         
             
                 
-    <section class="widget archives toc-widget">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<section class="widget archives toc-widget">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -463,11 +467,12 @@
 
 
 
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
+    </div>
+    <h2 class="widget-title section-title"></h2>
+
+    <div class="widget--toc">
+        <nav class="toc-nav" id="TableOfContents">
+            
   <ul>
     <li><a href="#背景碎碎念">背景碎碎念</a></li>
     <li><a href="#空洞骑士丝之歌">《空洞骑士：丝之歌》</a></li>
@@ -481,17 +486,17 @@
     <li><a href="#蝙蝠侠阿卡姆之城">《蝙蝠侠：阿卡姆之城》</a></li>
     <li><a href="#塞尔达传说智慧的再现">《塞尔达传说：智慧的再现》</a></li>
   </ul>
-</nav>
-        </div>
-    </section>
 
+        </nav>
+    </div>
+</section>
 
             
         
     </aside>
 
 
-            <main class="main full-width">
+        <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -499,7 +504,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/" style="background-color: #9eccab; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/"
+            style="background-color: #9eccab; color: #fff;">
             日常闲笔
         </a>
         
@@ -518,9 +527,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -530,12 +543,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2025/12/01 14:38:54</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2025-12-01T14:38:54&#43;08:00'>2025/12/01 14:38:54</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -545,10 +556,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 3 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -561,14 +573,47 @@
             <time class="article-words">
                 字数: 1430
             </time>
+            
         </div>
+        
+
+        
+
         
     </footer>
     
-
-    
 </div>
 </header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li><a href="#背景碎碎念">背景碎碎念</a></li>
+    <li><a href="#空洞骑士丝之歌">《空洞骑士：丝之歌》</a></li>
+    <li><a href="#恶魔城月下夜想曲">《恶魔城：月下夜想曲》</a></li>
+    <li><a href="#波斯王子失落的王冠">《波斯王子：失落的王冠》</a></li>
+    <li><a href="#öoo">《Öoo》</a></li>
+    <li><a href="#密特罗德零点任务密特罗德融合">《密特罗德：零点任务》&amp;《密特罗德：融合》</a></li>
+    <li><a href="#奥伯拉丁的回归">《奥伯拉丁的回归》</a></li>
+    <li><a href="#密特罗德生存恐惧">《密特罗德：生存恐惧》</a></li>
+    <li><a href="#金偶像谜案">《金偶像谜案》</a></li>
+    <li><a href="#蝙蝠侠阿卡姆之城">《蝙蝠侠：阿卡姆之城》</a></li>
+    <li><a href="#塞尔达传说智慧的再现">《塞尔达传说：智慧的再现》</a></li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
 
     <section class="article-content">
     
@@ -583,20 +628,7 @@
 <p>因为包含的游戏还蛮多的，因此不像单篇那样详细解释了，没什么好说的就一笔带过、有什么想提两句的就说一说。</p>
 <hr>
 <h1 id="空洞骑士丝之歌">《空洞骑士：丝之歌》
-</h1><p><img src="https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg"
-	width="920"
-	height="430"
-	srcset="/xwSa1yrLiRcEqkB_1208571101288218070_hu_cc26f0d4fe842287.jpg 480w, /xwSa1yrLiRcEqkB_1208571101288218070_hu_d3c24dc8bbf4d67.jpg 1024w"
-	loading="lazy"
-	
-		alt="Hollow Knight: Silksong"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="213"
-		data-flex-basis="513px"
-	
-></p>
+</h1><p><img alt="Hollow Knight: Silksong" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg" srcset="/xwSa1yrLiRcEqkB_1208571101288218070_hu_c2194fd65010ff9a.jpg 800w, https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg 920w" width="920"></p>
 <p>评价：★★★★★</p>
 <p>纯主观评价，不具备可参考性。事实上发售后 99% 被喷的点我都能接受并不觉得差；相反很多我觉得真的很差的东西被喷的反而很少。</p>
 <p>所以很多东西还是得信自己。</p>
@@ -605,20 +637,7 @@
 </h1><p><a class="link" href="/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/" >单独写过了。</a></p>
 <hr>
 <h1 id="波斯王子失落的王冠">《波斯王子：失落的王冠》
-</h1><p><img src="https://s2.loli.net/2025/12/01/4jSVtXampHr5KIP.jpg"
-	width="616"
-	height="353"
-	srcset="/4jSVtXampHr5KIP_16003044382596888226_hu_fe4548dbb6eed55d.jpg 480w, /4jSVtXampHr5KIP_16003044382596888226_hu_4cbd9c4298f341ac.jpg 1024w"
-	loading="lazy"
-	
-		alt="Prince of Persia The Lost Crown"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="174"
-		data-flex-basis="418px"
-	
-></p>
+</h1><p><img alt="Prince of Persia The Lost Crown" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/4jSVtXampHr5KIP.jpg" width="616"></p>
 <p>评价：★★★☆☆</p>
 <p>另一个打完《丝之歌》之后类银恶瘾犯了之后找的游戏。<br>
 游戏本身质量比较“一般”，非常的育碧：一切都不差，但是就是没足够突出的“好”。<br>
@@ -629,144 +648,40 @@
 </ul>
 <hr>
 <h1 id="öoo">《Öoo》
-</h1><p><img src="https://s2.loli.net/2025/12/01/HYOWkjedNxRLSF6.jpg"
-	width="616"
-	height="353"
-	srcset="/HYOWkjedNxRLSF6_13500065972110974822_hu_29936885edb1873c.jpg 480w, /HYOWkjedNxRLSF6_13500065972110974822_hu_6d89e3177e8b618a.jpg 1024w"
-	loading="lazy"
-	
-		alt="Öoo"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="174"
-		data-flex-basis="418px"
-	
-></p>
+</h1><p><img alt="Öoo" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/HYOWkjedNxRLSF6.jpg" width="616"></p>
 <p>评价：★★★★★</p>
 <p>无可争议的满分，唯二的短板：一是体量太小（但是这个游戏机制确实也很难填充更多的游戏体量了）；二是这破名字我每次都必须复制粘贴才能打出来。</p>
 <hr>
 <h1 id="密特罗德零点任务密特罗德融合">《密特罗德：零点任务》&amp;《密特罗德：融合》
-</h1><p><img src="https://s2.loli.net/2025/12/01/4BymnYfqx13uklj.jpg"
-	width="419"
-	height="196"
-	srcset="/4BymnYfqx13uklj_17525368480952570940_hu_2fa67ad542a13a7a.jpg 480w, /4BymnYfqx13uklj_17525368480952570940_hu_779d2bf2ac0b2442.jpg 1024w"
-	loading="lazy"
-	
-		alt="Metroid: Zero Mission"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="213"
-		data-flex-basis="513px"
-	
-> <img src="https://s2.loli.net/2025/12/01/3LrdkfUVYuWtzXH.jpg"
-	width="419"
-	height="196"
-	srcset="/3LrdkfUVYuWtzXH_61135214247604835_hu_c27a85e9a40fe3d3.jpg 480w, /3LrdkfUVYuWtzXH_61135214247604835_hu_a0512d04211a44d2.jpg 1024w"
-	loading="lazy"
-	
-		alt="Metroid Fusion"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="213"
-		data-flex-basis="513px"
-	
-></p>
+</h1><p><img alt="Metroid: Zero Mission" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="196" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/4BymnYfqx13uklj.jpg" width="419"> <img alt="Metroid Fusion" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="196" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/3LrdkfUVYuWtzXH.jpg" width="419"></p>
 <p>评价：★★★★☆</p>
 <p>其中中间还隔了一个，但是都是考古 GBA 上的就放一起了。<br>
 基本上除了时间太早系统偏老之外没什么缺点。个人体验上来说零点任务的地图设计我会更喜欢一些，更有银恶那种大地图的感觉；融合的地图设计相对差不少，地图都是独立的，通过一个空间站中转连起来。</p>
 <hr>
 <h1 id="奥伯拉丁的回归">《奥伯拉丁的回归》
-</h1><p><img src="https://s2.loli.net/2025/12/08/ZotSKhTRAPawMDd.jpg"
-	width="616"
-	height="353"
-	srcset="/ZotSKhTRAPawMDd_11608205852655817196_hu_8b968710f96533a8.jpg 480w, /ZotSKhTRAPawMDd_11608205852655817196_hu_e82c0b9896aa5840.jpg 1024w"
-	loading="lazy"
-	
-		alt="Return of the Obra Dinn"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="174"
-		data-flex-basis="418px"
-	
-></p>
+</h1><p><img alt="Return of the Obra Dinn" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/ZotSKhTRAPawMDd.jpg" width="616"></p>
 <p>评价：★★★★☆</p>
 <p>非常扎实的推理游戏。画面风格算特色但对某些人来说也算缺点；难度曲线总体还可以，但是部分身份的推理又有点刁钻；故事上中规中矩，但如果抱着很高的期望来看会觉得差口气</p>
 <hr>
 <h1 id="密特罗德生存恐惧">《密特罗德：生存恐惧》
-</h1><p><img src="https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png"
-	width="920"
-	height="430"
-	srcset="/EXnWC7s6gGTLZiS_14837073161747700975_hu_e395a826648a53e.png 480w, /EXnWC7s6gGTLZiS_14837073161747700975_hu_41424ff84a9c0349.png 1024w"
-	loading="lazy"
-	
-		alt="Metroid Dread"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="213"
-		data-flex-basis="513px"
-	
-></p>
+</h1><p><img alt="Metroid Dread" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png" srcset="/EXnWC7s6gGTLZiS_14837073161747700975_hu_af9a5ddfbaea9d34.png 800w, https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png 920w" width="920"></p>
 <p>评价：★★★★★</p>
 <p>现代化改造下的密特罗德，手感比 GBA 上的两作好了很多，比起当年玩的 3DS 上的萨姆斯归来也好不少。地图设计、BOSS 战设计更是没的说。比起虽然我更喜欢一些但估计是等不到续作的恶魔城，密特罗德的正统续作还是可以期待一下吧。</p>
 <hr>
 <h1 id="金偶像谜案">《金偶像谜案》
-</h1><p><img src="https://s2.loli.net/2025/12/08/aRdofHXMVzGqSYT.jpg"
-	width="616"
-	height="353"
-	srcset="/aRdofHXMVzGqSYT_15510916993599403476_hu_f42e4d0d054e94df.jpg 480w, /aRdofHXMVzGqSYT_15510916993599403476_hu_65d6f16c6bfebac3.jpg 1024w"
-	loading="lazy"
-	
-		alt="The Case of the Golden Idol"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="174"
-		data-flex-basis="418px"
-	
-></p>
+</h1><p><img alt="The Case of the Golden Idol" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/aRdofHXMVzGqSYT.jpg" width="616"></p>
 <p>评价：★★★★★</p>
 <p>奥伯拉丁的回归评论区里推荐的，玩完之后确实能感觉到是同一种类的<del>替身</del>游戏。虽然戏称选词填空模拟器，但是要是不给选项直接让你自己填那不是当场暴毙么。<br>
 个人感觉谜题难度设计比奥伯拉丁好一些，至少我能在全程无攻略的情况下打完并且基本没有瞎蒙的情况；谜题类型上因为是章节/关卡制，所以可以在选词填空的大框架上做出很多种变化，相比单纯的推理身份、推理死因之外会更丰富一些；故事上因为时间跨度大所以也有比较充足的舞台空间去讲一个更完整的故事。</p>
 <hr>
 <h1 id="蝙蝠侠阿卡姆之城">《蝙蝠侠：阿卡姆之城》
-</h1><p><img src="https://s2.loli.net/2025/12/12/jUbsnX9y2C6if3q.jpg"
-	width="460"
-	height="215"
-	srcset="/jUbsnX9y2C6if3q_4826053806080864586_hu_a14ed49a81022429.jpg 480w, /jUbsnX9y2C6if3q_4826053806080864586_hu_7ff4be73ac179dd8.jpg 1024w"
-	loading="lazy"
-	
-		alt="Batman: Arkham City"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="213"
-		data-flex-basis="513px"
-	
-></p>
+</h1><p><img alt="Batman: Arkham City" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="215" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/12/jUbsnX9y2C6if3q.jpg" width="460"></p>
 <p>评价：★★★★★</p>
 <p>漫改游戏的天花板系列，那还有啥好说的。<br>
 小丑的刻画比初代要好，比阿卡姆骑士也好一些（毕竟阿卡姆骑士真·小丑已经没了，只是“活”在老爷脑袋里）。如果把起源剧情也算进来的话，小丑一直都没想通老爷为什么不杀他，一直都在以“我知道你 Batman 不会杀我”为前提搞事情，然后真的自己作死作到死亡边缘了反而不敢赌老爷真的会去救他结果害死自己了。这下小丑真小丑了。</p>
 <hr>
 <h1 id="塞尔达传说智慧的再现">《塞尔达传说：智慧的再现》
-</h1><p><img src="https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp"
-	width="1280"
-	height="720"
-	srcset="/wcXkf6IqLEr5e2o_206728368684409251_hu_7ec946819b68c914.webp 480w, /wcXkf6IqLEr5e2o_206728368684409251_hu_d6f92e750e53065c.webp 1024w"
-	loading="lazy"
-	
-		alt="智慧的再现"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="177"
-		data-flex-basis="426px"
-	
-></p>
+</h1><p><img alt="智慧的再现" class="gallery-image" data-flex-basis="426px" data-flex-grow="177" height="720" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp" srcset="/wcXkf6IqLEr5e2o_206728368684409251_hu_682013b8d3fe32d6.webp 800w, https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp 1280w" width="1280"></p>
 <p>评价：★★★★★</p>
 <p>夭寿啦，塞尔达传说主角竟然真的是塞尔达啦。<br>
 时隔十余年 2D 塞尔达的非重制新作，仍然是任天堂级别的顶级的创意。</p>
@@ -774,7 +689,7 @@
 </section>
 
 
-    <footer class="article-footer">
+    <footer class="article-meta article-footer">
     
     <section class="article-tags">
         
@@ -784,7 +699,7 @@
 
 
     
-    <section class="article-copyright">
+    <section class="article-copyright inline-meta">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -796,7 +711,7 @@
         <span>版权声明：本文为 CBC 原创，依据 <a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank" rel="noopener"
     >CC BY-NC-SA 4.0</a> 许可证进行授权，转载请附上出处链接及本声明。</span>
     </section>
-    <section class="article-lastmod">
+    <section class="article-lastmod inline-meta">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -806,7 +721,7 @@
 
 
         <span>
-            最后更新于 2025/12/12 14:08:41
+             2025/12/12 14:08:41
         </span>
     </section></footer>
 
@@ -818,15 +733,14 @@
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
             
                 
 <article class="">
     <a href="/p/cbc-%E7%9A%84%E6%B8%B8%E6%88%8F/%E4%B9%A6%E7%B1%8D/%E7%94%B5%E5%BD%B1%E5%A4%A7%E5%A5%96/">
-        
         
 
         <div class="article-details">
@@ -834,31 +748,26 @@
         </div>
     </a>
 </article>
-
             
                 
 <article class="has-image">
     <a href="/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://s2.loli.net/2025/10/16/2mgKAjWINRY16MO.png" loading="lazy" data-key="" data-hash="https://s2.loli.net/2025/10/16/2mgKAjWINRY16MO.png"/>
-                
-            </div>
+        <div class="article-image">
+            <img alt="Featured image of post 游戏记录 恶魔城：月下夜想曲" height="150" loading="lazy" src="/2mgKAjWINRY16MO_873620166308903543_hu_5a2bbaa184c8970b.png" srcset="/2mgKAjWINRY16MO_873620166308903543_hu_5a2bbaa184c8970b.png 1x, /2mgKAjWINRY16MO_873620166308903543_hu_afeeff9c9cab455b.png 2x" width="250">
+
+        </div>
         
 
-        <div class="article-details">
+        <div class="article-details"style="background: linear-gradient(0deg, #d2cab980 0%, #2f2b25C0 100%);">
             <h2 class="article-title">游戏记录 恶魔城：月下夜想曲</h2>
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/p/%E6%BD%9C%E4%BC%8F-ign-%E4%B8%AD%E5%9B%BD%E5%A4%9A%E5%B9%B4%E5%8F%AA%E4%B8%BA%E5%8F%91%E8%BF%99%E4%B8%AA%E8%A7%86%E9%A2%91/">
-        
         
 
         <div class="article-details">
@@ -866,45 +775,38 @@
         </div>
     </a>
 </article>
-
             
                 
 <article class="has-image">
     <a href="/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E7%A2%B3%E9%85%B8%E5%8D%B1%E6%9C%BA/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://s2.loli.net/2024/09/18/klZ9V7iQcPSvFKD.jpg" loading="lazy" data-key="" data-hash="https://s2.loli.net/2024/09/18/klZ9V7iQcPSvFKD.jpg"/>
-                
-            </div>
+        <div class="article-image">
+            <img alt="Featured image of post 游戏记录 碳酸危机" height="150" loading="lazy" src="/klZ9V7iQcPSvFKD_17278875496322864482_hu_10445dfb4c4b8849.jpg" srcset="/klZ9V7iQcPSvFKD_17278875496322864482_hu_10445dfb4c4b8849.jpg 1x" width="250">
+
+        </div>
         
 
-        <div class="article-details">
+        <div class="article-details"style="background: linear-gradient(0deg, #e1c3ce80 0%, #282a50C0 100%);">
             <h2 class="article-title">游戏记录 碳酸危机</h2>
         </div>
     </a>
 </article>
-
             
                 
 <article class="has-image">
     <a href="/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%9F%BA%E5%9B%A0%E7%89%B9%E5%B7%A5/">
         
-        
-            <div class="article-image">
-                
-                    <img src="https://s2.loli.net/2024/08/27/xKLu8GElzYetCgW.jpg" loading="lazy" data-key="" data-hash="https://s2.loli.net/2024/08/27/xKLu8GElzYetCgW.jpg"/>
-                
-            </div>
+        <div class="article-image">
+            <img alt="Featured image of post 游戏记录 基因特工" height="150" loading="lazy" src="/xKLu8GElzYetCgW_5855531402273631949_hu_c1d330728930da28.jpg" srcset="/xKLu8GElzYetCgW_5855531402273631949_hu_c1d330728930da28.jpg 1x" width="250">
+
+        </div>
         
 
-        <div class="article-details">
+        <div class="article-details"style="background: linear-gradient(0deg, #68bec280 0%, #c4c9bdC0 100%);">
             <h2 class="article-title">游戏记录 基因特工</h2>
         </div>
     </a>
 </article>
-
             
         </div>
     </div>
@@ -923,99 +825,47 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         <br />
+        
     </section>
 </footer>
 
 
     
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
     
-    <div class="pswp__bg"></div>
+    if (shouldLoad) {
+        gallery(articleContent);
 
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
     
-    <div class="pswp__scroll-wrap">
 
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
+        </main>
     </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
     
-
-            </main>
-        </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.e00e8d39eda01199cae4ced3cd9a18c9f3ac8e19123c97ca20c2f4471dd590ea.js" defer></script>
-
+<script type="text/javascript" src="/ts/main.2a0aa02bad195b9626887a16d69201f8c73439befedb08b0bb79d0488ed5514b.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
@@ -1027,5 +877,7 @@
 </script>
 
 
-    </body>
+
+</body>
+
 </html>

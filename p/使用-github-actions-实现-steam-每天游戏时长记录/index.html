@@ -1,61 +1,76 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr"
-    style="background: #f5f5fa;"
+
+<html lang="zh-cn" dir="ltr" style="background: #f5f5fa;"
     data-scheme="light">
-    <head>
-        
-        <script>
-            (function() {
-                var html = document.documentElement;
-                var colorSchemeKey = 'StackColorScheme';
-                var colorSchemeItem = localStorage.getItem(colorSchemeKey);
-                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
-                var bgColor = isDark ? '#303030' : '#f5f5fa';
-                html.dataset.scheme = isDark ? 'dark' : 'light';
-                html.style.background = bgColor;
-                window.__themeBackground = bgColor;
-                window.__themeDark = isDark;
-            })();
-        </script>
-        
-        <style id="loading-overlay-style">
-            #page-loading-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 99999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+
+<head>
+    
+    <script>
+        (function () {
+            var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
+            if (tocCollapsed === 'true') {
+                document.documentElement.classList.add('toc-preload-collapsed');
             }
-             
-            #page-loading-overlay::after {
-                content: '';
-                width: 60px;
-                height: 60px;
-                border: 5px solid rgba(0, 0, 0, 0.1);
-                border-top-color: #34495e;
-                border-radius: 50%;
-                animation: __loading_spin 0.8s linear infinite;
-                opacity: 0;
-                transition: opacity 200ms ease;
+        })();
+    </script>
+    
+    <script>
+        (function () {
+            var html = document.documentElement;
+            var colorSchemeKey = 'StackColorScheme';
+            var colorSchemeItem = localStorage.getItem(colorSchemeKey);
+            var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+            var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
+            var bgColor = isDark ? '#303030' : '#f5f5fa';
+            html.dataset.scheme = isDark ? 'dark' : 'light';
+            html.style.background = bgColor;
+            window.__themeBackground = bgColor;
+            window.__themeDark = isDark;
+        })();
+    </script>
+    
+    <style id="loading-overlay-style">
+        #page-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+         
+        #page-loading-overlay::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #34495e;
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            opacity: 0;
+            transition: opacity 200ms ease;
+        }
+
+        #page-loading-overlay.show-spinner::after {
+            opacity: 1;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
             }
-            #page-loading-overlay.show-spinner::after {
-                opacity: 1;
-            }
-            @keyframes __loading_spin {
-                to { transform: rotate(360deg); }
-            }
-        </style><meta charset='utf-8'>
+        }
+    </style><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update\n优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长\n">
 <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 
-<link rel="stylesheet" href="/scss/style.min.9405df568ce3547d26f7fd4cd4cc7e8b8b63d41ca915c0c3c14e68534a2b553c.css">
+<link rel="stylesheet" href="/scss/style.min.e16164c6a84b59ca0977b301a9ca173cf3eeb7c3ebac7636e196da317e1a8235.css">
 <script>
     (function() {
         
@@ -203,36 +218,37 @@
         }
       </script>
 
-    </head>
-    <body class="
+</head>
+
+<body class="
     article-page
     " style="background: #f5f5fa;">
-        
-        <div id="page-loading-overlay"></div>
-        <script>
-            (function() {
-                var overlay = document.getElementById('page-loading-overlay');
-                var bgColor = window.__themeBackground || '#f5f5fa';
-                var isDark = window.__themeDark;
-                
-                overlay.style.background = bgColor;
-                
-                document.body.style.background = bgColor;
-                
-                if (isDark) {
-                    var style = document.getElementById('loading-overlay-style');
-                    style.textContent = style.textContent
-                        .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
-                        .replace('#34495e', '#ecf0f1');
+    
+    <div id="page-loading-overlay"></div>
+    <script>
+        (function () {
+            var overlay = document.getElementById('page-loading-overlay');
+            var bgColor = window.__themeBackground || '#f5f5fa';
+            var isDark = window.__themeDark;
+            
+            overlay.style.background = bgColor;
+            
+            document.body.style.background = bgColor;
+            
+            if (isDark) {
+                var style = document.getElementById('loading-overlay-style');
+                style.textContent = style.textContent
+                    .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
+                    .replace('#34495e', '#ecf0f1');
+            }
+            
+            window.__spinnerTimer = setTimeout(function () {
+                if (overlay) {
+                    overlay.classList.add('show-spinner');
                 }
-                
-                window.__spinnerTimer = setTimeout(function() {
-                    if (overlay) {
-                        overlay.classList.add('show-spinner');
-                    }
-                }, 300);
-            })();
-        </script>
+            }, 300);
+        })();
+    </script>
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -256,15 +272,13 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
     <header>
-        
-            
         
         
         <div class="site-meta">
@@ -276,7 +290,7 @@
                 <li>
                     <a 
                         href='https://github.com/cbconne'
-                        target="_blank"
+                        
                         title="GitHub"
                         rel="me"
                     >
@@ -297,7 +311,7 @@
                 <li>
                     <a 
                         href='mailto:770663964@qq.com'
-                        target="_blank"
+                        
                         title="Email"
                         rel="me"
                     >
@@ -325,8 +339,6 @@
         <li >
             <a href='/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="5 12 3 12 12 3 21 12 19 12" />
@@ -344,8 +356,6 @@
         
         <li >
             <a href='/archives/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -365,8 +375,6 @@
         <li >
             <a href='/search/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="10" cy="10" r="7" />
@@ -384,8 +392,6 @@
         <li >
             <a href='/%E9%93%BE%E6%8E%A5/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
@@ -402,8 +408,6 @@
         
         <li >
             <a href='/%E5%85%B3%E4%BA%8E/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -439,7 +443,7 @@
 
 
 
-                        <span>暗色模式</span>
+                        <span></span>
                     </li>
                 
             </ol>
@@ -451,9 +455,9 @@
         
             
                 
-    <section class="widget archives toc-widget">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<section class="widget archives toc-widget">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -463,11 +467,12 @@
 
 
 
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
+    </div>
+    <h2 class="widget-title section-title"></h2>
+
+    <div class="widget--toc">
+        <nav class="toc-nav" id="TableOfContents">
+            
   <ul>
     <li><a href="#背景说明">背景说明</a></li>
     <li><a href="#具体实现">具体实现</a>
@@ -488,17 +493,17 @@
     </li>
     <li><a href="#最终效果">最终效果</a></li>
   </ul>
-</nav>
-        </div>
-    </section>
 
+        </nav>
+    </div>
+</section>
 
             
         
     </aside>
 
 
-            <main class="main full-width">
+        <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -506,7 +511,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" style="background-color: #158bb8; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/"
+            style="background-color: #158bb8; color: #fff;">
             技术笔记
         </a>
         
@@ -525,9 +534,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -537,12 +550,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2024/09/18 12:18:47</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2024-09-18T12:18:47&#43;08:00'>2024/09/18 12:18:47</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -552,10 +563,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 10 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -568,20 +580,61 @@
             <time class="article-words">
                 字数: 4945
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
 
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li><a href="#背景说明">背景说明</a></li>
+    <li><a href="#具体实现">具体实现</a>
+      <ul>
+        <li><a href="#steam-api-寻找">Steam API 寻找</a></li>
+        <li><a href="#游戏时长获取方案">游戏时长获取方案</a></li>
+        <li><a href="#定时脚本执行及数据保存方案">定时脚本执行及数据保存方案</a></li>
+        <li><a href="#图表绘制">图表绘制</a></li>
+      </ul>
+    </li>
+    <li><a href="#代码">代码</a>
+      <ul>
+        <li><a href="#游戏时长获取">游戏时长获取</a></li>
+        <li><a href="#保存图表">保存图表</a></li>
+        <li><a href="#数据库初始化">数据库初始化</a></li>
+        <li><a href="#github-actions-yaml-配置">GitHub Actions yaml 配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#最终效果">最终效果</a></li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
+
     <section class="article-content">
     
     
+    
     <blockquote>
-<p><strong><em>2024-10-09 update</em></strong><br>
+        <p><strong><em>2024-10-09 update</em></strong><br>
 补充离线游戏时长</p>
 <p><strong><em>2025-06-19 update</em></strong><br>
 新增图表绘制</p>
@@ -591,7 +644,8 @@
 优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长</p>
 <p><strong><em>2026-01-19 update</em></strong><br>
 逻辑及代码实现调整较多，使用 AI 更新文档，<strong>暂未校对，仅作参考</strong></p>
-</blockquote>
+
+    </blockquote>
 <p>todo：</p>
 <span class="begin-task-list"></span>
 <ul>
@@ -611,31 +665,39 @@
 最后还是找到了一个第三方提供的 API 文档：<a class="link" href="https://steamapi.xpaw.me/"  target="_blank" rel="noopener"
     >Steam Web API Documentation</a>（GitHub 地址：<a class="link" href="https://github.com/xPaw/SteamWebAPIDocumentation"  target="_blank" rel="noopener"
     >SteamWebAPIDocumentation</a>），看说明来源是通过 Steam 官方提供的 API 来获取所有支持的 API。</p>
-<blockquote>
-<p>This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&rsquo;s protobuf files.</p>
-</blockquote>
+
+    <blockquote>
+        <p>This is a static page that is automatically generated from GetSupportedAPIList using public and publisher keys. Additionally service methods are parsed from Steam client&rsquo;s protobuf files.</p>
+
+    </blockquote>
 <p>但是实际测下来，即使是 Steam 官方接口返回的接口调用信息也是不准确的，如：GetOwnedGames 接口显示可以通过 appids*filter 来筛选需要查询的游戏，但是实际不生效，然后看到 <a class="link" href="https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp*.28v0001.29"  target="_blank" rel="noopener"
     >Steam Web API</a> 里又写到：</p>
-<blockquote>
-<p>appids_filter<br>
+
+    <blockquote>
+        <p>appids_filter<br>
 You can optionally filter the list to a set of appids. Note that these cannot be passed as a URL parameter, instead you must use the JSON format described in Steam_Web_API#Calling_Service_interfaces. The expected input is an array of integers (in JSON: &ldquo;appids_filter: [ 440, 500, 550 ]&rdquo; )</p>
-</blockquote>
+
+    </blockquote>
 <p>和</p>
-<blockquote>
-<p>Calling Service interfaces<br>
+
+    <blockquote>
+        <p>Calling Service interfaces<br>
 There is a new style of WebAPI which we refer to as &ldquo;Services&rdquo;. They function in many ways like the WebAPIs you are used to, the main difference being that all service APIs will accept their arguments as a single JSON blob in addition to taking them as GET or POST parameters. To pass in data as JSON, invoke the webapi with a parameter set like:<br>
 <code>?key=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX&amp;format=json&amp;input_json={steamid: 76561197972495328}</code><br>
 Note that the JSON will need to be URL-encoded. The &ldquo;key&rdquo; and &ldquo;format&rdquo; fields should still be passed as separate parameters, as before. POST requests are supported as well.<br>
 You can identify if a WebAPI is a &ldquo;Service&rdquo; by the name of the interface; if it ends in &ldquo;Service&rdquo; like &ldquo;IPlayerService&rdquo;, then it supports this additional method of passing parameter data. Some Service methods have parameters that are more complex structures and require this different input format.</p>
-</blockquote>
+
+    </blockquote>
 <p>但是实际上都是在扯淡……按照文档说明的规则去写同样调不通。<br>
 查下来有个已经归档的<a class="link" href="https://github.com/pfroud/steam-playtime-log/blob/main/log_playtime.py"  target="_blank" rel="noopener"
     >项目</a>里的说法是，参考 <a class="link" href="https://wiki.teamfortress.com/wiki/WebAPI/GetOwnedGames#Method-specific_parameters"  target="_blank" rel="noopener"
     >TF2 wiki</a> 内的说法，需要使用以下格式：</p>
-<blockquote>
-<p>appids_filter (Optional) (uint32)<br>
+
+    <blockquote>
+        <p>appids_filter (Optional) (uint32)<br>
 Restricts results to the appids passed here. This is an array and should be passed like <code>appids_filter[0]=440&amp;appids_filter[1]=570</code></p>
-</blockquote>
+
+    </blockquote>
 <p>经过验证以上方式调用是有效的。<br>
 同时，文档里说可以使用 <code>language</code> 参数来修改返回的 appinfo 的语言，这个实测下来也无效——或者这个参数非常偏门，不是 zh-CN、Chinese 之类正常逻辑能想到的。好在也不太有这个需求&amp;有中文信息的游戏也不多。</p>
 <h2 id="游戏时长获取方案">游戏时长获取方案
@@ -644,12 +706,14 @@ Restricts results to the appids passed here. This is an array and should be pass
 验证过程中发现该方案的问题：<code>GetOwnedGames</code> 如同字面意思，只能返回“Owned”的游戏，而 Steam 最近的新家庭共享功能可以让我玩到我没有购买但是家庭组内其他成员购买的游戏。在这种情况下，通过 <code>GetOwnedGames</code> 获取到的信息中是缺少这些游戏的。<br>
 最后思考下来的解决方案是仍然需要使用 <code>GetRecentlyPlayedGames</code> 来进行补充，该接口能够正常显示两周内玩过的家庭共享游戏信息，包括总游戏时长。因此，在使用 <code>GetOwnedGames</code> 获取数据后，再通过 <code>GetRecentlyPlayedGames</code> 获取数据并对其中缺失的游戏进行补充，即可有效获取到所有游戏时长信息。<br>
 随后的事情就比较简单了，用今天的数据和前一天的数据做差值计算，即可得到当天的各游戏时长；如果存在昨天不存在的游戏数据说明是今天第一次玩的，直接用现有的游戏总时长即可。</p>
-<blockquote>
-<p><del>2025/05/27 update</del></p>
+
+    <blockquote>
+        <p><del>2025/05/27 update</del></p>
 <p><del>由于 <code>GetRecentlyPlayedGames</code> 仅获取两周内游戏时长，因此若家庭组内游戏超过两周未游玩，下次游玩时则会错误将总时长作为当天游戏时长，该情况下处理逻辑暂未实现，需要手动校准。</del></p>
 <p>2025/12/16 update<br>
 已优化</p>
-</blockquote>
+
+    </blockquote>
 <h2 id="定时脚本执行及数据保存方案">定时脚本执行及数据保存方案
 </h2><p>一开始其实考虑过在自己买的云服务器上定时运行脚本，但是想了想后面云服务器到期大概率不太会续了，即使要续大概率也会购买另一家云厂商的，到时候进行程序&amp;数据迁移会比较麻烦。<br>
 最后考虑了多种方案还是决定白嫖 GitHub 的资源，使用 GitHub Actions 来实现定时的脚本执行，并使用 DuckDB 嵌入式数据库保存数据到 GitHub 仓库。<br>
@@ -1911,53 +1975,14 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h1 id="最终效果">最终效果
-</h1><p><del><img src="https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png"
-	width="2674"
-	height="580"
-	srcset="/oRIfrMwN3pxmeld_14391652306906845632_hu_f664598b7935d743.png 480w, /oRIfrMwN3pxmeld_14391652306906845632_hu_f70f09ea24fe2532.png 1024w"
-	loading="lazy"
-	
-		alt="数据列表(outdated)"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="461"
-		data-flex-basis="1106px"
-	
-></del></p>
-<p><img src="https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png"
-	width="1358"
-	height="224"
-	srcset="/PbhgBxOoL52euXr_4882395254979787627_hu_fbcc3d99561d6512.png 480w, /PbhgBxOoL52euXr_4882395254979787627_hu_2c2a04fe16b2ab33.png 1024w"
-	loading="lazy"
-	
-		alt="数据内容"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="606"
-		data-flex-basis="1455px"
-	
-></p>
-<p><img src="https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png"
-	width="1702"
-	height="1466"
-	srcset="/CwzL5TefP2os7Bj_2028340218531195635_hu_158e42b131a027d5.png 480w, /CwzL5TefP2os7Bj_2028340218531195635_hu_b03f4e433cca0e64.png 1024w"
-	loading="lazy"
-	
-		alt="图表展示"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="116"
-		data-flex-basis="278px"
-	
-></p>
+</h1><p><del><img alt="数据列表(outdated)" class="gallery-image" data-flex-basis="1106px" data-flex-grow="461" data-title-escaped="数据列表" height="580" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png" srcset="/oRIfrMwN3pxmeld_14391652306906845632_hu_dc5a2bd7893dc489.png 800w, /oRIfrMwN3pxmeld_14391652306906845632_hu_829df7c39f65af42.png 1600w, /oRIfrMwN3pxmeld_14391652306906845632_hu_f256a15d962f1688.png 2400w, https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png 2674w" title="数据列表" width="2674"></del></p>
+<p><img alt="数据内容" class="gallery-image" data-flex-basis="1455px" data-flex-grow="606" data-title-escaped="数据内容" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png" srcset="/PbhgBxOoL52euXr_4882395254979787627_hu_9cecb34c42ae034d.png 800w, https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png 1358w" title="数据内容" width="1358"></p>
+<p><img alt="图表展示" class="gallery-image" data-flex-basis="278px" data-flex-grow="116" data-title-escaped="图表展示" height="1466" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png" srcset="/CwzL5TefP2os7Bj_2028340218531195635_hu_210289e28bd8a359.png 800w, /CwzL5TefP2os7Bj_2028340218531195635_hu_d39a8ff2024e97d6.png 1600w, https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png 1702w" title="图表展示" width="1702"></p>
 
 </section>
 
 
-    <footer class="article-footer">
+    <footer class="article-meta article-footer">
     
     <section class="article-tags">
         
@@ -1971,7 +1996,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 
 
     
-    <section class="article-copyright">
+    <section class="article-copyright inline-meta">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1983,7 +2008,7 @@ Restricts results to the appids passed here. This is an array and should be pass
         <span>版权声明：本文为 CBC 原创，依据 <a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank" rel="noopener"
     >CC BY-NC-SA 4.0</a> 许可证进行授权，转载请附上出处链接及本声明。</span>
     </section>
-    <section class="article-lastmod">
+    <section class="article-lastmod inline-meta">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1993,7 +2018,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 
 
         <span>
-            最后更新于 2026/01/19 14:25:27
+             2026/01/19 14:25:27
         </span>
     </section></footer>
 
@@ -2005,15 +2030,14 @@ Restricts results to the appids passed here. This is an array and should be pass
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
             
                 
 <article class="">
     <a href="/p/hugo-github-actions-github-pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%A1%B5%E9%9D%A2/">
-        
         
 
         <div class="article-details">
@@ -2021,12 +2045,10 @@ Restricts results to the appids passed here. This is an array and should be pass
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/p/%E9%80%92%E5%BD%92%E6%96%B9%E5%BC%8F%E8%AE%A1%E7%AE%97-summel-%E7%AD%94%E6%A1%88/">
-        
         
 
         <div class="article-details">
@@ -2034,12 +2056,10 @@ Restricts results to the appids passed here. This is an array and should be pass
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/p/%E4%BD%BF%E7%94%A8-spring-integration-%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8E-redis-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E4%BB%A5%E5%8F%8A%E8%B8%A9%E5%9D%91/">
-        
         
 
         <div class="article-details">
@@ -2047,7 +2067,6 @@ Restricts results to the appids passed here. This is an array and should be pass
         </div>
     </a>
 </article>
-
             
         </div>
     </div>
@@ -2066,99 +2085,47 @@ Restricts results to the appids passed here. This is an array and should be pass
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         <br />
+        
     </section>
 </footer>
 
 
     
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
     
-    <div class="pswp__bg"></div>
+    if (shouldLoad) {
+        gallery(articleContent);
 
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
     
-    <div class="pswp__scroll-wrap">
 
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
+        </main>
     </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
     
-
-            </main>
-        </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.e00e8d39eda01199cae4ced3cd9a18c9f3ac8e19123c97ca20c2f4471dd590ea.js" defer></script>
-
+<script type="text/javascript" src="/ts/main.2a0aa02bad195b9626887a16d69201f8c73439befedb08b0bb79d0488ed5514b.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
@@ -2170,5 +2137,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 </script>
 
 
-    </body>
+
+</body>
+
 </html>

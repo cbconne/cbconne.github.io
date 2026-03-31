@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Games on CBC&#39;s Site</title>
         <link>https://cbconne.github.io/game/</link>
@@ -8,407 +7,40 @@
         <language>zh-cn</language>
         <copyright>CBC</copyright>
         <lastBuildDate>Fri, 12 Dec 2025 14:08:41 +0800</lastBuildDate><atom:link href="https://cbconne.github.io/game/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>最近打完的游戏</title>
-        <link>https://cbconne.github.io/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/</link>
-        <pubDate>Mon, 01 Dec 2025 14:38:54 +0800</pubDate>
-        
-        <guid>https://cbconne.github.io/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/</guid>
-        <description>&lt;h1 id=&#34;背景碎碎念&#34;&gt;背景碎碎念
-&lt;/h1&gt;&lt;p&gt;虽然说是说“最近”打完的游戏，但是实际上统计的是《丝之歌》缓解了我的电子 ED 之后到现在（2025/12/01）中间打通的游戏，主要有这么几个类型：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;之前已经玩了但是没有打通&lt;/li&gt;
-&lt;li&gt;之前已经买了但是没有玩&lt;/li&gt;
-&lt;li&gt;这段时间刚买并且打通&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;因为包含的游戏还蛮多的，因此不像单篇那样详细解释了，没什么好说的就一笔带过、有什么想提两句的就说一说。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;空洞骑士丝之歌&#34;&gt;《空洞骑士：丝之歌》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg&#34;
-	width=&#34;920&#34;
-	height=&#34;430&#34;
-	srcset=&#34;https://cbconne.github.io/xwSa1yrLiRcEqkB_1208571101288218070_hu_cc26f0d4fe842287.jpg 480w, https://cbconne.github.io/xwSa1yrLiRcEqkB_1208571101288218070_hu_d3c24dc8bbf4d67.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Hollow Knight: Silksong&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;213&#34;
-		data-flex-basis=&#34;513px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★★&lt;/p&gt;
-&lt;p&gt;纯主观评价，不具备可参考性。事实上发售后 99% 被喷的点我都能接受并不觉得差；相反很多我觉得真的很差的东西被喷的反而很少。&lt;/p&gt;
-&lt;p&gt;所以很多东西还是得信自己。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;恶魔城月下夜想曲&#34;&gt;《恶魔城：月下夜想曲》
-&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/&#34; &gt;单独写过了。&lt;/a&gt;&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;波斯王子失落的王冠&#34;&gt;《波斯王子：失落的王冠》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/01/4jSVtXampHr5KIP.jpg&#34;
-	width=&#34;616&#34;
-	height=&#34;353&#34;
-	srcset=&#34;https://cbconne.github.io/4jSVtXampHr5KIP_16003044382596888226_hu_fe4548dbb6eed55d.jpg 480w, https://cbconne.github.io/4jSVtXampHr5KIP_16003044382596888226_hu_4cbd9c4298f341ac.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Prince of Persia The Lost Crown&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;174&#34;
-		data-flex-basis=&#34;418px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★☆☆&lt;/p&gt;
-&lt;p&gt;另一个打完《丝之歌》之后类银恶瘾犯了之后找的游戏。&lt;br&gt;
-游戏本身质量比较“一般”，非常的育碧：一切都不差，但是就是没足够突出的“好”。&lt;br&gt;
-亮点是在“怎么在现代通过游戏系统上的优化来提高类银恶游戏的游戏体验”这个方面这个游戏可以说做到满分了：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;主线上的跳跳乐可跳过——有效避免了《丝之歌》中让部分玩家破防的情况&lt;/li&gt;
-&lt;li&gt;地图标记可截图——提高了标记的信息量，避免了类银恶中常见的“当时这里没走下去是因为缺少啥能力来着？”的问题。&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;öoo&#34;&gt;《Öoo》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/01/HYOWkjedNxRLSF6.jpg&#34;
-	width=&#34;616&#34;
-	height=&#34;353&#34;
-	srcset=&#34;https://cbconne.github.io/HYOWkjedNxRLSF6_13500065972110974822_hu_29936885edb1873c.jpg 480w, https://cbconne.github.io/HYOWkjedNxRLSF6_13500065972110974822_hu_6d89e3177e8b618a.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Öoo&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;174&#34;
-		data-flex-basis=&#34;418px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★★&lt;/p&gt;
-&lt;p&gt;无可争议的满分，唯二的短板：一是体量太小（但是这个游戏机制确实也很难填充更多的游戏体量了）；二是这破名字我每次都必须复制粘贴才能打出来。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;密特罗德零点任务密特罗德融合&#34;&gt;《密特罗德：零点任务》&amp;amp;《密特罗德：融合》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/01/4BymnYfqx13uklj.jpg&#34;
-	width=&#34;419&#34;
-	height=&#34;196&#34;
-	srcset=&#34;https://cbconne.github.io/4BymnYfqx13uklj_17525368480952570940_hu_2fa67ad542a13a7a.jpg 480w, https://cbconne.github.io/4BymnYfqx13uklj_17525368480952570940_hu_779d2bf2ac0b2442.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Metroid: Zero Mission&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;213&#34;
-		data-flex-basis=&#34;513px&#34;
-	
-&gt; &lt;img src=&#34;https://s2.loli.net/2025/12/01/3LrdkfUVYuWtzXH.jpg&#34;
-	width=&#34;419&#34;
-	height=&#34;196&#34;
-	srcset=&#34;https://cbconne.github.io/3LrdkfUVYuWtzXH_61135214247604835_hu_c27a85e9a40fe3d3.jpg 480w, https://cbconne.github.io/3LrdkfUVYuWtzXH_61135214247604835_hu_a0512d04211a44d2.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Metroid Fusion&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;213&#34;
-		data-flex-basis=&#34;513px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★☆&lt;/p&gt;
-&lt;p&gt;其中中间还隔了一个，但是都是考古 GBA 上的就放一起了。&lt;br&gt;
-基本上除了时间太早系统偏老之外没什么缺点。个人体验上来说零点任务的地图设计我会更喜欢一些，更有银恶那种大地图的感觉；融合的地图设计相对差不少，地图都是独立的，通过一个空间站中转连起来。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;奥伯拉丁的回归&#34;&gt;《奥伯拉丁的回归》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/08/ZotSKhTRAPawMDd.jpg&#34;
-	width=&#34;616&#34;
-	height=&#34;353&#34;
-	srcset=&#34;https://cbconne.github.io/ZotSKhTRAPawMDd_11608205852655817196_hu_8b968710f96533a8.jpg 480w, https://cbconne.github.io/ZotSKhTRAPawMDd_11608205852655817196_hu_e82c0b9896aa5840.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Return of the Obra Dinn&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;174&#34;
-		data-flex-basis=&#34;418px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★☆&lt;/p&gt;
-&lt;p&gt;非常扎实的推理游戏。画面风格算特色但对某些人来说也算缺点；难度曲线总体还可以，但是部分身份的推理又有点刁钻；故事上中规中矩，但如果抱着很高的期望来看会觉得差口气&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;密特罗德生存恐惧&#34;&gt;《密特罗德：生存恐惧》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png&#34;
-	width=&#34;920&#34;
-	height=&#34;430&#34;
-	srcset=&#34;https://cbconne.github.io/EXnWC7s6gGTLZiS_14837073161747700975_hu_e395a826648a53e.png 480w, https://cbconne.github.io/EXnWC7s6gGTLZiS_14837073161747700975_hu_41424ff84a9c0349.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Metroid Dread&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;213&#34;
-		data-flex-basis=&#34;513px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★★&lt;/p&gt;
-&lt;p&gt;现代化改造下的密特罗德，手感比 GBA 上的两作好了很多，比起当年玩的 3DS 上的萨姆斯归来也好不少。地图设计、BOSS 战设计更是没的说。比起虽然我更喜欢一些但估计是等不到续作的恶魔城，密特罗德的正统续作还是可以期待一下吧。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;金偶像谜案&#34;&gt;《金偶像谜案》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/08/aRdofHXMVzGqSYT.jpg&#34;
-	width=&#34;616&#34;
-	height=&#34;353&#34;
-	srcset=&#34;https://cbconne.github.io/aRdofHXMVzGqSYT_15510916993599403476_hu_f42e4d0d054e94df.jpg 480w, https://cbconne.github.io/aRdofHXMVzGqSYT_15510916993599403476_hu_65d6f16c6bfebac3.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;The Case of the Golden Idol&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;174&#34;
-		data-flex-basis=&#34;418px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★★&lt;/p&gt;
-&lt;p&gt;奥伯拉丁的回归评论区里推荐的，玩完之后确实能感觉到是同一种类的&lt;del&gt;替身&lt;/del&gt;游戏。虽然戏称选词填空模拟器，但是要是不给选项直接让你自己填那不是当场暴毙么。&lt;br&gt;
-个人感觉谜题难度设计比奥伯拉丁好一些，至少我能在全程无攻略的情况下打完并且基本没有瞎蒙的情况；谜题类型上因为是章节/关卡制，所以可以在选词填空的大框架上做出很多种变化，相比单纯的推理身份、推理死因之外会更丰富一些；故事上因为时间跨度大所以也有比较充足的舞台空间去讲一个更完整的故事。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;蝙蝠侠阿卡姆之城&#34;&gt;《蝙蝠侠：阿卡姆之城》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/12/jUbsnX9y2C6if3q.jpg&#34;
-	width=&#34;460&#34;
-	height=&#34;215&#34;
-	srcset=&#34;https://cbconne.github.io/jUbsnX9y2C6if3q_4826053806080864586_hu_a14ed49a81022429.jpg 480w, https://cbconne.github.io/jUbsnX9y2C6if3q_4826053806080864586_hu_7ff4be73ac179dd8.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;Batman: Arkham City&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;213&#34;
-		data-flex-basis=&#34;513px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★★&lt;/p&gt;
-&lt;p&gt;漫改游戏的天花板系列，那还有啥好说的。&lt;br&gt;
-小丑的刻画比初代要好，比阿卡姆骑士也好一些（毕竟阿卡姆骑士真·小丑已经没了，只是“活”在老爷脑袋里）。如果把起源剧情也算进来的话，小丑一直都没想通老爷为什么不杀他，一直都在以“我知道你 Batman 不会杀我”为前提搞事情，然后真的自己作死作到死亡边缘了反而不敢赌老爷真的会去救他结果害死自己了。这下小丑真小丑了。&lt;/p&gt;
-&lt;hr&gt;
-&lt;h1 id=&#34;塞尔达传说智慧的再现&#34;&gt;《塞尔达传说：智慧的再现》
-&lt;/h1&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp&#34;
-	width=&#34;1280&#34;
-	height=&#34;720&#34;
-	srcset=&#34;https://cbconne.github.io/wcXkf6IqLEr5e2o_206728368684409251_hu_7ec946819b68c914.webp 480w, https://cbconne.github.io/wcXkf6IqLEr5e2o_206728368684409251_hu_d6f92e750e53065c.webp 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;智慧的再现&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;177&#34;
-		data-flex-basis=&#34;426px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;p&gt;评价：★★★★★&lt;/p&gt;
-&lt;p&gt;夭寿啦，塞尔达传说主角竟然真的是塞尔达啦。&lt;br&gt;
-时隔十余年 2D 塞尔达的非重制新作，仍然是任天堂级别的顶级的创意。&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>游戏记录 恶魔城：月下夜想曲</title>
-        <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/</link>
-        <pubDate>Thu, 16 Oct 2025 12:16:01 +0800</pubDate>
-        
-        <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/</guid>
-        <description>&lt;img src="https://s2.loli.net/2025/10/16/2mgKAjWINRY16MO.png" alt="Featured image of post 游戏记录 恶魔城：月下夜想曲" /&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2025/10/16/JOvi2rVMwglEIj3.png&#34;
-	width=&#34;600&#34;
-	height=&#34;900&#34;
-	srcset=&#34;https://cbconne.github.io/JOvi2rVMwglEIj3_10943932568186211575_hu_eb9beef33b6fe1cf.png 480w, https://cbconne.github.io/JOvi2rVMwglEIj3_10943932568186211575_hu_7e6e0beacfbc8985.png 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;恶魔城:月下夜想曲&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;66&#34;
-		data-flex-basis=&#34;160px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;评分：9（考虑实际发售年代）/ 8~8.5（放在如今）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;评价：&lt;br&gt;
-因为之前刚打完丝之歌，实在是类银河战士恶魔城瘾上来了但是当时又没有其他什么合适的。突然想到其实恶魔城正传作品我也只玩过苍月十字架、晓月圆舞曲（未通关）、被夺走的刻印（未通关）、血污:夜之仪式（同制作人员的精神续作我也算进来吧）。既然类银河战士恶魔城代餐一时半会儿找不到，我完全可以去找正主作品。在这个基础上，月下夜想曲是无论如何也绕不过的那一款游戏。&lt;/p&gt;
-&lt;p&gt;作为第一次真正让“恶魔城”系列成为“类银河战士恶魔城”中的“恶魔城”的作品，用如今的、挑刺的眼光来看肯定还是存在问题，肯定不是“完美”的作品。至少就我个人来说，正逆城设计就值得一提：&lt;br&gt;
-大名鼎鼎的正逆城设计是在工期/成本和游戏量之间做妥协采用的一个非常巧妙的“取巧”方式这点应该都知道了。虽然不得不说这个创意确实很棒，也扩充了游戏内容，但是实际体验下来还是会从很多地方感觉到“确实是妥协下的应急措施”。在实际游玩前我以为只是地图形状倒过来——最多路线也原模原样倒过来，但是没想到基本上每个地图内的墙、地板、天花板也是原模原样直接180°转一下。确实重新认真设计工期/成本可能更高，但是简单粗暴的旋转导致逆城存在一些很“粗糙”的细节：很多非隐藏的主线路线如果不是本作有变蝙蝠这种 IMBA 的位移技能是走不了的；逆城最上方有水的地区部分地图需要起跳、变狗借用变狗之后的一点上浮才能正常点亮。&lt;/p&gt;
-&lt;p&gt;但无论如何，作为系列的第一款“非线性地图探索”的作品，能够做到这种水平的地图设计和整体完成度已经非常难得了，甚至如今也未必有多少“类银城”作品能说设计比一款比我年纪都大的作品更好。至于音乐这种原本就是跨越年代的东西，那更是一顶一的好。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
-        <title>游戏记录 碳酸危机</title>
-        <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E7%A2%B3%E9%85%B8%E5%8D%B1%E6%9C%BA/</link>
-        <pubDate>Wed, 18 Sep 2024 12:27:04 +0800</pubDate>
-        
-        <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E7%A2%B3%E9%85%B8%E5%8D%B1%E6%9C%BA/</guid>
-        <description>&lt;img src="https://s2.loli.net/2024/09/18/klZ9V7iQcPSvFKD.jpg" alt="Featured image of post 游戏记录 碳酸危机" /&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/09/18/N9OB24G3FhzLvsM.jpg&#34;
-	width=&#34;600&#34;
-	height=&#34;900&#34;
-	srcset=&#34;https://cbconne.github.io/N9OB24G3FhzLvsM_2672386895722298481_hu_285bb29f5a4136b.jpg 480w, https://cbconne.github.io/N9OB24G3FhzLvsM_2672386895722298481_hu_f29bd1d0e7babb78.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;碳酸危机&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;66&#34;
-		data-flex-basis=&#34;160px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;评分：8.5&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;ul&gt;
-&lt;li&gt;评价：
-非常优质的横版过关游戏，中规中矩的同时有着一定自己的特色。唯一的明显缺点应该是流程太短吧。&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
-        <title>游戏记录 基因特工</title>
-        <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%9F%BA%E5%9B%A0%E7%89%B9%E5%B7%A5/</link>
-        <pubDate>Wed, 04 Sep 2024 14:01:25 +0800</pubDate>
-        
-        <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%9F%BA%E5%9B%A0%E7%89%B9%E5%B7%A5/</guid>
-        <description>&lt;img src="https://s2.loli.net/2024/08/27/xKLu8GElzYetCgW.jpg" alt="Featured image of post 游戏记录 基因特工" /&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/08/27/sByQUz3EqacSYJD.jpg&#34;
-	width=&#34;616&#34;
-	height=&#34;353&#34;
-	srcset=&#34;https://cbconne.github.io/sByQUz3EqacSYJD_1665118857002700055_hu_782f86ad43ce897b.jpg 480w, https://cbconne.github.io/sByQUz3EqacSYJD_1665118857002700055_hu_30e517ec54b2ef9e.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;基因特工&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;174&#34;
-		data-flex-basis=&#34;418px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;评分：3（十分制）&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;p&gt;印象里是当年刚出就买了，然后玩了一会儿之后五年多没完了，借着 Steam Deck 带来的游戏热情下载回来重新开始玩。&lt;br&gt;
-总体评价就是，&lt;strong&gt;没买别买、买了别玩儿。&lt;/strong&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;评价：
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;剧情：&lt;br&gt;
-作为一个 RPG 游戏，剧情应该是比较重要的一部分。但是除了刚上来刚看到那些无厘头梗可能略有新意，游戏时间超过 3 小时之后就开始无聊了，&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;玩法：&lt;br&gt;
-和剧情一样，3 个小时内——或者可以再久一些——玩法还是可以吸引人的。但是到了后面，基本上就是一本“怎么把 RPG 游戏做得又臭又长”的教科书了：剧情嘛，是没有意思的；刷刷刷嘛，是没有价值的；角色成长嘛，是单调重复没什么效果的；敌人嘛，是只会堆数量的；任务嘛，翻来覆去就是那么几类的。&lt;br&gt;
-可以说，在现在这个年代，竟然还会有这么折磨的 RPG 游戏。&lt;br&gt;
-支撑我玩下去的信念有两个：一个是我习惯要玩就玩完，即使中间吃灰了很长一段时间我一般也还是会把它玩完；另一个是说服我自己，总得玩点烂游戏，否则怎么能体验得到我平时玩的好游戏优秀在哪呢？&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
-        <title>游戏记录 命运石之门: 0</title>
-        <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%91%BD%E8%BF%90%E7%9F%B3%E4%B9%8B%E9%97%A80/</link>
-        <pubDate>Thu, 22 Aug 2024 13:19:31 +0800</pubDate>
-        
-        <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%91%BD%E8%BF%90%E7%9F%B3%E4%B9%8B%E9%97%A80/</guid>
-        <description>&lt;img src="https://s2.loli.net/2024/08/22/BnWou8OKMaAYVir.jpg" alt="Featured image of post 游戏记录 命运石之门: 0" /&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/08/22/gf287zNwUAkejDC.jpg&#34;
-	width=&#34;600&#34;
-	height=&#34;900&#34;
-	srcset=&#34;https://cbconne.github.io/gf287zNwUAkejDC_8195961340096712943_hu_2f6d8c0af808ac19.jpg 480w, https://cbconne.github.io/gf287zNwUAkejDC_8195961340096712943_hu_d198e6b4342b0879.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;STEINS;GATE 0&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;66&#34;
-		data-flex-basis=&#34;160px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;黑幕覆盖部分均为涉及剧透内容，请谨慎阅读&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;评分：8.5&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;评价：&lt;/p&gt;
-&lt;p&gt;作为一个 galgame，评价游戏基本上就是评价剧情。&lt;br&gt;
-个人评分/评价肯定是比前作/本体要略逊一筹：&lt;br&gt;
-首先，因为剧情背景就是石头门本体的助手 BE 线，在此基础上本作的很多优点其实只是站在原作的肩膀上对剧情进行了进一步的补充，不考虑 0 本体依然非常完整，但是不考虑本体 0 就是一个没头没尾的故事；&lt;br&gt;
-其次，哪怕把本体的剧情考虑进来，0 的剧情也难以和本体媲美。本体的故事结构比较清晰，事实上的剧情线只有一条（助手线），其他分支结局本质上只是各个章节的 if 线。而 0 的各个分支线之间非常松散（印象里这些分支剧情实际上来源于石头门 IP 下的小说之类的其他作品），剧情之间互相独立甚至矛盾。如果没有本体的真结局设定，可以说本作的六个结局是平等的分支线。
-至于其他的一些剧情上的疑惑点就不展开了，毕竟没有严格去盘剧情线，所以不确定是我理解错误/记忆错误还是确实剧情上不太严谨了。&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;比如 A/B 线会决定由季的真实身份，但是由季在 A/B 线的分歧点之前就出场了，从这个角度看是由果及因了。当然，有世界线这种东西存在想解释肯定是能解释的。&lt;/span&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
-        <title>游戏记录 AI: 梦境档案</title>
-        <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-ai%E6%A2%A6%E5%A2%83%E6%A1%A3%E6%A1%88/</link>
-        <pubDate>Thu, 15 Aug 2024 12:40:30 +0800</pubDate>
-        
-        <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-ai%E6%A2%A6%E5%A2%83%E6%A1%A3%E6%A1%88/</guid>
-        <description>&lt;img src="https://s2.loli.net/2024/08/16/P6RIB1KmAyr7ifQ.jpg" alt="Featured image of post 游戏记录 AI: 梦境档案" /&gt;&lt;p&gt;&lt;img src=&#34;https://s2.loli.net/2024/08/16/6VIepJkzu4QBdYD.jpg&#34;
-	width=&#34;616&#34;
-	height=&#34;353&#34;
-	srcset=&#34;https://cbconne.github.io/6VIepJkzu4QBdYD_4007447248092544988_hu_b9380319c5a0e979.jpg 480w, https://cbconne.github.io/6VIepJkzu4QBdYD_4007447248092544988_hu_c6191ca719b9935c.jpg 1024w&#34;
-	loading=&#34;lazy&#34;
-	
-		alt=&#34;AI: 梦境档案&#34;
-	
-	
-		class=&#34;gallery-image&#34; 
-		data-flex-grow=&#34;174&#34;
-		data-flex-basis=&#34;418px&#34;
-	
-&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;黑幕覆盖部分均为涉及剧透内容，请谨慎阅读&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;评分：9(偏客观)~9.5(偏主观)&lt;/li&gt;
-&lt;/ul&gt;
-&lt;hr&gt;
-&lt;ul&gt;
-&lt;li&gt;评价：
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;剧情：&lt;br&gt;
-剧情上分为两部分，首先是剧情的内容和呈现剧情的结构。&lt;br&gt;
-内容方面，作为一个推理爱好者，这一方面我更关注推理部分或者说诡计部分。本作的诡计我基本满意，但是确实有着不够“推理”的部分：设定系作品的关键设定一般需要在故事开篇至少前期进行说明，以实现作者和读者的“公平”。但显然这部游戏在这方面很糟糕，直接与诡计相关的核心设定&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;交换身体&lt;/span&gt;直到后期才告知玩家，确切地说，知道这个设定的时候离完全通关就只有伪结局和真结局了。不过这部作品不是一个正儿八经侧重“推理”本身的游戏，悬疑感 &amp;gt; 公平性也无可厚非。&lt;br&gt;
-结构方面可以评价的点就更少了，对打越钢太郎 sensei 的作品略有了解知道这部作品依然是他的固有套路：不同的人物/故事分支线（大多主线/真相无关）各掺杂一些剧情线索，都打完之后有一个伪结局来一个神反转把真相初步解释清楚，之后就一个真结局进一步补充细节或者背景，然后迎来 HE。不过事实证明，在故事能够有及格线以上的质量时，这一套结构确实稳定好用。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;人物：&lt;br&gt;
-本作人物我并不喜欢——也说不上讨厌，更严格地说只是无感而已。可能是因为游戏剧情不过四五天，绝大多数人物是没有弧光可言的。有明显成长的角色比如应太和瑞希在主线剧情中又不是很重要&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;重要人物其实也有：伊达，警察到杀手再到老父亲这可太有成长了&lt;/span&gt;。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;玩法：&lt;br&gt;
-作为一个游戏，玩法也是不能绕开的。调查环节的聊天和场景交互玩法，无数有调查环节的游戏都是这样的。比较有新意的应该是 psync 环节，通过和梦境中不同的物体进行不同的互动来推进发展进行解谜，不同的选择也会影响剧情线分支。时间限制的设定算是剧情和玩法融合得比较巧妙的一个点，也是解谜的主要难度点。不过很遗憾的是这个玩法只能说初见有趣，真玩了几次之后会发现比起逻辑推理更多的还是看脑洞有没有和制作者合上。而且难度设计也不是很合理，前期甚至中期都太简单，基本上随便选都能初见过，也没有什么时间策略可言；后期难度上来得比较突然，突然就要开始考虑选用合适的时间减少策略来保证在时限内完成，但是其实到这后面也没有多少场 psync 可以玩了。&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        
-    </channel>
+            <title>最近打完的游戏</title>
+            <link>https://cbconne.github.io/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/</link>
+            <pubDate>Mon, 01 Dec 2025 14:38:54 +0800</pubDate>
+            <guid>https://cbconne.github.io/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/</guid>
+            <description>&lt;h1 id=&#34;背景碎碎念&#34;&gt;背景碎碎念&#xA;&lt;/h1&gt;&lt;p&gt;虽然说是说“最近”打完的游戏，但是实际上统计的是《丝之歌》缓解了我的电子 ED 之后到现在（2025/12/01）中间打通的游戏，主要有这么几个类型：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;之前已经玩了但是没有打通&lt;/li&gt;&#xA;&lt;li&gt;之前已经买了但是没有玩&lt;/li&gt;&#xA;&lt;li&gt;这段时间刚买并且打通&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;因为包含的游戏还蛮多的，因此不像单篇那样详细解释了，没什么好说的就一笔带过、有什么想提两句的就说一说。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;空洞骑士丝之歌&#34;&gt;《空洞骑士：丝之歌》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;Hollow Knight: Silksong&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;513px&#34; data-flex-grow=&#34;213&#34; height=&#34;430&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg&#34; srcset=&#34;https://cbconne.github.io/xwSa1yrLiRcEqkB_1208571101288218070_hu_c2194fd65010ff9a.jpg 800w, https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg 920w&#34; width=&#34;920&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★★&lt;/p&gt;&#xA;&lt;p&gt;纯主观评价，不具备可参考性。事实上发售后 99% 被喷的点我都能接受并不觉得差；相反很多我觉得真的很差的东西被喷的反而很少。&lt;/p&gt;&#xA;&lt;p&gt;所以很多东西还是得信自己。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;恶魔城月下夜想曲&#34;&gt;《恶魔城：月下夜想曲》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/&#34; &gt;单独写过了。&lt;/a&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;波斯王子失落的王冠&#34;&gt;《波斯王子：失落的王冠》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;Prince of Persia The Lost Crown&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;418px&#34; data-flex-grow=&#34;174&#34; height=&#34;353&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/01/4jSVtXampHr5KIP.jpg&#34; width=&#34;616&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★☆☆&lt;/p&gt;&#xA;&lt;p&gt;另一个打完《丝之歌》之后类银恶瘾犯了之后找的游戏。&lt;br&gt;&#xA;游戏本身质量比较“一般”，非常的育碧：一切都不差，但是就是没足够突出的“好”。&lt;br&gt;&#xA;亮点是在“怎么在现代通过游戏系统上的优化来提高类银恶游戏的游戏体验”这个方面这个游戏可以说做到满分了：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;主线上的跳跳乐可跳过——有效避免了《丝之歌》中让部分玩家破防的情况&lt;/li&gt;&#xA;&lt;li&gt;地图标记可截图——提高了标记的信息量，避免了类银恶中常见的“当时这里没走下去是因为缺少啥能力来着？”的问题。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;öoo&#34;&gt;《Öoo》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;Öoo&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;418px&#34; data-flex-grow=&#34;174&#34; height=&#34;353&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/01/HYOWkjedNxRLSF6.jpg&#34; width=&#34;616&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★★&lt;/p&gt;&#xA;&lt;p&gt;无可争议的满分，唯二的短板：一是体量太小（但是这个游戏机制确实也很难填充更多的游戏体量了）；二是这破名字我每次都必须复制粘贴才能打出来。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;密特罗德零点任务密特罗德融合&#34;&gt;《密特罗德：零点任务》&amp;amp;《密特罗德：融合》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;Metroid: Zero Mission&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;513px&#34; data-flex-grow=&#34;213&#34; height=&#34;196&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/01/4BymnYfqx13uklj.jpg&#34; width=&#34;419&#34;&gt; &lt;img alt=&#34;Metroid Fusion&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;513px&#34; data-flex-grow=&#34;213&#34; height=&#34;196&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/01/3LrdkfUVYuWtzXH.jpg&#34; width=&#34;419&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★☆&lt;/p&gt;&#xA;&lt;p&gt;其中中间还隔了一个，但是都是考古 GBA 上的就放一起了。&lt;br&gt;&#xA;基本上除了时间太早系统偏老之外没什么缺点。个人体验上来说零点任务的地图设计我会更喜欢一些，更有银恶那种大地图的感觉；融合的地图设计相对差不少，地图都是独立的，通过一个空间站中转连起来。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;奥伯拉丁的回归&#34;&gt;《奥伯拉丁的回归》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;Return of the Obra Dinn&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;418px&#34; data-flex-grow=&#34;174&#34; height=&#34;353&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/08/ZotSKhTRAPawMDd.jpg&#34; width=&#34;616&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★☆&lt;/p&gt;&#xA;&lt;p&gt;非常扎实的推理游戏。画面风格算特色但对某些人来说也算缺点；难度曲线总体还可以，但是部分身份的推理又有点刁钻；故事上中规中矩，但如果抱着很高的期望来看会觉得差口气&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;密特罗德生存恐惧&#34;&gt;《密特罗德：生存恐惧》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;Metroid Dread&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;513px&#34; data-flex-grow=&#34;213&#34; height=&#34;430&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png&#34; srcset=&#34;https://cbconne.github.io/EXnWC7s6gGTLZiS_14837073161747700975_hu_af9a5ddfbaea9d34.png 800w, https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png 920w&#34; width=&#34;920&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★★&lt;/p&gt;&#xA;&lt;p&gt;现代化改造下的密特罗德，手感比 GBA 上的两作好了很多，比起当年玩的 3DS 上的萨姆斯归来也好不少。地图设计、BOSS 战设计更是没的说。比起虽然我更喜欢一些但估计是等不到续作的恶魔城，密特罗德的正统续作还是可以期待一下吧。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;金偶像谜案&#34;&gt;《金偶像谜案》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;The Case of the Golden Idol&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;418px&#34; data-flex-grow=&#34;174&#34; height=&#34;353&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/08/aRdofHXMVzGqSYT.jpg&#34; width=&#34;616&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★★&lt;/p&gt;&#xA;&lt;p&gt;奥伯拉丁的回归评论区里推荐的，玩完之后确实能感觉到是同一种类的&lt;del&gt;替身&lt;/del&gt;游戏。虽然戏称选词填空模拟器，但是要是不给选项直接让你自己填那不是当场暴毙么。&lt;br&gt;&#xA;个人感觉谜题难度设计比奥伯拉丁好一些，至少我能在全程无攻略的情况下打完并且基本没有瞎蒙的情况；谜题类型上因为是章节/关卡制，所以可以在选词填空的大框架上做出很多种变化，相比单纯的推理身份、推理死因之外会更丰富一些；故事上因为时间跨度大所以也有比较充足的舞台空间去讲一个更完整的故事。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;蝙蝠侠阿卡姆之城&#34;&gt;《蝙蝠侠：阿卡姆之城》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;Batman: Arkham City&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;513px&#34; data-flex-grow=&#34;213&#34; height=&#34;215&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/12/jUbsnX9y2C6if3q.jpg&#34; width=&#34;460&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★★&lt;/p&gt;&#xA;&lt;p&gt;漫改游戏的天花板系列，那还有啥好说的。&lt;br&gt;&#xA;小丑的刻画比初代要好，比阿卡姆骑士也好一些（毕竟阿卡姆骑士真·小丑已经没了，只是“活”在老爷脑袋里）。如果把起源剧情也算进来的话，小丑一直都没想通老爷为什么不杀他，一直都在以“我知道你 Batman 不会杀我”为前提搞事情，然后真的自己作死作到死亡边缘了反而不敢赌老爷真的会去救他结果害死自己了。这下小丑真小丑了。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h1 id=&#34;塞尔达传说智慧的再现&#34;&gt;《塞尔达传说：智慧的再现》&#xA;&lt;/h1&gt;&lt;p&gt;&lt;img alt=&#34;智慧的再现&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;426px&#34; data-flex-grow=&#34;177&#34; height=&#34;720&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp&#34; srcset=&#34;https://cbconne.github.io/wcXkf6IqLEr5e2o_206728368684409251_hu_682013b8d3fe32d6.webp 800w, https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp 1280w&#34; width=&#34;1280&#34;&gt;&lt;/p&gt;&#xA;&lt;p&gt;评价：★★★★★&lt;/p&gt;&#xA;&lt;p&gt;夭寿啦，塞尔达传说主角竟然真的是塞尔达啦。&lt;br&gt;&#xA;时隔十余年 2D 塞尔达的非重制新作，仍然是任天堂级别的顶级的创意。&lt;/p&gt;&#xA;</description>
+        </item><item>
+            <title>游戏记录 恶魔城：月下夜想曲</title>
+            <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/</link>
+            <pubDate>Thu, 16 Oct 2025 12:16:01 +0800</pubDate>
+            <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/</guid>
+            <description>&lt;img src=&#34;https://cbconne.github.io/&#34; alt=&#34;Featured image of post 游戏记录 恶魔城：月下夜想曲&#34; /&gt;&lt;p&gt;&lt;img alt=&#34;恶魔城:月下夜想曲&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;160px&#34; data-flex-grow=&#34;66&#34; height=&#34;900&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2025/10/16/JOvi2rVMwglEIj3.png&#34; width=&#34;600&#34;&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评分：9（考虑实际发售年代）/ 8~8.5（放在如今）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;评价：&lt;br&gt;&#xA;因为之前刚打完丝之歌，实在是类银河战士恶魔城瘾上来了但是当时又没有其他什么合适的。突然想到其实恶魔城正传作品我也只玩过苍月十字架、晓月圆舞曲（未通关）、被夺走的刻印（未通关）、血污:夜之仪式（同制作人员的精神续作我也算进来吧）。既然类银河战士恶魔城代餐一时半会儿找不到，我完全可以去找正主作品。在这个基础上，月下夜想曲是无论如何也绕不过的那一款游戏。&lt;/p&gt;&#xA;&lt;p&gt;作为第一次真正让“恶魔城”系列成为“类银河战士恶魔城”中的“恶魔城”的作品，用如今的、挑刺的眼光来看肯定还是存在问题，肯定不是“完美”的作品。至少就我个人来说，正逆城设计就值得一提：&lt;br&gt;&#xA;大名鼎鼎的正逆城设计是在工期/成本和游戏量之间做妥协采用的一个非常巧妙的“取巧”方式这点应该都知道了。虽然不得不说这个创意确实很棒，也扩充了游戏内容，但是实际体验下来还是会从很多地方感觉到“确实是妥协下的应急措施”。在实际游玩前我以为只是地图形状倒过来——最多路线也原模原样倒过来，但是没想到基本上每个地图内的墙、地板、天花板也是原模原样直接180°转一下。确实重新认真设计工期/成本可能更高，但是简单粗暴的旋转导致逆城存在一些很“粗糙”的细节：很多非隐藏的主线路线如果不是本作有变蝙蝠这种 IMBA 的位移技能是走不了的；逆城最上方有水的地区部分地图需要起跳、变狗借用变狗之后的一点上浮才能正常点亮。&lt;/p&gt;&#xA;&lt;p&gt;但无论如何，作为系列的第一款“非线性地图探索”的作品，能够做到这种水平的地图设计和整体完成度已经非常难得了，甚至如今也未必有多少“类银城”作品能说设计比一款比我年纪都大的作品更好。至于音乐这种原本就是跨越年代的东西，那更是一顶一的好。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;</description>
+        </item><item>
+            <title>游戏记录 碳酸危机</title>
+            <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E7%A2%B3%E9%85%B8%E5%8D%B1%E6%9C%BA/</link>
+            <pubDate>Wed, 18 Sep 2024 12:27:04 +0800</pubDate>
+            <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E7%A2%B3%E9%85%B8%E5%8D%B1%E6%9C%BA/</guid>
+            <description>&lt;img src=&#34;https://cbconne.github.io/&#34; alt=&#34;Featured image of post 游戏记录 碳酸危机&#34; /&gt;&lt;p&gt;&lt;img alt=&#34;碳酸危机&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;160px&#34; data-flex-grow=&#34;66&#34; height=&#34;900&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2024/09/18/N9OB24G3FhzLvsM.jpg&#34; width=&#34;600&#34;&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评分：8.5&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评价：&#xA;非常优质的横版过关游戏，中规中矩的同时有着一定自己的特色。唯一的明显缺点应该是流程太短吧。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;</description>
+        </item><item>
+            <title>游戏记录 基因特工</title>
+            <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%9F%BA%E5%9B%A0%E7%89%B9%E5%B7%A5/</link>
+            <pubDate>Wed, 04 Sep 2024 14:01:25 +0800</pubDate>
+            <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%9F%BA%E5%9B%A0%E7%89%B9%E5%B7%A5/</guid>
+            <description>&lt;img src=&#34;https://cbconne.github.io/&#34; alt=&#34;Featured image of post 游戏记录 基因特工&#34; /&gt;&lt;p&gt;&lt;img alt=&#34;基因特工&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;418px&#34; data-flex-grow=&#34;174&#34; height=&#34;353&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2024/08/27/sByQUz3EqacSYJD.jpg&#34; width=&#34;616&#34;&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评分：3（十分制）&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;印象里是当年刚出就买了，然后玩了一会儿之后五年多没完了，借着 Steam Deck 带来的游戏热情下载回来重新开始玩。&lt;br&gt;&#xA;总体评价就是，&lt;strong&gt;没买别买、买了别玩儿。&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评价：&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;剧情：&lt;br&gt;&#xA;作为一个 RPG 游戏，剧情应该是比较重要的一部分。但是除了刚上来刚看到那些无厘头梗可能略有新意，游戏时间超过 3 小时之后就开始无聊了，&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;玩法：&lt;br&gt;&#xA;和剧情一样，3 个小时内——或者可以再久一些——玩法还是可以吸引人的。但是到了后面，基本上就是一本“怎么把 RPG 游戏做得又臭又长”的教科书了：剧情嘛，是没有意思的；刷刷刷嘛，是没有价值的；角色成长嘛，是单调重复没什么效果的；敌人嘛，是只会堆数量的；任务嘛，翻来覆去就是那么几类的。&lt;br&gt;&#xA;可以说，在现在这个年代，竟然还会有这么折磨的 RPG 游戏。&lt;br&gt;&#xA;支撑我玩下去的信念有两个：一个是我习惯要玩就玩完，即使中间吃灰了很长一段时间我一般也还是会把它玩完；另一个是说服我自己，总得玩点烂游戏，否则怎么能体验得到我平时玩的好游戏优秀在哪呢？&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;</description>
+        </item><item>
+            <title>游戏记录 命运石之门: 0</title>
+            <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%91%BD%E8%BF%90%E7%9F%B3%E4%B9%8B%E9%97%A80/</link>
+            <pubDate>Thu, 22 Aug 2024 13:19:31 +0800</pubDate>
+            <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%91%BD%E8%BF%90%E7%9F%B3%E4%B9%8B%E9%97%A80/</guid>
+            <description>&lt;img src=&#34;https://cbconne.github.io/&#34; alt=&#34;Featured image of post 游戏记录 命运石之门: 0&#34; /&gt;&lt;p&gt;&lt;img alt=&#34;STEINS;GATE 0&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;160px&#34; data-flex-grow=&#34;66&#34; height=&#34;900&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2024/08/22/gf287zNwUAkejDC.jpg&#34; width=&#34;600&#34;&gt;&lt;/p&gt;&#xA;&#xA;    &lt;blockquote&gt;&#xA;        &lt;p&gt;黑幕覆盖部分均为涉及剧透内容，请谨慎阅读&lt;/p&gt;&#xA;&#xA;    &lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评分：8.5&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;评价：&lt;/p&gt;&#xA;&lt;p&gt;作为一个 galgame，评价游戏基本上就是评价剧情。&lt;br&gt;&#xA;个人评分/评价肯定是比前作/本体要略逊一筹：&lt;br&gt;&#xA;首先，因为剧情背景就是石头门本体的助手 BE 线，在此基础上本作的很多优点其实只是站在原作的肩膀上对剧情进行了进一步的补充，不考虑 0 本体依然非常完整，但是不考虑本体 0 就是一个没头没尾的故事；&lt;br&gt;&#xA;其次，哪怕把本体的剧情考虑进来，0 的剧情也难以和本体媲美。本体的故事结构比较清晰，事实上的剧情线只有一条（助手线），其他分支结局本质上只是各个章节的 if 线。而 0 的各个分支线之间非常松散（印象里这些分支剧情实际上来源于石头门 IP 下的小说之类的其他作品），剧情之间互相独立甚至矛盾。如果没有本体的真结局设定，可以说本作的六个结局是平等的分支线。&#xA;至于其他的一些剧情上的疑惑点就不展开了，毕竟没有严格去盘剧情线，所以不确定是我理解错误/记忆错误还是确实剧情上不太严谨了。&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;比如 A/B 线会决定由季的真实身份，但是由季在 A/B 线的分歧点之前就出场了，从这个角度看是由果及因了。当然，有世界线这种东西存在想解释肯定是能解释的。&lt;/span&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;</description>
+        </item><item>
+            <title>游戏记录 AI: 梦境档案</title>
+            <link>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-ai%E6%A2%A6%E5%A2%83%E6%A1%A3%E6%A1%88/</link>
+            <pubDate>Thu, 15 Aug 2024 12:40:30 +0800</pubDate>
+            <guid>https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-ai%E6%A2%A6%E5%A2%83%E6%A1%A3%E6%A1%88/</guid>
+            <description>&lt;img src=&#34;https://cbconne.github.io/&#34; alt=&#34;Featured image of post 游戏记录 AI: 梦境档案&#34; /&gt;&lt;p&gt;&lt;img alt=&#34;AI: 梦境档案&#34; class=&#34;gallery-image&#34; data-flex-basis=&#34;418px&#34; data-flex-grow=&#34;174&#34; height=&#34;353&#34; loading=&#34;lazy&#34; sizes=&#34;(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px&#34; src=&#34;https://s2.loli.net/2024/08/16/6VIepJkzu4QBdYD.jpg&#34; width=&#34;616&#34;&gt;&lt;/p&gt;&#xA;&#xA;    &lt;blockquote&gt;&#xA;        &lt;p&gt;黑幕覆盖部分均为涉及剧透内容，请谨慎阅读&lt;/p&gt;&#xA;&#xA;    &lt;/blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评分：9(偏客观)~9.5(偏主观)&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;hr&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;评价：&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;剧情：&lt;br&gt;&#xA;剧情上分为两部分，首先是剧情的内容和呈现剧情的结构。&lt;br&gt;&#xA;内容方面，作为一个推理爱好者，这一方面我更关注推理部分或者说诡计部分。本作的诡计我基本满意，但是确实有着不够“推理”的部分：设定系作品的关键设定一般需要在故事开篇至少前期进行说明，以实现作者和读者的“公平”。但显然这部游戏在这方面很糟糕，直接与诡计相关的核心设定&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;交换身体&lt;/span&gt;直到后期才告知玩家，确切地说，知道这个设定的时候离完全通关就只有伪结局和真结局了。不过这部作品不是一个正儿八经侧重“推理”本身的游戏，悬疑感 &amp;gt; 公平性也无可厚非。&lt;br&gt;&#xA;结构方面可以评价的点就更少了，对打越钢太郎 sensei 的作品略有了解知道这部作品依然是他的固有套路：不同的人物/故事分支线（大多主线/真相无关）各掺杂一些剧情线索，都打完之后有一个伪结局来一个神反转把真相初步解释清楚，之后就一个真结局进一步补充细节或者背景，然后迎来 HE。不过事实证明，在故事能够有及格线以上的质量时，这一套结构确实稳定好用。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;人物：&lt;br&gt;&#xA;本作人物我并不喜欢——也说不上讨厌，更严格地说只是无感而已。可能是因为游戏剧情不过四五天，绝大多数人物是没有弧光可言的。有明显成长的角色比如应太和瑞希在主线剧情中又不是很重要&lt;span class=&#34;heimu&#34; title=&#34;你知道的太多了&#34;&gt;重要人物其实也有：伊达，警察到杀手再到老父亲这可太有成长了&lt;/span&gt;。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;玩法：&lt;br&gt;&#xA;作为一个游戏，玩法也是不能绕开的。调查环节的聊天和场景交互玩法，无数有调查环节的游戏都是这样的。比较有新意的应该是 psync 环节，通过和梦境中不同的物体进行不同的互动来推进发展进行解谜，不同的选择也会影响剧情线分支。时间限制的设定算是剧情和玩法融合得比较巧妙的一个点，也是解谜的主要难度点。不过很遗憾的是这个玩法只能说初见有趣，真玩了几次之后会发现比起逻辑推理更多的还是看脑洞有没有和制作者合上。而且难度设计也不是很合理，前期甚至中期都太简单，基本上随便选都能初见过，也没有什么时间策略可言；后期难度上来得比较突然，突然就要开始考虑选用合适的时间减少策略来保证在时限内完成，但是其实到这后面也没有多少场 psync 可以玩了。&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;</description>
+        </item></channel>
 </rss>

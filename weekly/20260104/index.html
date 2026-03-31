@@ -1,61 +1,76 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr"
-    style="background: #f5f5fa;"
+
+<html lang="zh-cn" dir="ltr" style="background: #f5f5fa;"
     data-scheme="light">
-    <head>
-        
-        <script>
-            (function() {
-                var html = document.documentElement;
-                var colorSchemeKey = 'StackColorScheme';
-                var colorSchemeItem = localStorage.getItem(colorSchemeKey);
-                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
-                var bgColor = isDark ? '#303030' : '#f5f5fa';
-                html.dataset.scheme = isDark ? 'dark' : 'light';
-                html.style.background = bgColor;
-                window.__themeBackground = bgColor;
-                window.__themeDark = isDark;
-            })();
-        </script>
-        
-        <style id="loading-overlay-style">
-            #page-loading-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 99999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+
+<head>
+    
+    <script>
+        (function () {
+            var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
+            if (tocCollapsed === 'true') {
+                document.documentElement.classList.add('toc-preload-collapsed');
             }
-             
-            #page-loading-overlay::after {
-                content: '';
-                width: 60px;
-                height: 60px;
-                border: 5px solid rgba(0, 0, 0, 0.1);
-                border-top-color: #34495e;
-                border-radius: 50%;
-                animation: __loading_spin 0.8s linear infinite;
-                opacity: 0;
-                transition: opacity 200ms ease;
+        })();
+    </script>
+    
+    <script>
+        (function () {
+            var html = document.documentElement;
+            var colorSchemeKey = 'StackColorScheme';
+            var colorSchemeItem = localStorage.getItem(colorSchemeKey);
+            var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+            var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
+            var bgColor = isDark ? '#303030' : '#f5f5fa';
+            html.dataset.scheme = isDark ? 'dark' : 'light';
+            html.style.background = bgColor;
+            window.__themeBackground = bgColor;
+            window.__themeDark = isDark;
+        })();
+    </script>
+    
+    <style id="loading-overlay-style">
+        #page-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+         
+        #page-loading-overlay::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #34495e;
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            opacity: 0;
+            transition: opacity 200ms ease;
+        }
+
+        #page-loading-overlay.show-spinner::after {
+            opacity: 1;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
             }
-            #page-loading-overlay.show-spinner::after {
-                opacity: 1;
-            }
-            @keyframes __loading_spin {
-                to { transform: rotate(360deg); }
-            }
-        </style><meta charset='utf-8'>
+        }
+    </style><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="个人一周记录（20251229-20260104）">
 <title>20260104 周记</title>
 
 <link rel='canonical' href='https://cbconne.github.io/weekly/20260104/'>
 
-<link rel="stylesheet" href="/scss/style.min.9405df568ce3547d26f7fd4cd4cc7e8b8b63d41ca915c0c3c14e68534a2b553c.css">
+<link rel="stylesheet" href="/scss/style.min.e16164c6a84b59ca0977b301a9ca173cf3eeb7c3ebac7636e196da317e1a8235.css">
 <script>
     (function() {
         
@@ -203,36 +218,37 @@
         }
       </script>
 
-    </head>
-    <body class="
+</head>
+
+<body class="
     article-page
     " style="background: #f5f5fa;">
-        
-        <div id="page-loading-overlay"></div>
-        <script>
-            (function() {
-                var overlay = document.getElementById('page-loading-overlay');
-                var bgColor = window.__themeBackground || '#f5f5fa';
-                var isDark = window.__themeDark;
-                
-                overlay.style.background = bgColor;
-                
-                document.body.style.background = bgColor;
-                
-                if (isDark) {
-                    var style = document.getElementById('loading-overlay-style');
-                    style.textContent = style.textContent
-                        .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
-                        .replace('#34495e', '#ecf0f1');
+    
+    <div id="page-loading-overlay"></div>
+    <script>
+        (function () {
+            var overlay = document.getElementById('page-loading-overlay');
+            var bgColor = window.__themeBackground || '#f5f5fa';
+            var isDark = window.__themeDark;
+            
+            overlay.style.background = bgColor;
+            
+            document.body.style.background = bgColor;
+            
+            if (isDark) {
+                var style = document.getElementById('loading-overlay-style');
+                style.textContent = style.textContent
+                    .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
+                    .replace('#34495e', '#ecf0f1');
+            }
+            
+            window.__spinnerTimer = setTimeout(function () {
+                if (overlay) {
+                    overlay.classList.add('show-spinner');
                 }
-                
-                window.__spinnerTimer = setTimeout(function() {
-                    if (overlay) {
-                        overlay.classList.add('show-spinner');
-                    }
-                }, 300);
-            })();
-        </script>
+            }, 300);
+        })();
+    </script>
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -256,15 +272,13 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
     <header>
-        
-            
         
         
         <div class="site-meta">
@@ -276,7 +290,7 @@
                 <li>
                     <a 
                         href='https://github.com/cbconne'
-                        target="_blank"
+                        
                         title="GitHub"
                         rel="me"
                     >
@@ -297,7 +311,7 @@
                 <li>
                     <a 
                         href='mailto:770663964@qq.com'
-                        target="_blank"
+                        
                         title="Email"
                         rel="me"
                     >
@@ -325,8 +339,6 @@
         <li >
             <a href='/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <polyline points="5 12 3 12 12 3 21 12 19 12" />
@@ -344,8 +356,6 @@
         
         <li >
             <a href='/archives/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -365,8 +375,6 @@
         <li >
             <a href='/search/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="10" cy="10" r="7" />
@@ -384,8 +392,6 @@
         <li >
             <a href='/%E9%93%BE%E6%8E%A5/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
@@ -402,8 +408,6 @@
         
         <li >
             <a href='/%E5%85%B3%E4%BA%8E/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -439,7 +443,7 @@
 
 
 
-                        <span>暗色模式</span>
+                        <span></span>
                     </li>
                 
             </ol>
@@ -451,9 +455,9 @@
         
             
                 
-    <section class="widget archives toc-widget">
-        <div class="widget-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+<section class="widget archives toc-widget">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <line x1="5" y1="9" x2="19" y2="9" />
   <line x1="5" y1="15" x2="19" y2="15" />
@@ -463,28 +467,29 @@
 
 
 
-        </div>
-        <h2 class="widget-title section-title">目录</h2>
-        
-        <div class="widget--toc">
-            <nav id="TableOfContents">
+    </div>
+    <h2 class="widget-title section-title"></h2>
+
+    <div class="widget--toc">
+        <nav class="toc-nav" id="TableOfContents">
+            
   <ul>
     <li><a href="#读书">读书</a></li>
     <li><a href="#dify">Dify</a></li>
     <li><a href="#manus-被收购">Manus 被收购</a></li>
     <li><a href="#linus-对-ai-的看法">Linus 对 AI 的看法</a></li>
   </ul>
-</nav>
-        </div>
-    </section>
 
+        </nav>
+    </div>
+</section>
 
             
         
     </aside>
 
 
-            <main class="main full-width">
+        <main class="main full-width">
     <article class="main-article">
     <header class="article-header">
 
@@ -492,7 +497,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -515,9 +524,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -527,12 +540,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/01/04 12:19:34</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-01-04T12:19:34&#43;08:00'>2026/01/04 12:19:34</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -542,10 +553,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 6 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -558,47 +570,64 @@
             <time class="article-words">
                 字数: 2535
             </time>
+            
         </div>
+        
+
+        
+
         
     </footer>
     
-
-    
 </div>
 </header>
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li><a href="#读书">读书</a></li>
+    <li><a href="#dify">Dify</a></li>
+    <li><a href="#manus-被收购">Manus 被收购</a></li>
+    <li><a href="#linus-对-ai-的看法">Linus 对 AI 的看法</a></li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
 
     <section class="article-content">
     
     
     <h1 id="读书">读书
 </h1><p>把《方舟》读完了，开始读其实是 25 年的事情了，只是这周才读完。</p>
-<p><img src="https://s2.loli.net/2026/01/04/VQAcaqFuSjrTvgY.jpg"
-	width="1080"
-	height="1553"
-	srcset="/VQAcaqFuSjrTvgY_9105916716689936143_hu_91ab8d001609b80b.jpg 480w, /VQAcaqFuSjrTvgY_9105916716689936143_hu_d474c0ae44eee1dc.jpg 1024w"
-	loading="lazy"
-	
-		alt="《方舟》"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="69"
-		data-flex-basis="166px"
-	
-></p>
+<p><img alt="《方舟》" class="gallery-image" data-flex-basis="166px" data-flex-grow="69" height="1553" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2026/01/04/VQAcaqFuSjrTvgY.jpg" srcset="/VQAcaqFuSjrTvgY_9105916716689936143_hu_e657e5f62b1d8ed6.jpg 800w, https://s2.loli.net/2026/01/04/VQAcaqFuSjrTvgY.jpg 1080w" width="1080"></p>
 <p>两点读完写的豆瓣的短评直接粘过来吧，没有特别直接的剧透就不码了：</p>
-<blockquote>
-<p>推理非常扎实，但读了不少推理小说之后也只能说良好。凶手从人物描写来看也过于好猜——不是主角、不是侦探但是明显着笔很多。<br>
+
+    <blockquote>
+        <p>推理非常扎实，但读了不少推理小说之后也只能说良好。凶手从人物描写来看也过于好猜——不是主角、不是侦探但是明显着笔很多。<br>
 能五星的原因有两点：一是这个反转确实惊艳，尽管逻辑上还是有着不少疑问，但是确实精彩，让读者拍手叫绝；二是在whydunit这一点上，这部书绝对是天花板级别了。在都在追求 whodunit 和 howdunit 的大趋势下很多书的动机是整本书最不重要甚至最雷的一点，以至于我都很不在乎本格推理的动机、认为只是个为了确保故事结构上完整的添头。但这本书证明了动机也是非常重要的一部分，哪怕是再强大的名侦探，忽略这一点也是会被反噬的。</p>
-</blockquote>
+
+    </blockquote>
 <p>现在看起来有点语无伦次，所以重新组织下语言吧。</p>
 <p>这本书的推理部分如何？我的评价还是“扎实”：很实在，没有什么特别“飞”的地方，中规中矩的逻辑流<span class="heimu" title="你知道的太多了">，部分有问题的内容其实也可以说是为了最后反转的真解答服务</span>；但是也没有什么特别出彩的地方。逻辑流想非常精彩确实很困难甚至有些自相矛盾：想精彩就难免夸张一些，但夸张了又很难保证逻辑的严丝合缝。所以这本书的推理部分我认为是合格的。</p>
 <p>但是仅仅是“合格”甚至“良好”，在已经读了一定量推理小说的人看来，在目前这个年代是不够的。想要出彩，一定要在某个方面做出自己的突破。而这本书的突破就在“动机”上。</p>
 <p>说到这里需要打一个岔，说到《心灵侦探城塚翡翠》上去了，从某种意义上，这两本书给我带来的感受有些类似：《翡翠》在“设定系”这一类别中做出了突破和解构，而《方舟》在“动机”这一要素上做出了突破和解构。“设定系”通常是给出一个设定，有的作者会给出具体解释而有的则是一笔带过或者根本不解释，《翡翠》则在给出解释之后亲手打破这个解释<span class="heimu" title="你知道的太多了">甚至打破“设定系”这个伪装</span>，从而在阅读了一定量“设定系”的读者心中撞开了一面墙：“设定系”并不是自然而然的。这种效果只对有一定阅读量的读者管用，类似戏剧/影视领域的“打破第四面墙”，如果是没有看过戏剧/影视的人，看到舞台上/屏幕里有人直接和自己沟通，并不会有什么特殊的感觉。而这本书在“动机”上，做到了类似效果。</p>
 <p>读过众多推理小说的读者（至少其中的一部分）很容易在凶手（whodunit）、手法（howdunit）、动机（whydunit）中，不自觉的倾斜向凶手和手法。因为在很多作品中，动机是“为了这盘醋，包的这盘饺子”里的“饺子”——甚至凶案本身才是“饺子”，动机只是为了凶案能够发生的一个引子而已。在这一趋势的熏陶下，读者、作者都越来“轻视”动机这一原本是非常重要的部分。《方舟》中，作者也借侦探角色说出了这段话：</p>
-<blockquote>
-<p>即便知道了动机，那也只不过是提高了解释的可信度而已。归根结底，所谓的动机无非是令假设合乎情理而已。或许能让我们信服，但除此之外没有丝毫用处。无论能否想出类似的说法，也没法以“唯独你具备这种动机”为由指责某人。在现在的状况下，必需之物便是证明谁是凶手的明确逻辑。关于动机是什么，还是查明凶手后直接询问本人来得准确。</p>
-</blockquote>
+
+    <blockquote>
+        <p>即便知道了动机，那也只不过是提高了解释的可信度而已。归根结底，所谓的动机无非是令假设合乎情理而已。或许能让我们信服，但除此之外没有丝毫用处。无论能否想出类似的说法，也没法以“唯独你具备这种动机”为由指责某人。在现在的状况下，必需之物便是证明谁是凶手的明确逻辑。关于动机是什么，还是查明凶手后直接询问本人来得准确。</p>
+
+    </blockquote>
 <p>初读到这里时，我还以为是作者对“动机”这一元素的吐槽，事后想来，这里已经为案件的最终结局埋下了伏笔。</p>
 <details>
     <summary><strong>以下内容泄底，谨慎阅读</strong></summary>
@@ -611,51 +640,46 @@
 <h1 id="dify">Dify
 </h1><p>因为在做相关平台的调研，所以查资料的时候查到一篇采访稿，摘录了一些 Dify 的 Boss 所说的内容：</p>
 <hr>
-<blockquote>
-<p>因为模型的本质，更像是一个巨大的「数据球」。你得先相信答案就在里面，然后再不断和模型磨合，找到一套正确的「密码」，才能把答案抽取出来。而找到这套密码的能力，并不是每个人都具备。<br>
+
+    <blockquote>
+        <p>因为模型的本质，更像是一个巨大的「数据球」。你得先相信答案就在里面，然后再不断和模型磨合，找到一套正确的「密码」，才能把答案抽取出来。而找到这套密码的能力，并不是每个人都具备。<br>
 这件事也很难被快速教学，它高度依赖一个人原有的认知框架和提问能力。</p>
-</blockquote>
+
+    </blockquote>
 <p>这段内容和我半年之前的思考核心基本是一致的，因此还蛮认可。</p>
-<p><img src="https://s2.loli.net/2026/01/04/A1BRguMInYjdDJy.jpg"
-	width="1350"
-	height="1003"
-	srcset="/A1BRguMInYjdDJy_2455941705462334263_hu_5f8d677f8dece326.jpg 480w, /A1BRguMInYjdDJy_2455941705462334263_hu_18fb3cdca1b45b8e.jpg 1024w"
-	loading="lazy"
-	
-		alt="flomo 笔记"
-	
-	
-		class="gallery-image" 
-		data-flex-grow="134"
-		data-flex-basis="323px"
-	
-></p>
+<p><img alt="flomo 笔记" class="gallery-image" data-flex-basis="323px" data-flex-grow="134" height="1003" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2026/01/04/A1BRguMInYjdDJy.jpg" srcset="/A1BRguMInYjdDJy_2455941705462334263_hu_64474314bba2cb71.jpg 800w, https://s2.loli.net/2026/01/04/A1BRguMInYjdDJy.jpg 1350w" width="1350"></p>
 <hr>
-<blockquote>
-<p>所以虽然大家都是基于 LLM 做产品，但上下文不同，最终长出来的东西也就完全不同。<br>
+
+    <blockquote>
+        <p>所以虽然大家都是基于 LLM 做产品，但上下文不同，最终长出来的东西也就完全不同。<br>
 我同事打过一个很好的比方：「模型像一条鱼，放进不同的上下文鱼缸，会长成完全不同的样子。」<br>
 把 LLM 放进 IDE 里，会长成 Cursor；放进 Ubuntu 沙盒里，就会长成 Manus；而放进企业里，就会长成 Dify。</p>
-</blockquote>
+
+    </blockquote>
 <p>这段话我基本认同，但是对于最后一句 Dify 的自吹自擂保留意见：企业和企业差距大得很，甚至同一个企业部门和部门气质都能差很多，Dify 是个不错的东西但是肯定不是通用的万能解。</p>
 <h1 id="manus-被收购">Manus 被收购
 </h1><p>新闻铺天盖地，算是卖了个好价钱，但是 Meta 现在的状况有点美国的百度的味道：起个大早赶个晚集。非常怀疑 Meta 能给 Manus 或者说 Manus 能给 Meta 带来什么。</p>
 <h1 id="linus-对-ai-的看法">Linus 对 AI 的看法
 </h1><p>从 Linux 开源峰会论坛上 Linus Torvalds 与 Verizon 开源项目办公室负责人 Dirk Hohndel 的 29 次对谈摘录下来：</p>
 <hr>
-<blockquote>
-<p>我其实很讨厌“AI”这个词，不是因为我讨厌 AI 技术本身，而是因为它被炒得太厉害了，好像现在所有事情都非 AI 不可。但话说回来，我非常相信 AI 作为工具的价值。</p>
-</blockquote>
+
+    <blockquote>
+        <p>我其实很讨厌“AI”这个词，不是因为我讨厌 AI 技术本身，而是因为它被炒得太厉害了，好像现在所有事情都非 AI 不可。但话说回来，我非常相信 AI 作为工具的价值。</p>
+
+    </blockquote>
 <p><strong>完全同意</strong>。</p>
 <hr>
-<blockquote>
-<p>总体来说，我把 AI 看作是任何人都可以使用的工具。它确实新鲜、也很有吸引力，但同时它又并不陌生。它和当年编译器的出现，本质上是一样的。你得意识到，我刚入行的时候，编译器其实很糟糕，而今天编译器能做的事情简直像魔法。现在的编译器，让程序员不用了解那么多底层细节就能完成工作，这本身就是一次巨大的飞跃。有人总爱说 AI 能带来“10 倍效率提升”，但编译器带来的是上千倍的提升。所以 AI 并没有那么“特别”。别觉得 AI 会突然彻底改变编程，这件事我们早就经历过了——几十年前写编译器的那些人已经完成过一次革命。</p>
-</blockquote>
+
+    <blockquote>
+        <p>总体来说，我把 AI 看作是任何人都可以使用的工具。它确实新鲜、也很有吸引力，但同时它又并不陌生。它和当年编译器的出现，本质上是一样的。你得意识到，我刚入行的时候，编译器其实很糟糕，而今天编译器能做的事情简直像魔法。现在的编译器，让程序员不用了解那么多底层细节就能完成工作，这本身就是一次巨大的飞跃。有人总爱说 AI 能带来“10 倍效率提升”，但编译器带来的是上千倍的提升。所以 AI 并没有那么“特别”。别觉得 AI 会突然彻底改变编程，这件事我们早就经历过了——几十年前写编译器的那些人已经完成过一次革命。</p>
+
+    </blockquote>
 <p>不完全认同：编译器是有门槛的——甚至不低。但是目前的 AI 工具恨不得你会打字——甚至不会打字只会说话——就能用。编译器能让程序员变成效率更高的程序员，AI 也可以；但 AI 能然不是程序员的人变成程序员，编译器不行。</p>
 
 </section>
 
 
-    <footer class="article-footer">
+    <footer class="article-meta article-footer">
     
     <section class="article-tags">
         
@@ -667,7 +691,7 @@
 
 
     
-    <section class="article-copyright">
+    <section class="article-copyright inline-meta">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -689,15 +713,14 @@
 
     
 
-<aside class="related-content--wrapper">
-    <h2 class="section-title">相关文章</h2>
-    <div class="related-content">
-        <div class="flex article-list--tile">
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
             
                 
 <article class="">
     <a href="/weekly/20260109/">
-        
         
 
         <div class="article-details">
@@ -705,12 +728,10 @@
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/weekly/20260323/">
-        
         
 
         <div class="article-details">
@@ -718,12 +739,10 @@
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/weekly/20260305/">
-        
         
 
         <div class="article-details">
@@ -731,12 +750,10 @@
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/weekly/20260226/">
-        
         
 
         <div class="article-details">
@@ -744,12 +761,10 @@
         </div>
     </a>
 </article>
-
             
                 
 <article class="">
     <a href="/weekly/20260205/">
-        
         
 
         <div class="article-details">
@@ -757,7 +772,6 @@
         </div>
     </a>
 </article>
-
             
         </div>
     </div>
@@ -776,99 +790,47 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         <br />
+        
     </section>
 </footer>
 
 
     
-<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
     
-    <div class="pswp__bg"></div>
+    if (shouldLoad) {
+        gallery(articleContent);
 
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
     
-    <div class="pswp__scroll-wrap">
 
-        
-        <div class="pswp__container">
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-            <div class="pswp__item"></div>
-        </div>
-
-        
-        <div class="pswp__ui pswp__ui--hidden">
-
-            <div class="pswp__top-bar">
-
-                
-
-                <div class="pswp__counter"></div>
-
-                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
-
-                <button class="pswp__button pswp__button--share" title="Share"></button>
-
-                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
-
-                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
-
-                
-                
-                <div class="pswp__preloader">
-                    <div class="pswp__preloader__icn">
-                        <div class="pswp__preloader__cut">
-                            <div class="pswp__preloader__donut"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
-                <div class="pswp__share-tooltip"></div>
-            </div>
-
-            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
-            </button>
-
-            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
-            </button>
-
-            <div class="pswp__caption">
-                <div class="pswp__caption__center"></div>
-            </div>
-
-        </div>
-
+        </main>
     </div>
-
-</div><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
-                defer
-                >
-            </script><script 
-                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
-                defer
-                >
-            </script><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
-            ><link 
-                rel="stylesheet" 
-                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
-            >
     
-
-            </main>
-        </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.e00e8d39eda01199cae4ced3cd9a18c9f3ac8e19123c97ca20c2f4471dd590ea.js" defer></script>
-
+<script type="text/javascript" src="/ts/main.2a0aa02bad195b9626887a16d69201f8c73439befedb08b0bb79d0488ed5514b.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
@@ -880,5 +842,7 @@
 </script>
 
 
-    </body>
+
+</body>
+
 </html>

@@ -1,62 +1,77 @@
 <!DOCTYPE html>
-<html lang="zh-cn" dir="ltr"
-    style="background: #f5f5fa;"
+
+<html lang="zh-cn" dir="ltr" style="background: #f5f5fa;"
     data-scheme="light">
-    <head>
+
+<head>
 	<meta name="generator" content="Hugo 0.159.1">
-        
-        <script>
-            (function() {
-                var html = document.documentElement;
-                var colorSchemeKey = 'StackColorScheme';
-                var colorSchemeItem = localStorage.getItem(colorSchemeKey);
-                var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
-                var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
-                var bgColor = isDark ? '#303030' : '#f5f5fa';
-                html.dataset.scheme = isDark ? 'dark' : 'light';
-                html.style.background = bgColor;
-                window.__themeBackground = bgColor;
-                window.__themeDark = isDark;
-            })();
-        </script>
-        
-        <style id="loading-overlay-style">
-            #page-loading-overlay {
-                position: fixed;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                z-index: 99999;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+    
+    <script>
+        (function () {
+            var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
+            if (tocCollapsed === 'true') {
+                document.documentElement.classList.add('toc-preload-collapsed');
             }
-             
-            #page-loading-overlay::after {
-                content: '';
-                width: 60px;
-                height: 60px;
-                border: 5px solid rgba(0, 0, 0, 0.1);
-                border-top-color: #34495e;
-                border-radius: 50%;
-                animation: __loading_spin 0.8s linear infinite;
-                opacity: 0;
-                transition: opacity 200ms ease;
+        })();
+    </script>
+    
+    <script>
+        (function () {
+            var html = document.documentElement;
+            var colorSchemeKey = 'StackColorScheme';
+            var colorSchemeItem = localStorage.getItem(colorSchemeKey);
+            var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+            var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
+            var bgColor = isDark ? '#303030' : '#f5f5fa';
+            html.dataset.scheme = isDark ? 'dark' : 'light';
+            html.style.background = bgColor;
+            window.__themeBackground = bgColor;
+            window.__themeDark = isDark;
+        })();
+    </script>
+    
+    <style id="loading-overlay-style">
+        #page-loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+         
+        #page-loading-overlay::after {
+            content: '';
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(0, 0, 0, 0.1);
+            border-top-color: #34495e;
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            opacity: 0;
+            transition: opacity 200ms ease;
+        }
+
+        #page-loading-overlay.show-spinner::after {
+            opacity: 1;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
             }
-            #page-loading-overlay.show-spinner::after {
-                opacity: 1;
-            }
-            @keyframes __loading_spin {
-                to { transform: rotate(360deg); }
-            }
-        </style><meta charset='utf-8'>
+        }
+    </style><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。">
 <title>CBC&#39;s Site</title>
 
 <link rel='canonical' href='https://cbconne.github.io/'>
 
-<link rel="stylesheet" href="/scss/style.min.9405df568ce3547d26f7fd4cd4cc7e8b8b63d41ca915c0c3c14e68534a2b553c.css">
+<link rel="stylesheet" href="/scss/style.min.e16164c6a84b59ca0977b301a9ca173cf3eeb7c3ebac7636e196da317e1a8235.css">
 <script>
     (function() {
         
@@ -204,34 +219,35 @@
         }
       </script>
 
-    </head>
-    <body class="" style="background: #f5f5fa;">
-        
-        <div id="page-loading-overlay"></div>
-        <script>
-            (function() {
-                var overlay = document.getElementById('page-loading-overlay');
-                var bgColor = window.__themeBackground || '#f5f5fa';
-                var isDark = window.__themeDark;
-                
-                overlay.style.background = bgColor;
-                
-                document.body.style.background = bgColor;
-                
-                if (isDark) {
-                    var style = document.getElementById('loading-overlay-style');
-                    style.textContent = style.textContent
-                        .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
-                        .replace('#34495e', '#ecf0f1');
+</head>
+
+<body class="" style="background: #f5f5fa;">
+    
+    <div id="page-loading-overlay"></div>
+    <script>
+        (function () {
+            var overlay = document.getElementById('page-loading-overlay');
+            var bgColor = window.__themeBackground || '#f5f5fa';
+            var isDark = window.__themeDark;
+            
+            overlay.style.background = bgColor;
+            
+            document.body.style.background = bgColor;
+            
+            if (isDark) {
+                var style = document.getElementById('loading-overlay-style');
+                style.textContent = style.textContent
+                    .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
+                    .replace('#34495e', '#ecf0f1');
+            }
+            
+            window.__spinnerTimer = setTimeout(function () {
+                if (overlay) {
+                    overlay.classList.add('show-spinner');
                 }
-                
-                window.__spinnerTimer = setTimeout(function() {
-                    if (overlay) {
-                        overlay.classList.add('show-spinner');
-                    }
-                }, 300);
-            })();
-        </script>
+            }, 300);
+        })();
+    </script>
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
@@ -255,15 +271,13 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="切换菜单">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
     </button>
 
     <header>
-        
-            
         
         
         <div class="site-meta">
@@ -275,7 +289,7 @@
                 <li>
                     <a 
                         href='https://github.com/cbconne'
-                        target="_blank"
+                        
                         title="GitHub"
                         rel="me"
                     >
@@ -296,7 +310,7 @@
                 <li>
                     <a 
                         href='mailto:770663964@qq.com'
-                        target="_blank"
+                        
                         title="Email"
                         rel="me"
                     >
@@ -321,10 +335,8 @@
         
         
         
-        <li  class='current' >
+        <li  class='current'>
             <a href='/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -344,8 +356,6 @@
         <li >
             <a href='/archives/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <rect x="3" y="4" width="18" height="4" rx="2" />
@@ -364,8 +374,6 @@
         <li >
             <a href='/search/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="10" cy="10" r="7" />
@@ -383,8 +391,6 @@
         <li >
             <a href='/%E9%93%BE%E6%8E%A5/' >
                 
-                
-                
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
@@ -401,8 +407,6 @@
         
         <li >
             <a href='/%E5%85%B3%E4%BA%8E/' >
-                
-                
                 
                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -438,7 +442,7 @@
 
 
 
-                        <span>暗色模式</span>
+                        <span></span>
                     </li>
                 
             </ol>
@@ -451,10 +455,10 @@
             
                 <form action="/search/" class="search-form widget" >
         <p>
-            <label>搜索</label>
-            <input name="keyword" required placeholder="输入关键词..." />
+            <label></label>
+            <input name="keyword" required placeholder="" />
         
-            <button title="搜索">
+            <button title="">
                 <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="10" cy="10" r="7" />
@@ -479,9 +483,12 @@
 
 
         </div>
-        <h2 class="widget-title section-title">归档</h2>
+        <h2 class="widget-title section-title">
+            <a href="/archives/">
+                
+            </a>
+        </h2>
 
-        
         
         
         
@@ -524,7 +531,8 @@
             
         
             
-                <section class="widget tagCloud">
+                
+<section class="widget tagCloud">
     <div class="widget-icon">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -537,19 +545,25 @@
 
 
     </div>
-    <h2 class="widget-title section-title">分类</h2>
+    <h2 class="widget-title section-title">
+        
+            <a href="/categories/">
+                
+            </a>
+        
+    </h2>
 
     <div class="tagCloud-tags">
         
-            <a href="/categories/%E5%91%A8%E8%AE%B0/" class="font_size_11">
+            <a href="/categories/%E5%91%A8%E8%AE%B0/">
                 周记
             </a>
         
-            <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/" class="font_size_11">
+            <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/">
                 日常闲笔
             </a>
         
-            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/" class="font_size_4">
+            <a href="/categories/%E6%8A%80%E6%9C%AF%E7%AC%94%E8%AE%B0/">
                 技术笔记
             </a>
         
@@ -559,7 +573,8 @@
             
         
             
-                <section class="widget tagCloud">
+                
+<section class="widget tagCloud">
     <div class="widget-icon">
         <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-tag" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
@@ -570,7 +585,13 @@
 
 
     </div>
-    <h2 class="widget-title section-title">标签云</h2>
+    <h2 class="widget-title section-title">
+        
+            <a href="/tags/">
+                
+            </a>
+        
+    </h2>
 
     <div class="tagCloud-tags">
         
@@ -622,7 +643,7 @@
     </aside>
 
 
-            <main class="main full-width"><section class="article-list">
+        <main class="main full-width"><section class="article-list">
         
             
 <article class="">
@@ -632,7 +653,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -655,9 +680,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -667,12 +696,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/03/23 12:51:14</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-03-23T12:51:14&#43;08:00'>2026/03/23 12:51:14</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -682,10 +709,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 6 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -696,13 +724,16 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 2731
+                字数: 2704
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -716,7 +747,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -739,9 +774,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -751,12 +790,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/03/05 11:11:41</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-03-05T11:11:41&#43;08:00'>2026/03/05 11:11:41</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -766,10 +803,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 2 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -782,11 +820,14 @@
             <time class="article-words">
                 字数: 840
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -800,7 +841,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -823,9 +868,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -835,12 +884,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/02/26 16:37:40</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-02-26T16:37:40&#43;08:00'>2026/02/26 16:37:40</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -850,10 +897,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 1 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -866,11 +914,14 @@
             <time class="article-words">
                 字数: 317
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -884,7 +935,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -907,9 +962,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -919,12 +978,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/02/05 15:23:42</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-02-05T15:23:42&#43;08:00'>2026/02/05 15:23:42</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -934,10 +991,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 5 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -950,11 +1008,14 @@
             <time class="article-words">
                 字数: 2213
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -968,7 +1029,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -991,9 +1056,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -1003,12 +1072,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/01/26 15:49:15</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-01-26T15:49:15&#43;08:00'>2026/01/26 15:49:15</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1018,10 +1085,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 3 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -1034,11 +1102,14 @@
             <time class="article-words">
                 字数: 1010
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -1052,7 +1123,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -1075,9 +1150,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -1087,12 +1166,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/01/14 10:01:47</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-01-14T10:01:47&#43;08:00'>2026/01/14 10:01:47</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1102,10 +1179,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 4 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -1118,11 +1196,14 @@
             <time class="article-words">
                 字数: 1601
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -1136,7 +1217,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -1159,9 +1244,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -1171,12 +1260,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/01/09 13:38:21</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-01-09T13:38:21&#43;08:00'>2026/01/09 13:38:21</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1186,10 +1273,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 4 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -1202,11 +1290,14 @@
             <time class="article-words">
                 字数: 1913
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -1220,7 +1311,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E5%91%A8%E8%AE%B0/" style="background-color: #d2568c; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E5%91%A8%E8%AE%B0/"
+            style="background-color: #d2568c; color: #fff;">
             周记
         </a>
         
@@ -1243,9 +1338,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -1255,12 +1354,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2026/01/04 12:19:34</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2026-01-04T12:19:34&#43;08:00'>2026/01/04 12:19:34</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1270,10 +1367,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 6 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -1286,11 +1384,14 @@
             <time class="article-words">
                 字数: 2535
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -1304,7 +1405,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/" style="background-color: #9eccab; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/"
+            style="background-color: #9eccab; color: #fff;">
             日常闲笔
         </a>
         
@@ -1323,9 +1428,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -1335,12 +1444,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2025/12/25 09:15:38</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2025-12-25T09:15:38&#43;08:00'>2025/12/25 09:15:38</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1350,10 +1457,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 4 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -1366,11 +1474,14 @@
             <time class="article-words">
                 字数: 1731
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -1384,7 +1495,11 @@
     
     <header class="article-category">
         
-        <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/" style="background-color: #9eccab; color: #fff;" >
+        
+        
+        
+        <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/"
+            style="background-color: #9eccab; color: #fff;">
             日常闲笔
         </a>
         
@@ -1403,9 +1518,13 @@
     
     
     
-    <footer class="article-time">
+    
+
+    
+    <footer class="article-meta">
         
-        <div>
+        <div class="inline-meta">
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
@@ -1415,12 +1534,10 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published">2025/12/01 14:38:54</time>
-        </div>
-        
+            <time class="article-time--published" datetime='2025-12-01T14:38:54&#43;08:00'>2025/12/01 14:38:54</time>
+            
 
-        
-        <div>
+            
             <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
   <path stroke="none" d="M0 0h24v24H0z"/>
   <circle cx="12" cy="12" r="9" />
@@ -1430,10 +1547,11 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 3 分钟
+                
             </time>
-        </div>
-        <div>
+            
+
+            
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
     class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
@@ -1446,11 +1564,14 @@
             <time class="article-words">
                 字数: 1430
             </time>
+            
         </div>
         
-    </footer>
-    
 
+        
+
+        
+    </footer>
     
 </div>
 </header>
@@ -1478,19 +1599,15 @@
     </section>
     
     <section class="powerby">
-        使用 <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> 构建 <br />
-        主题 <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.34.1">Stack</a></b> 由 <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> 设计
+         <br />
+        
     </section>
 </footer>
 
-            </main>
-        </div>
-        <script 
-                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
-                
-                >
-            </script><script type="text/javascript" src="/ts/main.e00e8d39eda01199cae4ced3cd9a18c9f3ac8e19123c97ca20c2f4471dd590ea.js" defer></script>
-
+        </main>
+    </div>
+    
+<script type="text/javascript" src="/ts/main.2a0aa02bad195b9626887a16d69201f8c73439befedb08b0bb79d0488ed5514b.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
@@ -1502,5 +1619,7 @@
 </script>
 
 
-    </body>
+
+</body>
+
 </html>
