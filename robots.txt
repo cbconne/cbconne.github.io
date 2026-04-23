@@ -1,1 +1,5 @@
 User-agent: *
+Allow: /
+
+# 明确告诉爬虫你的站点地图位置
+Sitemap: https://cbconne.github.io/sitemap.xml
