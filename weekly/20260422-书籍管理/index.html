@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh-cn" dir="ltr" style="background: #f5f5fa;"
-    data-scheme="light">
+<html lang="zh-cn" dir="ltr" data-scheme="light">
 
 <head>
     
@@ -30,6 +29,11 @@
     </script>
     
     <style id="loading-overlay-style">
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
         #page-loading-overlay {
             position: fixed;
             top: 0;
@@ -47,8 +51,8 @@
             content: '';
             width: 60px;
             height: 60px;
-            border: 5px solid rgba(0, 0, 0, 0.1);
-            border-top-color: #34495e;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
             border-radius: 50%;
             animation: __loading_spin 0.8s linear infinite;
             opacity: 0;
@@ -65,14 +69,24 @@
             }
         }
     </style><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="个人一周记录（20260413-20260419)">
-<title>20260419 周记</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
 
-<link rel='canonical' href='https://cbconne.github.io/weekly/20260416/'>
 
-<link rel="stylesheet" href="/scss/style.min.d31da4c3e864b0035d4c7503b8d2d3cfdb6c4532ac7e6a74a1fe372959f1224e.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+
+
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"><meta name='description' content="还书 DDL 前突击读书 / 使用 Notion 管理书籍 / 把买了汉王后吃灰一年多的 Kindle 重新捡起来">
+<title>书、书、书的一周</title>
+
+<link rel='canonical' href='https://cbconne.github.io/weekly/20260422-%E4%B9%A6%E7%B1%8D%E7%AE%A1%E7%90%86/'>
+
+<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
 <script>
-    (function() {
+    (function () {
         
         window.pageReadyState = {
             fontsLoaded: false,
@@ -80,7 +94,7 @@
             galleryProcessed: false,
             forceShowTimeout: null
         };
-        
+
         
         function removeOverlay() {
             
@@ -93,7 +107,7 @@
                 overlay.parentNode.removeChild(overlay);
             }
         }
-        
+
         
         function checkAndShow() {
             var state = window.pageReadyState;
@@ -105,52 +119,52 @@
                 }
             }
         }
+
         
-        
-        window.notifyGalleryReady = function() {
+        window.notifyGalleryReady = function () {
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
-        
+
         
         if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(function() {
+            document.fonts.ready.then(function () {
                 window.pageReadyState.fontsLoaded = true;
                 checkAndShow();
-            }).catch(function() {
+            }).catch(function () {
                 window.pageReadyState.fontsLoaded = true;
                 checkAndShow();
             });
         } else {
             window.pageReadyState.fontsLoaded = true;
         }
-        
+
         
         var script = document.createElement('script');
         script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
-        script.onload = function() {
+        script.onload = function () {
             if (window.pangu) {
-                try { pangu.spacingPage(); } catch (e) {}
+                try { pangu.spacingPage(); } catch (e) { }
             }
             window.pageReadyState.panguProcessed = true;
             checkAndShow();
         };
-        script.onerror = function() {
+        script.onerror = function () {
             window.pageReadyState.panguProcessed = true;
             checkAndShow();
         };
         document.head.appendChild(script);
+
         
-        
-        window.addEventListener('pageshow', function(event) {
+        window.addEventListener('pageshow', function (event) {
             
             if (event.persisted && window.pangu) {
-                try { pangu.spacingPage(); } catch (e) {}
+                try { pangu.spacingPage(); } catch (e) { }
             }
         });
+
         
-        
-        window.pageReadyState.forceShowTimeout = setTimeout(function() {
+        window.pageReadyState.forceShowTimeout = setTimeout(function () {
             window.pageReadyState.fontsLoaded = true;
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
@@ -158,12 +172,6 @@
         }, 800);
     })();
 </script>
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://unpkg.com">
-
 
 
 <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
@@ -181,28 +189,19 @@
     }
 </style>
 
-
-<script>
-    (function() {
-        
-        var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed') === 'true';
-        if (tocCollapsed) {
-            
-            document.documentElement.classList.add('toc-preload-collapsed');
-        }
-    })();
-</script><meta property='og:title' content="20260419 周记">
-<meta property='og:description' content="个人一周记录（20260413-20260419)">
-<meta property='og:url' content='https://cbconne.github.io/weekly/20260416/'>
+<meta property='og:title' content="书、书、书的一周">
+<meta property='og:description' content="还书 DDL 前突击读书 / 使用 Notion 管理书籍 / 把买了汉王后吃灰一年多的 Kindle 重新捡起来">
+<meta property='og:url' content='https://cbconne.github.io/weekly/20260422-%E4%B9%A6%E7%B1%8D%E7%AE%A1%E7%90%86/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
-<meta property='og:type' content='article'><meta property='article:section' content='Weekly' /><meta property='article:published_time' content='2026-04-16T09:24:34&#43;08:00'/><meta property='article:modified_time' content='2026-04-16T09:24:34&#43;08:00'/>
-<meta name="twitter:title" content="20260419 周记">
-<meta name="twitter:description" content="个人一周记录（20260413-20260419)">
-    <link rel="shortcut icon" href="/favicon.ico" />
+<meta property='og:type' content='article'><meta property='article:section' content='Weekly' /><meta property='article:published_time' content='2026-04-22T10:42:58&#43;08:00'/><meta property='article:modified_time' content='2026-04-22T10:42:58&#43;08:00'/><meta property='og:image' content='https://cbconne.github.io/' />
+<meta name="twitter:title" content="书、书、书的一周">
+<meta name="twitter:description" content="还书 DDL 前突击读书 / 使用 Notion 管理书籍 / 把买了汉王后吃灰一年多的 Kindle 重新捡起来"><meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content='https://cbconne.github.io/' />
+<link rel="shortcut icon" href="/favicon.ico" />
 
 
 
-    
+
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
       <script>
         var doNotTrack = false;
@@ -222,7 +221,7 @@
 
 <body class="
     article-page
-    " style="background: #f5f5fa;">
+    ">
     
     <div id="page-loading-overlay"></div>
     <script>
@@ -236,10 +235,8 @@
             document.body.style.background = bgColor;
             
             if (isDark) {
-                var style = document.getElementById('loading-overlay-style');
-                style.textContent = style.textContent
-                    .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
-                    .replace('#34495e', '#ecf0f1');
+                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
             }
             
             window.__spinnerTimer = setTimeout(function () {
@@ -474,34 +471,13 @@
         <nav class="toc-nav" id="TableOfContents">
             
   <ul>
-    <li><a href="#技术">技术</a>
+    <li><a href="#书书书">书！书！书！</a>
       <ul>
-        <li><a href="#开源项目">开源项目</a>
-          <ul>
-            <li><a href="#neovide">neovide</a></li>
-          </ul>
-        </li>
-        <li><a href="#个人项目">个人项目</a>
-          <ul>
-            <li><a href="#blog">Blog</a></li>
-          </ul>
-        </li>
+        <li><a href="#突击阅读">突击阅读</a></li>
+        <li><a href="#notion-管理书籍状态">Notion 管理书籍状态</a></li>
       </ul>
     </li>
-    <li><a href="#生活">生活</a>
-      <ul>
-        <li><a href="#游戏">游戏</a>
-          <ul>
-            <li><a href="#再见断刀">《再见断刀》</a></li>
-          </ul>
-        </li>
-        <li><a href="#读书">读书</a>
-          <ul>
-            <li><a href="#百年孤独">《百年孤独》</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#blog">Blog</a></li>
   </ul>
 
         </nav>
@@ -514,8 +490,14 @@
 
 
         <main class="main full-width">
-    <article class="main-article">
+    <article class="has-image main-article">
     <header class="article-header">
+    <div class="article-image">
+        <a href="/weekly/20260422-%E4%B9%A6%E7%B1%8D%E7%AE%A1%E7%90%86/">
+            <img alt="Featured image of post 书、书、书的一周" height="1119" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/04/22/iR6c/2c469dbf-7bc8-45be-84e6-4d79b8cd.png" srcset="/2c469dbf-7bc8-45be-84e6-4d79b8cddad2_3879228870732550826_hu_91d0894b17a0613a.png 800w, https://files.seeusercontent.com/2026/04/22/iR6c/2c469dbf-7bc8-45be-84e6-4d79b8cd.png 1405w" width="1405">
+        </a>
+    </div>
+    
 
     <div class="article-details">
     
@@ -534,12 +516,12 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/weekly/20260416/">20260419 周记</a>
+            <a href="/weekly/20260422-%E4%B9%A6%E7%B1%8D%E7%AE%A1%E7%90%86/">书、书、书的一周</a>
         </h2>
 
         
         <h3 class="article-subtitle">
-            个人一周记录（20260413-20260419)
+            还书 DDL 前突击读书 / 使用 Notion 管理书籍 / 把买了汉王后吃灰一年多的 Kindle 重新捡起来
         </h3>
         
     </div>
@@ -564,7 +546,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-            <time class="article-time--published" datetime='2026-04-16T09:24:34&#43;08:00'>2026/04/16 09:24:34</time>
+            <time class="article-time--published" datetime='2026-04-22T10:42:58&#43;08:00'>2026/04/22 10:42:58</time>
             
 
             
@@ -577,7 +559,7 @@
 
 
             <time class="article-time--reading">
-                阅读时长: 3 分钟
+                阅读时长: 2 分钟
             </time>
             
 
@@ -592,7 +574,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 1431
+                字数: 915
             </time>
             
         </div>
@@ -618,34 +600,13 @@
             <nav class="toc-nav">
                 
   <ul>
-    <li><a href="#技术">技术</a>
+    <li><a href="#书书书">书！书！书！</a>
       <ul>
-        <li><a href="#开源项目">开源项目</a>
-          <ul>
-            <li><a href="#neovide">neovide</a></li>
-          </ul>
-        </li>
-        <li><a href="#个人项目">个人项目</a>
-          <ul>
-            <li><a href="#blog">Blog</a></li>
-          </ul>
-        </li>
+        <li><a href="#突击阅读">突击阅读</a></li>
+        <li><a href="#notion-管理书籍状态">Notion 管理书籍状态</a></li>
       </ul>
     </li>
-    <li><a href="#生活">生活</a>
-      <ul>
-        <li><a href="#游戏">游戏</a>
-          <ul>
-            <li><a href="#再见断刀">《再见断刀》</a></li>
-          </ul>
-        </li>
-        <li><a href="#读书">读书</a>
-          <ul>
-            <li><a href="#百年孤独">《百年孤独》</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
+    <li><a href="#blog">Blog</a></li>
   </ul>
 
             </nav>
@@ -656,41 +617,35 @@
     <section class="article-content">
     
     
-    <h1 id="技术">技术
-</h1><h2 id="开源项目">开源项目
-</h2><h3 id="neovide">neovide
-</h3><p><a class="link" href="/weekly/20260109/#nvim" >开始使用 NVIM</a>之后其实一直在调整自己的配置，然后因为还是必须在终端中打开，所以字体问题无法解决——我希望在 Nvim 编辑时使用专门的中文字体，但是不想修改 Terminal 的字体，因此尝试找一个能独立配置 Nvim 字体的方法，最后找到了 <a class="link" href="https://neovide.dev/"  target="_blank" rel="noopener"
-    >neovide</a>。</p>
-<p>但是实际使用下来还是有一些兼容性问题导致无法真正代替终端：</p>
-<ul>
-<li>中文输入（使用 rime 输入法）输入字母不上屏</li>
-<li>无法输入全角标点符号</li>
-</ul>
-<p>如果只是当 IDE 的话不能输全角符号，但偏偏我就是想使用 Nvim 编辑我的 blog，在我的英文表达能到达全英文前应该是不太可能了。</p>
-<p>相关的 issues 也看过了，但是看起来都是陈年问题，也不知道什么时候会修复，看起来离真正能使用还遥遥无期。</p>
-<h2 id="个人项目">个人项目
-</h2><h3 id="blog">Blog
-</h3><p>因为字体破折号显示的原因，修改了下字体，从霞鹜文楷 Bright 修改成了上图东观体。这个字体也是我阅读器众多备选字体之一，还是挺好看的。</p>
-<p>既然不怎么认真运维 blog 内容和功能，定期/不定期换换字体也是好的。</p>
-<h1 id="生活">生活
-</h1><h2 id="游戏">游戏
-</h2><h3 id="再见断刀">《再见断刀》
-</h3><p><img alt="《再见断刀》" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/04/16/l7Bm/capsule_616x353.jpg" width="616"></p>
-<p>国产 + 武侠 + 推理游戏，实际体验下来，“国产”是实打实的，其他则只能说是中游水准<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>：是武侠背景，但不是一个足够“武侠”的故事，换现代、科幻等背景尝试讲述一样的故事也没什么不行；推理上中规中矩，没有什么非常吸引人的“天谜”，但解答也中规中矩、伏笔铺设也相对到位，结局和真结局反转也做到了“意料之外情理之中”，只是没什么很突出能给人“拍大腿喊 woc”的地方。</p>
-<p>人物塑造上没什么好客气的：非常烂。这种烂不是“人物全是纸片工具人”的那种，其实部分人物在部分场景下的塑造还可以甚至我个人觉得相当不错，但往往是拔高了预期之后又跌到一个不怎么样的水平。</p>
-<p>至于两个完全的神经病角色我就更没什么好说的了：看得出来这两个角色是作者想表达高身份地位的人对其他人发生的事情的毫不在意，但是游戏实际表现就是单纯的犯贱和傻逼。这种角色虽然明显不是凶手，但不是不能“坏”，但是又坏又蠢真的很让人讨厌：一边不想参与到麻烦中，一边又要谜语人什么都不说还要惹点事。在暴风雪山庄 + 武侠设定这种场景下，明明有着碾压级别的武力优势和碾完也不会有任何事后麻烦的身份地位，可以亮身份，凶手和主角都不会想动他；也可以亮武力，凶手动不过他主角也知道有这种武力肯定不是凶手；甚至可以混沌邪恶两边都捣乱，两边都恨但都无可奈何。但最终偏偏选了一条最让玩家讨厌的。</p>
-<h2 id="读书">读书
-</h2><h3 id="百年孤独">《百年孤独》
-</h3><p>刷逼乎日报看到的一篇<a class="link" href="https://www.zhihu.com/question/291415399/answer/2672430262"  target="_blank" rel="noopener"
-    >百年孤独的相关回答</a>，是转载译者范晔的解读，写得挺好的。</p>
-<p>之所以在这里记一笔倒不全是因为这篇回答，而是读完解读之后想起了自己高中时期读百年孤独的体验。不讨论书本身，只是讨论给我带来的阅读习惯——或者说技巧——上的改变：</p>
-<p>众所周知，百年孤独里的人名是一顶一的难记，拉美后代复用祖辈名字的习俗导致对中国人来说原本就难记的欧美人名更加难记。虽然高中是脑力巅峰，但是也不能指望我能顺畅地读下来并且记清楚所有人名。但也是在读这本书的过程中，我逐渐学会了“忽略名字”，这一个习惯/技巧在后续的阅读中帮助我很多。</p>
-<p>在我理解里，忽略名字不是当名字不存在，而是忽略其“文字”层面的存在——毕竟人名本身就没有文字层面的含义——转而加强其“符号”的含义。通俗一点来说，我逐渐学会忽略到底是“布恩迪亚”还是“小布恩迪亚”还是“𒀭𒅎𒋰𒌦”，还是“𓊹𓌢𓂻𓅊”……我只要知道这段“文本”组成的“符号”对应的故事中的人物是谁就可以了。</p>
+    
+    <blockquote>
+        <p>这周调整了下 title 和 description，因为觉得这两个地方还是要写些关于这篇 blog 的内容。<br>
+尽管这个 blog 处于一个“半私密半公开”的状态，所以我不太用考虑其他人的阅读体验，但面对一堆日期组成的标题，自己回头看或者找起来也比较难。
+后面陆续也把之前的改掉吧，毕竟也不多。
+也尝试用 ChatGPT 生成了一个封面图，我个人还是比较喜欢这种方式，毕竟能根据我的需求生成我比较喜欢的风格的图，感觉以后也可以考虑，就是如果需要反复调试的话白嫖的用量应该是不够的。</p>
+
+    </blockquote>
+<h1 id="书书书">书！书！书！
+</h1><p>如标题所言，最近一周主要是各种读书相关的事情：</p>
+<h2 id="突击阅读">突击阅读
+</h2><p>因为之前借的书快到还书的时间了，所以不得不从上周开始紧急突击。这种事情也好几次了，没有 DDL 驱使的话看书的动力确实不是很足。</p>
+<p><img alt="去年的随记" class="gallery-image" data-flex-basis="348px" data-flex-grow="145" height="496" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/04/22/7wPs/20260422125153904.png" width="720"></p>
+<p>不过借的也都是小说，不用很认真地细读，再加上我读纸质书的速度确实比较快，所以还是没什么大问题（<del>也就是两周需要读四本而已</del>）。</p>
+<h2 id="notion-管理书籍状态">Notion 管理书籍状态
+</h2><p>这个是月初无意看到一些 Notion 的模板后所产生的念头。其实之前就在用 Notion 管理游戏状态了，所以基本的逻辑可以复用，因此搭架子并没有花很多时间，反而是劝说自己“不溯及以往”，别强迫症发作，非要花大量时间把之前读的书都整理进去更困难。</p>
+<p>最后的成果：</p>
+<p><img alt="Notion 截图" class="gallery-image" data-flex-basis="406px" data-flex-grow="169" height="1264" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/04/22/yT9t/20260422135544194.png" srcset="/20260422135544194_13027258137234702114_hu_e13742a3aca7ecc7.png 800w, /20260422135544194_13027258137234702114_hu_fcb773e10b26d964.png 1600w, https://files.seeusercontent.com/2026/04/22/yT9t/20260422135544194.png 2142w" width="2142"></p>
+<p>后面应该还会持续调整。</p>
+<p>另外说一句，因为之前自己已经在用专门的 APP <a class="link" href="https://www.xmnote.com/"  target="_blank" rel="noopener"
+    >纸间书摘</a> <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> 管理阅读状态、用豆瓣记录评价和打分，所以一直觉得没必要强行上 Notion 实现 All in One。但是随着“看山是山、看山不是山、看山还是山”的心态变化，现在已经能接受了，重点在于充分利用各个平台/软件的差异点使得我的需求能得到满足。</p>
+<h1 id="blog">Blog
+</h1><p>用 AI 把 Blog 项目优化了一遍，初步看了下一部分确实是优化，但还有一部分其实是之前 AI 拉出来的屎山……</p>
+<p>不得不否认 AI 很好用，如果是我自己来做，一方面可能我意识不到这里需要优化，另一方面我也不会。但是我还是比较担心现在依赖 AI 将来需要自己古法调整的时候只会阿巴阿巴。</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
 <li id="fn:1">
-<p>叠甲：武侠部分因为我读得有限，所以不一定准确，只是我个人感受；但我读的推理小说还是挺多的，应该有一定代表性。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+<p>强烈安利这个 APP，对看书的人非常有用，值得买一个会员支持。虽然说是书摘管理，但是基本上阅读相关的功能都是具备的：书摘管理、书籍管理、阅读状态维护、记录/统计阅读时间……而且数据存在本地，不用担心停止运维丢失数据的风险。唯一的缺点是只支持 Android，但对我而言没影响。&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
@@ -728,6 +683,17 @@
     <h2 class="section-title"></h2>
     <div class="subsection-list">
         <div class="article-list--tile">
+            
+                
+<article class="">
+    <a href="/weekly/20260416-neovide%E5%A4%A7%E5%A4%B1%E8%B4%A5/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">折腾 Neovide 失败，还是终端靠谱</h2>
+        </div>
+    </a>
+</article>
             
                 
 <article class="">
@@ -769,17 +735,6 @@
 
         <div class="article-details">
             <h2 class="article-title">20260301 周记</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="">
-    <a href="/weekly/20260205/">
-        
-
-        <div class="article-details">
-            <h2 class="article-title">20260208 周记</h2>
         </div>
     </a>
 </article>
@@ -841,7 +796,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.ee8cfdcf29535400e79b746023ed2f951fa48f4e9084f9eaf43f1a143d81eacc.js" defer></script>
+<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

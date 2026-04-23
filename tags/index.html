@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh-cn" dir="ltr" style="background: #f5f5fa;"
-    data-scheme="light">
+<html lang="zh-cn" dir="ltr" data-scheme="light">
 
 <head>
     
@@ -30,6 +29,11 @@
     </script>
     
     <style id="loading-overlay-style">
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
         #page-loading-overlay {
             position: fixed;
             top: 0;
@@ -47,8 +51,8 @@
             content: '';
             width: 60px;
             height: 60px;
-            border: 5px solid rgba(0, 0, 0, 0.1);
-            border-top-color: #34495e;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
             border-radius: 50%;
             animation: __loading_spin 0.8s linear infinite;
             opacity: 0;
@@ -65,14 +69,24 @@
             }
         }
     </style><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+
+
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"><meta name='description' content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。">
 <title>Tags</title>
 
 <link rel='canonical' href='https://cbconne.github.io/tags/'>
 
-<link rel="stylesheet" href="/scss/style.min.d31da4c3e864b0035d4c7503b8d2d3cfdb6c4532ac7e6a74a1fe372959f1224e.css">
+<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
 <script>
-    (function() {
+    (function () {
         
         window.pageReadyState = {
             fontsLoaded: false,
@@ -80,7 +94,7 @@
             galleryProcessed: false,
             forceShowTimeout: null
         };
-        
+
         
         function removeOverlay() {
             
@@ -93,7 +107,7 @@
                 overlay.parentNode.removeChild(overlay);
             }
         }
-        
+
         
         function checkAndShow() {
             var state = window.pageReadyState;
@@ -105,52 +119,52 @@
                 }
             }
         }
+
         
-        
-        window.notifyGalleryReady = function() {
+        window.notifyGalleryReady = function () {
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
-        
+
         
         if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(function() {
+            document.fonts.ready.then(function () {
                 window.pageReadyState.fontsLoaded = true;
                 checkAndShow();
-            }).catch(function() {
+            }).catch(function () {
                 window.pageReadyState.fontsLoaded = true;
                 checkAndShow();
             });
         } else {
             window.pageReadyState.fontsLoaded = true;
         }
-        
+
         
         var script = document.createElement('script');
         script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
-        script.onload = function() {
+        script.onload = function () {
             if (window.pangu) {
-                try { pangu.spacingPage(); } catch (e) {}
+                try { pangu.spacingPage(); } catch (e) { }
             }
             window.pageReadyState.panguProcessed = true;
             checkAndShow();
         };
-        script.onerror = function() {
+        script.onerror = function () {
             window.pageReadyState.panguProcessed = true;
             checkAndShow();
         };
         document.head.appendChild(script);
+
         
-        
-        window.addEventListener('pageshow', function(event) {
+        window.addEventListener('pageshow', function (event) {
             
             if (event.persisted && window.pangu) {
-                try { pangu.spacingPage(); } catch (e) {}
+                try { pangu.spacingPage(); } catch (e) { }
             }
         });
+
         
-        
-        window.pageReadyState.forceShowTimeout = setTimeout(function() {
+        window.pageReadyState.forceShowTimeout = setTimeout(function () {
             window.pageReadyState.fontsLoaded = true;
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
@@ -158,12 +172,6 @@
         }, 800);
     })();
 </script>
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://unpkg.com">
-
 
 
 <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
@@ -181,28 +189,18 @@
     }
 </style>
 
-
-<script>
-    (function() {
-        
-        var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed') === 'true';
-        if (tocCollapsed) {
-            
-            document.documentElement.classList.add('toc-preload-collapsed');
-        }
-    })();
-</script><meta property='og:title' content="Tags">
+<meta property='og:title' content="Tags">
 <meta property='og:description' content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。">
 <meta property='og:url' content='https://cbconne.github.io/tags/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-04-16T09:24:34&#43;08:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-04-23T08:20:15&#43;08:00 '/>
 <meta name="twitter:title" content="Tags">
 <meta name="twitter:description" content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。"><link rel="alternate" type="application/rss&#43;xml" href="https://cbconne.github.io/tags/index.xml">
-    <link rel="shortcut icon" href="/favicon.ico" />
+<link rel="shortcut icon" href="/favicon.ico" />
 
 
 
-    
+
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
       <script>
         var doNotTrack = false;
@@ -220,7 +218,7 @@
 
 </head>
 
-<body class="" style="background: #f5f5fa;">
+<body class="">
     
     <div id="page-loading-overlay"></div>
     <script>
@@ -234,10 +232,8 @@
             document.body.style.background = bgColor;
             
             if (isDark) {
-                var style = document.getElementById('loading-overlay-style');
-                style.textContent = style.textContent
-                    .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
-                    .replace('#34495e', '#ecf0f1');
+                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
             }
             
             window.__spinnerTimer = setTimeout(function () {
@@ -496,7 +492,7 @@
                     <a href="/archives/#2026">
                         
                             <span class="year">2026</span>
-                            <span class="count">10</span>
+                            <span class="count">11</span>
                         
                     </a> 
                 </div>
@@ -781,7 +777,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.ee8cfdcf29535400e79b746023ed2f951fa48f4e9084f9eaf43f1a143d81eacc.js" defer></script>
+<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

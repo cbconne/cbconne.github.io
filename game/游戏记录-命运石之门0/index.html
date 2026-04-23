@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="zh-cn" dir="ltr" style="background: #f5f5fa;"
-    data-scheme="light">
+<html lang="zh-cn" dir="ltr" data-scheme="light">
 
 <head>
     
@@ -30,6 +29,11 @@
     </script>
     
     <style id="loading-overlay-style">
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
         #page-loading-overlay {
             position: fixed;
             top: 0;
@@ -47,8 +51,8 @@
             content: '';
             width: 60px;
             height: 60px;
-            border: 5px solid rgba(0, 0, 0, 0.1);
-            border-top-color: #34495e;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
             border-radius: 50%;
             animation: __loading_spin 0.8s linear infinite;
             opacity: 0;
@@ -65,14 +69,24 @@
             }
         }
     </style><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="\n黑幕覆盖部分均为涉及剧透内容，请谨慎阅读\n评分：8.5 评价：\n作为一个 galgame，评价游戏基本上就是评价剧情。\n个人评分/评价肯定是比前作/本体要略逊一筹：\n首先，因为剧情背景就是石头门本体的助手 BE 线，在此基础上本作的很多优点其实只是站在原作的肩膀上对剧情进行了进一步的补充，不考虑 0 本体依然非常完整，但是不考虑本体 0 就是一个没头没尾的故事；\n其次，哪怕把本体的剧情考虑进来，0 的剧情也难以和本体媲美。本体的故事结构比较清晰，事实上的剧情线只有一条（助手线），其他分支结局本质上只是各个章节的 if 线。而 0 的各个分支线之间非常松散（印象里这些分支剧情实际上来源于石头门 IP 下的小说之类的其他作品），剧情之间互相独立甚至矛盾。如果没有本体的真结局设定，可以说本作的六个结局是平等的分支线。 至于其他的一些剧情上的疑惑点就不展开了，毕竟没有严格去盘剧情线，所以不确定是我理解错误/记忆错误还是确实剧情上不太严谨了。比如 A/B 线会决定由季的真实身份，但是由季在 A/B 线的分歧点之前就出场了，从这个角度看是由果及因了。当然，有世界线这种东西存在想解释肯定是能解释的。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+
+
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"><meta name='description' content="\n黑幕覆盖部分均为涉及剧透内容，请谨慎阅读\n评分：8.5 评价：\n作为一个 galgame，评价游戏基本上就是评价剧情。\n个人评分/评价肯定是比前作/本体要略逊一筹：\n首先，因为剧情背景就是石头门本体的助手 BE 线，在此基础上本作的很多优点其实只是站在原作的肩膀上对剧情进行了进一步的补充，不考虑 0 本体依然非常完整，但是不考虑本体 0 就是一个没头没尾的故事；\n其次，哪怕把本体的剧情考虑进来，0 的剧情也难以和本体媲美。本体的故事结构比较清晰，事实上的剧情线只有一条（助手线），其他分支结局本质上只是各个章节的 if 线。而 0 的各个分支线之间非常松散（印象里这些分支剧情实际上来源于石头门 IP 下的小说之类的其他作品），剧情之间互相独立甚至矛盾。如果没有本体的真结局设定，可以说本作的六个结局是平等的分支线。 至于其他的一些剧情上的疑惑点就不展开了，毕竟没有严格去盘剧情线，所以不确定是我理解错误/记忆错误还是确实剧情上不太严谨了。比如 A/B 线会决定由季的真实身份，但是由季在 A/B 线的分歧点之前就出场了，从这个角度看是由果及因了。当然，有世界线这种东西存在想解释肯定是能解释的。\n">
 <title>游戏记录 命运石之门: 0</title>
 
 <link rel='canonical' href='https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%91%BD%E8%BF%90%E7%9F%B3%E4%B9%8B%E9%97%A80/'>
 
-<link rel="stylesheet" href="/scss/style.min.d31da4c3e864b0035d4c7503b8d2d3cfdb6c4532ac7e6a74a1fe372959f1224e.css">
+<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
 <script>
-    (function() {
+    (function () {
         
         window.pageReadyState = {
             fontsLoaded: false,
@@ -80,7 +94,7 @@
             galleryProcessed: false,
             forceShowTimeout: null
         };
-        
+
         
         function removeOverlay() {
             
@@ -93,7 +107,7 @@
                 overlay.parentNode.removeChild(overlay);
             }
         }
-        
+
         
         function checkAndShow() {
             var state = window.pageReadyState;
@@ -105,52 +119,52 @@
                 }
             }
         }
+
         
-        
-        window.notifyGalleryReady = function() {
+        window.notifyGalleryReady = function () {
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
-        
+
         
         if (document.fonts && document.fonts.ready) {
-            document.fonts.ready.then(function() {
+            document.fonts.ready.then(function () {
                 window.pageReadyState.fontsLoaded = true;
                 checkAndShow();
-            }).catch(function() {
+            }).catch(function () {
                 window.pageReadyState.fontsLoaded = true;
                 checkAndShow();
             });
         } else {
             window.pageReadyState.fontsLoaded = true;
         }
-        
+
         
         var script = document.createElement('script');
         script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
-        script.onload = function() {
+        script.onload = function () {
             if (window.pangu) {
-                try { pangu.spacingPage(); } catch (e) {}
+                try { pangu.spacingPage(); } catch (e) { }
             }
             window.pageReadyState.panguProcessed = true;
             checkAndShow();
         };
-        script.onerror = function() {
+        script.onerror = function () {
             window.pageReadyState.panguProcessed = true;
             checkAndShow();
         };
         document.head.appendChild(script);
+
         
-        
-        window.addEventListener('pageshow', function(event) {
+        window.addEventListener('pageshow', function (event) {
             
             if (event.persisted && window.pangu) {
-                try { pangu.spacingPage(); } catch (e) {}
+                try { pangu.spacingPage(); } catch (e) { }
             }
         });
+
         
-        
-        window.pageReadyState.forceShowTimeout = setTimeout(function() {
+        window.pageReadyState.forceShowTimeout = setTimeout(function () {
             window.pageReadyState.fontsLoaded = true;
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
@@ -158,12 +172,6 @@
         }, 800);
     })();
 </script>
-
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://unpkg.com">
-
 
 
 <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
@@ -181,17 +189,7 @@
     }
 </style>
 
-
-<script>
-    (function() {
-        
-        var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed') === 'true';
-        if (tocCollapsed) {
-            
-            document.documentElement.classList.add('toc-preload-collapsed');
-        }
-    })();
-</script><meta property='og:title' content="游戏记录 命运石之门: 0">
+<meta property='og:title' content="游戏记录 命运石之门: 0">
 <meta property='og:description' content="\n黑幕覆盖部分均为涉及剧透内容，请谨慎阅读\n评分：8.5 评价：\n作为一个 galgame，评价游戏基本上就是评价剧情。\n个人评分/评价肯定是比前作/本体要略逊一筹：\n首先，因为剧情背景就是石头门本体的助手 BE 线，在此基础上本作的很多优点其实只是站在原作的肩膀上对剧情进行了进一步的补充，不考虑 0 本体依然非常完整，但是不考虑本体 0 就是一个没头没尾的故事；\n其次，哪怕把本体的剧情考虑进来，0 的剧情也难以和本体媲美。本体的故事结构比较清晰，事实上的剧情线只有一条（助手线），其他分支结局本质上只是各个章节的 if 线。而 0 的各个分支线之间非常松散（印象里这些分支剧情实际上来源于石头门 IP 下的小说之类的其他作品），剧情之间互相独立甚至矛盾。如果没有本体的真结局设定，可以说本作的六个结局是平等的分支线。 至于其他的一些剧情上的疑惑点就不展开了，毕竟没有严格去盘剧情线，所以不确定是我理解错误/记忆错误还是确实剧情上不太严谨了。比如 A/B 线会决定由季的真实身份，但是由季在 A/B 线的分歧点之前就出场了，从这个角度看是由果及因了。当然，有世界线这种东西存在想解释肯定是能解释的。\n">
 <meta property='og:url' content='https://cbconne.github.io/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E5%91%BD%E8%BF%90%E7%9F%B3%E4%B9%8B%E9%97%A80/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
@@ -199,11 +197,11 @@
 <meta name="twitter:title" content="游戏记录 命运石之门: 0">
 <meta name="twitter:description" content="\n黑幕覆盖部分均为涉及剧透内容，请谨慎阅读\n评分：8.5 评价：\n作为一个 galgame，评价游戏基本上就是评价剧情。\n个人评分/评价肯定是比前作/本体要略逊一筹：\n首先，因为剧情背景就是石头门本体的助手 BE 线，在此基础上本作的很多优点其实只是站在原作的肩膀上对剧情进行了进一步的补充，不考虑 0 本体依然非常完整，但是不考虑本体 0 就是一个没头没尾的故事；\n其次，哪怕把本体的剧情考虑进来，0 的剧情也难以和本体媲美。本体的故事结构比较清晰，事实上的剧情线只有一条（助手线），其他分支结局本质上只是各个章节的 if 线。而 0 的各个分支线之间非常松散（印象里这些分支剧情实际上来源于石头门 IP 下的小说之类的其他作品），剧情之间互相独立甚至矛盾。如果没有本体的真结局设定，可以说本作的六个结局是平等的分支线。 至于其他的一些剧情上的疑惑点就不展开了，毕竟没有严格去盘剧情线，所以不确定是我理解错误/记忆错误还是确实剧情上不太严谨了。比如 A/B 线会决定由季的真实身份，但是由季在 A/B 线的分歧点之前就出场了，从这个角度看是由果及因了。当然，有世界线这种东西存在想解释肯定是能解释的。\n"><meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content='https://cbconne.github.io/' />
-    <link rel="shortcut icon" href="/favicon.ico" />
+<link rel="shortcut icon" href="/favicon.ico" />
 
 
 
-    
+
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
       <script>
         var doNotTrack = false;
@@ -223,7 +221,7 @@
 
 <body class="
     article-page
-    " style="background: #f5f5fa;">
+    ">
     
     <div id="page-loading-overlay"></div>
     <script>
@@ -237,10 +235,8 @@
             document.body.style.background = bgColor;
             
             if (isDark) {
-                var style = document.getElementById('loading-overlay-style');
-                style.textContent = style.textContent
-                    .replace('rgba(0, 0, 0, 0.1)', 'rgba(255, 255, 255, 0.1)')
-                    .replace('#34495e', '#ecf0f1');
+                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
             }
             
             window.__spinnerTimer = setTimeout(function () {
@@ -737,7 +733,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.ee8cfdcf29535400e79b746023ed2f951fa48f4e9084f9eaf43f1a143d81eacc.js" defer></script>
+<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
