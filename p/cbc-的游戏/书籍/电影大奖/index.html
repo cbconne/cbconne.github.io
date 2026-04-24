@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/p/cbc-%E7%9A%84%E6%B8%B8%E6%88%8F/%E4%B9%A6%E7%B1%8D/%E7%94%B5%E5%BD%B1%E5%A4%A7%E5%A5%96/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -604,9 +670,10 @@
 <li>由于嫌麻烦各奖项仅设一项大奖，不设子奖项；</li>
 <li>本人投票权重占比 100%，不接受其他来源意见/建议。</li>
 </ol>
-<h1 id="ctga">CTGA
-</h1><p>基本没有什么纠结的，我个人大奖肯定是给<a class="link" href="/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/#空洞骑士丝之歌" >《空洞骑士：丝之歌》</a>的。</p>
-<p><img alt="Hollow Knight: Silksong" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg" srcset="/xwSa1yrLiRcEqkB_1208571101288218070_hu_b8b534e46382f7e9.jpg 800w, https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg 920w" width="920"></p>
+<h2 id="ctga">CTGA
+</h2>
+<p>基本没有什么纠结的，我个人大奖肯定是给<a class="link" href="/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/#空洞骑士丝之歌" >《空洞骑士：丝之歌》</a>的。</p>
+<p><img alt="Hollow Knight: Silksong" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg" srcset="/xwSa1yrLiRcEqkB_1208571101288218070_hu_c2194fd65010ff9a.jpg 800w, https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg 920w" width="920"></p>
 <p>虽然游戏风评确实“环大陆好评”，但是我还是觉得这是因为游戏出圈以至于大量玩家接触到一款不是那么合拍的游戏导致的。很多该作被批评的点在前作中也存在但是没有引起如此大面积的批评的原因就是前作火起来的时候游戏已经发售比较久了，早期会主动接触该游戏的基本都是该类型的爱好者，在他们的评价下游戏总体的舆论方向已经确定了，从众心理作用下大多数后来者不会再刻意去提出这些在他们看来确实不好的地方；而本作在有大量玩家涌入的时候因为汉化问题舆论已经偏负面了，自然只会每况愈下。</p>
 <p>➕ 我真幸运！<br>
 ➕ 类银河战士恶魔城在我这是绝对的加分类型<br>
@@ -615,8 +682,9 @@
 ➕ 免费 DLC comming soon</p>
 <p>➖ 部分设计确实不太行——就我个人而言缺点不是难度和所谓“缺少正反馈”，而是有些滥用“同时和多个单位战斗”这种设计<br>
 ➖ 难度曲线感觉不如前作缓和，明显有几个 BOSS 之间有“突变”感，前作的三螳螂其实也有但是相对早期，而且 BOSS 设计优秀程度是可以当天花板的。丝之歌的一些 BOSS 比如歌后、黑蕾丝给我一种陡然上升的感觉，并且 BOSS 质量只是“良好”还远没到天花板</p>
-<h1 id="ctba">CTBA
-</h1><p>今年读书数量相比往年略微少了一些，但是仍然还是有 60 本左右。大奖还是给年末重读的、已经读了很多遍的《挪威的森林》。</p>
+<h2 id="ctba">CTBA
+</h2>
+<p>今年读书数量相比往年略微少了一些，但是仍然还是有 60 本左右。大奖还是给年末重读的、已经读了很多遍的《挪威的森林》。</p>
 <p><img alt="挪威的森林" class="gallery-image" data-flex-basis="164px" data-flex-grow="68" height="1576" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/26/8HysxeRzvOW5qSP.jpg" srcset="/8HysxeRzvOW5qSP_8297273753926176637_hu_3d6ed82259d7257d.jpg 800w, https://s2.loli.net/2025/12/26/8HysxeRzvOW5qSP.jpg 1080w" width="1080"></p>
 <p>我的书单绝大多数都是普通的类型小说，阅读基本上只是过一遍剧情，读过多遍其实不多。《挪威的森林》是比较特殊的一本：重读次数多、并且每次重读时心智状态和生活经历差异较大，因此每次阅读的体验和感受相差非常大。</p>
 <p>高中时期的第一次阅读的印象会深刻一些，但是因为不够成熟、生活经历也还不够 <em>（感觉这么说显得在“爹”自己）</em> ，对小说的理解还是在“爱情故事”这一层面上。</p>
@@ -636,8 +704,9 @@
         <p>再插一句：以如今的互联网氛围，书里这些人和他们干的事，没有几个能逃掉被贴上“男凝”“龟男”“小仙女”或者类似标签，然后连带着这本书和作者一起批倒批臭的命运。</p>
 
     </blockquote>
-<h1 id="ctma">CTMA
-</h1><p>这个奖比较纠结，今年没看多少电影，真正觉得不错的电影——或者说豆瓣打了 5 星的就三部。思来想去还是给《南京照相馆》吧。</p>
+<h2 id="ctma">CTMA
+</h2>
+<p>这个奖比较纠结，今年没看多少电影，真正觉得不错的电影——或者说豆瓣打了 5 星的就三部。思来想去还是给《南京照相馆》吧。</p>
 <p><img alt="南京照相馆" class="gallery-image" data-flex-basis="160px" data-flex-grow="66" height="1620" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/31/bSZpeqROmWvB5i1.webp" srcset="/bSZpeqROmWvB5i1_10122049165122000461_hu_dd8800f0dc43f8bd.webp 800w, https://s2.loli.net/2025/12/31/bSZpeqROmWvB5i1.webp 1080w" width="1080"></p>
 <p>我并不仇视日本，甚至在文艺作品方面日本有很多我很喜欢的游戏/小说/电影。</p>
 <p>只是很多事情需要被记住。</p>
@@ -827,7 +896,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

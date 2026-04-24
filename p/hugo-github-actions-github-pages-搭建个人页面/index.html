@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/p/hugo-github-actions-github-pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%A1%B5%E9%9D%A2/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -608,8 +674,9 @@
     <section class="article-content">
     
     
-    <h1 id="总述">总述
-</h1><p>经过了一段时间的探索和比较，最终使用了 Hugo + Github Actions + Github Pages 的方式来尝试搭建个人页面，同时选择了两个仓库（一个私有仓库用来存放源文件，一个公开仓库用来存放编译后的静态文件）的方式来完成这个过程。</p>
+    <h2 id="总述">总述
+</h2>
+<p>经过了一段时间的探索和比较，最终使用了 Hugo + Github Actions + Github Pages 的方式来尝试搭建个人页面，同时选择了两个仓库（一个私有仓库用来存放源文件，一个公开仓库用来存放编译后的静态文件）的方式来完成这个过程。</p>
 <p>最终达到效果：</p>
 <ul>
 <li>有一个私有仓库存放 Hugo 项目及内容，多台电脑可以通过 git 实现该仓库的同步，满足（可能存在的）多台电脑编辑内容的需求。</li>
@@ -617,12 +684,15 @@
 <li>私有仓库的每一次提交（push），触发 Github Actions 进行自动编译并推送到公开仓库，实现自动编译和自动部署。</li>
 </ul>
 <p>总体上还是比较满意这个效果的，基本上也能满足个人站点的需求。</p>
-<h1 id="搭建过程">搭建过程
-</h1><h2 id="创建仓库">创建仓库
-</h2><p>创建两个仓库，一个私有仓库用来存放 Hugo 项目及内容，一个公开仓库用来存放编译后的静态文件。</p>
-<p>前者仓库名称随意，后者名称固定为 <code>&lt;用户名&gt;.github.io</code>。</p>
-<h2 id="创建-hugo-项目">创建 Hugo 项目
+<h2 id="搭建过程">搭建过程
 </h2>
+<h3 id="创建仓库">创建仓库
+</h3>
+<p>创建两个仓库，一个私有仓库用来存放 Hugo 项目及内容，一个公开仓库用来存放编译后的静态文件。</p>
+<p>前者仓库名称随意，后者名称固定为 <code>&lt;用户名&gt;.github.io</code>。</p>
+<h3 id="创建-hugo-项目">创建 Hugo 项目
+</h3>
+
     <blockquote>
         <p>此处省略安装 Hugo 的步骤，安装参考官方文档或网络上的教程。</p>
 
@@ -661,8 +731,9 @@
 <p>个人建议使用一些 star 较多、更新时间较新、说明比较详细的主题。</p>
 <p>一方面因为 Hugo 更新的原因，一些比较旧的主题内的说明可能不再适用，如：实际上 Hugo 的配置文件已经变化，现在默认的配置文件名称为<code>hugo.yaml</code>，而许多较旧的主题的说明中配置文件名称仍然为<code>config.toml</code>。</p>
 <p>另一方面 Hugo 的自定义配置内容除一些通用的配置（在 Hugo 官方文档内）外，基本都是依赖于主题的自定义配置，主题的文档详细程度决定了在后续调整过程中的难度。</p>
-<h2 id="创建-github-actions">创建 Github Actions
-</h2><p>这里省略将上述 Hugo 项目通过 git 上传到私有仓库的步骤。</p>
+<h3 id="创建-github-actions">创建 Github Actions
+</h3>
+<p>这里省略将上述 Hugo 项目通过 git 上传到私有仓库的步骤。</p>
 
     <blockquote>
         <p>WARN：</p>
@@ -878,7 +949,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

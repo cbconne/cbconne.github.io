@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/weekly/20260416-neovide%E5%A4%A7%E5%A4%B1%E8%B4%A5/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -652,10 +718,13 @@
     <section class="article-content">
     
     
-    <h1 id="技术">技术
-</h1><h2 id="开源项目">开源项目
-</h2><h3 id="neovide">neovide
-</h3><p><a class="link" href="/weekly/20260109/#nvim" >开始使用 NVIM</a>之后其实一直在调整自己的配置，由于仍然需要在终端中打开，所以字体问题无法解决——我希望能单独配置 Nvim 的中文字体，但是不想修改 Terminal 的字体，因此尝试找一个能独立配置 Nvim 字体的方法，最后找到了 <a class="link" href="https://neovide.dev/"  target="_blank" rel="noopener"
+    <h2 id="技术">技术
+</h2>
+<h3 id="开源项目">开源项目
+</h3>
+<h4 id="neovide">neovide
+</h4>
+<p><a class="link" href="/weekly/20260109/#nvim" >开始使用 NVIM</a>之后其实一直在调整自己的配置，由于仍然需要在终端中打开，所以字体问题无法解决——我希望能单独配置 Nvim 的中文字体，但是不想修改 Terminal 的字体，因此尝试找一个能独立配置 Nvim 字体的方法，最后找到了 <a class="link" href="https://neovide.dev/"  target="_blank" rel="noopener"
     >neovide</a>。</p>
 <p>但是实际使用下来还是有一些兼容性问题导致无法真正代替终端：</p>
 <ul>
@@ -664,20 +733,27 @@
 </ul>
 <p>如果只是当 IDE 用不能输全角符号也不是什么大问题，但偏偏我就是想使用 Nvim 编辑我的 blog，在我的能全英文写作前应该是不太可能了。</p>
 <p>相关的 issues 也看过了，但是都是陈年问题，也不知道什么时候会修，感觉离真正能可用还遥遥无期。</p>
-<h2 id="个人项目">个人项目
-</h2><h3 id="blog">Blog
-</h3><p>因为字体破折号显示的原因，更换了主要字体，从霞鹜文楷 Bright 修改成了上图东观体。这个字体也是我阅读器众多备选字体之一，还是挺好看的。</p>
+<h3 id="个人项目">个人项目
+</h3>
+<h4 id="blog">Blog
+</h4>
+<p>因为字体破折号显示的原因，更换了主要字体，从霞鹜文楷 Bright 修改成了上图东观体。这个字体也是我阅读器众多备选字体之一，还是挺好看的。</p>
 <p>既然不怎么认真运维 blog 内容和功能，定期/不定期换换字体也是好的。</p>
-<h1 id="生活">生活
-</h1><h2 id="游戏">游戏
-</h2><h3 id="再见断刀">《再见断刀》
-</h3><p><img alt="《再见断刀》" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/04/16/l7Bm/capsule_616x353.jpg" width="616"></p>
+<h2 id="生活">生活
+</h2>
+<h3 id="游戏">游戏
+</h3>
+<h4 id="再见断刀">《再见断刀》
+</h4>
+<p><img alt="《再见断刀》" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/04/16/l7Bm/capsule_616x353.jpg" width="616"></p>
 <p>国产 + 武侠 + 推理游戏，实际体验下来，“国产”是实打实的，其他则只能说是中游水准<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>：是武侠背景，但不是一个足够“武侠”的故事，换现代、科幻等背景尝试讲述一样的故事也没什么不行；推理上中规中矩，没有什么非常吸引人的“天谜”，但解答也中规中矩、伏笔铺设也相对到位，结局和真结局反转也做到了“意料之外情理之中”，只是没什么很突出能给人“拍大腿喊 woc”的地方。</p>
 <p>人物塑造上没什么好客气的：非常烂。这种烂不是“人物全是纸片工具人”的那种，其实部分人物在部分场景下的塑造还可以甚至我个人觉得相当不错，但往往是拔高了预期之后又跌到一个不怎么样的水平。</p>
 <p>至于两个完全的神经病角色我就更没什么好说的了：看得出作者是借这两个角色想表达高身份地位的人对旁人遭遇的毫不在意，但是游戏实际表现就是单纯的犯贱和傻逼。这种角色（明显不是凶手，就是“坏”）可以有，但是又坏又蠢真的很让人讨厌：一边不想卷入麻烦，一边又要装谜语人什么也不说，反倒要去惹点事。在“暴风雪山庄 + 武侠设定”这种场景下，明明有着碾压的武力优势，以及搞出事也不用担责的尊贵身份。此时可以亮明身份（凶手和主角都不敢动他）；也可以展示武力（凶手动不了他，主角也知道这个战力想行凶没必要藏）；甚至可以走混沌邪恶路线两边挑事（两边都恨却无可奈何）。可作者最终偏偏选了最让玩家讨厌的那条路。</p>
-<h2 id="读书">读书
-</h2><h3 id="百年孤独">《百年孤独》
-</h3><p>刷逼乎日报看到的一篇<a class="link" href="https://www.zhihu.com/question/291415399/answer/2672430262"  target="_blank" rel="noopener"
+<h3 id="读书">读书
+</h3>
+<h4 id="百年孤独">《百年孤独》
+</h4>
+<p>刷逼乎日报看到的一篇<a class="link" href="https://www.zhihu.com/question/291415399/answer/2672430262"  target="_blank" rel="noopener"
     >《百年孤独》的相关回答</a>，转载了译者范晔的解读，写得挺好的。</p>
 <p>在这里记一笔不全是因为这篇回答，而是读完之后想起了自己高中时期读《百年孤独》的体验。不讨论书本身，只是讨论给我带来的阅读习惯——或者说技巧——上的改变：</p>
 <p>众所周知，《百年孤独》里的人名是一顶一的复杂，拉美后代沿袭长辈名字的习俗更是导致对国人本就难记的欧美人名难上加难。虽然高中是脑力巅峰，但是也不能指望我能顺畅地读下来并且记清楚所有人名。但也是在读这本书的过程中，我逐渐学会了“忽略名字”，这一个习惯/技巧在后续的阅读中帮助我很多。</p>
@@ -854,7 +930,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-spring-integration-%E5%AE%9E%E7%8E%B0%E5%9F%BA%E4%BA%8E-redis-%E7%9A%84%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81%E4%BB%A5%E5%8F%8A%E8%B8%A9%E5%9D%91/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -622,13 +688,16 @@
     <section class="article-content">
     
     
-    <h1 id="背景">背景
-</h1><p>分布式锁的应用场景应该还是蛮多的，这里就不赘述了。<br>
+    <h2 id="背景">背景
+</h2>
+<p>分布式锁的应用场景应该还是蛮多的，这里就不赘述了。<br>
 之前在开发中实现分布式锁都是自己基于 Redis 造轮子，虽然也不复杂并且自己实现一次能对分布式锁有更深的了解，但是终归有些麻烦。尤其是新项目需要的时候还得 CV 一次。<br>
 在查询/学习过程中（毫不意外地）发现 Spring 有现成的组件实现，所以决定拿过来使用一次，顺便了解一下。</p>
-<h1 id="使用">使用
-</h1><h2 id="引入依赖">引入依赖
-</h2><div class="highlight"><div class="chroma">
+<h2 id="使用">使用
+</h2>
+<h3 id="引入依赖">引入依赖
+</h3>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
 </span><span class="lnt"> 2
@@ -658,8 +727,9 @@
 </span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="创建相关的-bean">创建相关的 Bean
-</h2><div class="highlight"><div class="chroma">
+</div><h3 id="创建相关的-bean">创建相关的 Bean
+</h3>
+<div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
@@ -681,8 +751,9 @@
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="相关代码示例">相关代码示例
-</h2><p>这里省略注入部分代码，仅展示使用部分</p>
+</div><h3 id="相关代码示例">相关代码示例
+</h3>
+<p>这里省略注入部分代码，仅展示使用部分</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -751,17 +822,21 @@
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><h1 id="踩坑">踩坑
-</h1><h2 id="问题描述">问题描述
-</h2><p>为了尽可能简单测试加锁效果，我的做法是创建一个获取锁不释放的接口，然后重复调用。这样第一次获取锁成功后，后面的调用应该在过期时间内是无法获取的。<br>
+</div><h2 id="踩坑">踩坑
+</h2>
+<h3 id="问题描述">问题描述
+</h3>
+<p>为了尽可能简单测试加锁效果，我的做法是创建一个获取锁不释放的接口，然后重复调用。这样第一次获取锁成功后，后面的调用应该在过期时间内是无法获取的。<br>
 上面都没什么问题，然后我尝试手动删掉 redis 里的锁记录之后发现还是锁着的。甚至超时时间过去之后依然是锁着的。</p>
-<h2 id="排查">排查
-</h2><p>当然很容易想到除了 redis，应该还会有其他地方保存着锁信息，这个通过打断点很容易发现：
+<h3 id="排查">排查
+</h3>
+<p>当然很容易想到除了 redis，应该还会有其他地方保存着锁信息，这个通过打断点很容易发现：
 <img alt="2075908-20230926103341555-1736653197" class="gallery-image" data-flex-basis="600px" data-flex-grow="250" height="720" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png" srcset="/Coxurh5nVHKwyAR_17214589067408439338_hu_dd35b551646d7114.png 800w, /Coxurh5nVHKwyAR_17214589067408439338_hu_e970d9bccc16ee5a.png 1600w, https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png 1802w" width="1802">
 很明显，在下面获取 redis 锁之前先尝试获取了 localLock 的锁，虽然 redis 的锁已经没了，但 localLock 仍然还在，所以依然被锁。<br>
 只有在 localLock 没被锁，能够获取锁的情况下才回去尝试获取 redis 的锁。然后如果获取 redis 锁失败（返回 false）的情况下又把 localLock 解锁。感觉这部分逻辑有点怪，不排除是个 BUG？之后再研究下吧。</p>
-<h2 id="解决">解决
-</h2><p>解决起来也很方便，随便 Google 一下就能找到一篇文档：
+<h3 id="解决">解决
+</h3>
+<p>解决起来也很方便，随便 Google 一下就能找到一篇文档：
 <a class="link" href="https://medium.com/@egorponomarev/distributed-lock-with-redis-and-spring-boot-2c3f51a44c65"  title="Distributed lock with Redis and Spring Boot"
      target="_blank" rel="noopener"
     >Distributed lock with Redis and Spring Boot</a></p>
@@ -906,7 +981,7 @@ To do it you can get a lock and exit from a method without releasing. In such ca
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

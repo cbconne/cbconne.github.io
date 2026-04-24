@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/weekly/20260305/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -618,9 +684,11 @@
     <section class="article-content">
     
     
-    <h1 id="生活">生活
-</h1><h2 id="游戏">游戏
-</h2><p>最近在高强度打暗喻幻想：</p>
+    <h2 id="生活">生活
+</h2>
+<h3 id="游戏">游戏
+</h3>
+<p>最近在高强度打暗喻幻想：</p>
 <p><img alt="暗喻幻想：ReFantazio" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/06/gP6e/capsule_616x353.jpg" width="616"></p>
 <p>味道基本就是 P5 那个味儿，有部分体验上的优化和改善，但是 JRPG 让人蛋疼的点也少不了——哪怕我自认已经很喜欢 JRPG 了，有的地方还是受不了：</p>
 <ul>
@@ -634,8 +702,9 @@
 <p>后期很多关键战斗就变成了单纯的数值比拼：反正怪物没弱点，怪和怪的区别基本只有数值，他打他的我打我的，太套路化了。</p>
 </li>
 </ul>
-<h2 id="读书">读书
-</h2><p>因为借的书快到时间了所以这两周也在狂暴看书：</p>
+<h3 id="读书">读书
+</h3>
+<p>因为借的书快到时间了所以这两周也在狂暴看书：</p>
 <p><img alt="爱的轮回式" class="gallery-image" data-flex-basis="165px" data-flex-grow="69" height="800" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/06/g0Fn/s33874736.jpg" width="552"></p>
 <p>通过译名强行蹭上“爱的xxx”系列，其实原名和《爱的成人式》、《爱的告别式》没什么关系。原名其实是“重赴”——是书中故事的主要核心设定。</p>
 <p>故事本身还可以，推理+科幻但不是设定系，故事本身还可以。了解了下有日剧和韩剧，日剧比较忠实原著但是一般，韩剧改动较大评分很高，后面考虑是不是看下。</p>
@@ -644,9 +713,11 @@
 <p><img alt="架空犯" class="gallery-image" data-flex-basis="166px" data-flex-grow="69" height="584" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/06/q0Wf/s35168948.jpg" width="405"></p>
 <p>这本其实刚开始看，读了 1/5 不到。最大的体会是好久不读畅销君突然一读还是蛮舒服的，以至于发了条票圈以表达对东野 sensei 的热爱：</p>
 <p><img alt="朋友圈" class="gallery-image" data-flex-basis="569px" data-flex-grow="237" height="428" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/06/k7gJ/20260306160520555.png" srcset="/20260306160520555_11480457134669494401_hu_e1a2948897503a0.png 800w, https://files.seeusercontent.com/2026/03/06/k7gJ/20260306160520555.png 1016w" width="1016"></p>
-<h1 id="技术">技术
-</h1><h2 id="ai">AI
-</h2><p>虽然我真的对到处都是 AI 有一定反感了，但是也确实无论如何绕不开：现在工作、学习什么绕得开 AI 呢……</p>
+<h2 id="技术">技术
+</h2>
+<h3 id="ai">AI
+</h3>
+<p>虽然我真的对到处都是 AI 有一定反感了，但是也确实无论如何绕不开：现在工作、学习什么绕得开 AI 呢……</p>
 <p>虽然我对 OpenClaw 的爆火非常不理解，但因为工作任务安排，还是在自己一台装了 Linux 的 PC 主机上装了 OpenClaw 并开始探索“这玩意儿到底能干啥？”。<del>（反正烧得不是自己的 token 钱。）</del></p>
 <p>客观来说能力确实强，在<strong>有足够权限的情况下</strong>能做到很多事情，但是真的值得大伙这么疯狂追求以至于 star 能超过 Linux 和 React？</p>
 <p>我个人保留意见：我会尝试使用，因为工作要求并且我也觉得折腾它也很有趣，但是把它接入正式的工作流中这我觉得大可不必如此。</p>
@@ -802,7 +873,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

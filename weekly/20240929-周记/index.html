@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/weekly/20240929-%E5%91%A8%E8%AE%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -679,10 +745,13 @@
         <p>看了不少周刊性质/内容的 blog，觉得这种形式还是挺好的，能够逼迫自己产生相对稳定的输出。因此决定参照这种模式。但是因为个人水平原因，估计写的内容很难称之为“周刊”，因此还是暂定为“周记”吧。</p>
 
     </blockquote>
-<h1 id="技术">技术
-</h1><h2 id="开源项目">开源项目
-</h2><h3 id="计算机体系结构基础">《计算机体系结构基础》
-</h3><p><a class="link" href="https://github.com/foxsen/archbase"  target="_blank" rel="noopener"
+<h2 id="技术">技术
+</h2>
+<h3 id="开源项目">开源项目
+</h3>
+<h4 id="计算机体系结构基础">《计算机体系结构基础》
+</h4>
+<p><a class="link" href="https://github.com/foxsen/archbase"  target="_blank" rel="noopener"
     >计算机体系结构基础</a></p>
 
     <blockquote>
@@ -705,16 +774,18 @@
     </blockquote>
 <p>纯囤积癖犯了，star 了等于学了。<br>
 其实还是看了个开头的，但确实太偏硬件了，个人兴趣不大，对工作的实际价值也有限，所以先屯着吧。</p>
-<h3 id="又一个开发者工具">又一个开发者工具
-</h3><p><a class="link" href="https://github.com/rememberber/MooTool"  target="_blank" rel="noopener"
+<h4 id="又一个开发者工具">又一个开发者工具
+</h4>
+<p><a class="link" href="https://github.com/rememberber/MooTool"  target="_blank" rel="noopener"
     >MooTool</a></p>
 <p><img alt="MooTool" class="gallery-image" data-flex-basis="370px" data-flex-grow="154" height="1638" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/25/Plq2jRmfKxtJWvk.png" srcset="/Plq2jRmfKxtJWvk_3253817600748253564_hu_a1f5e4723ac947a2.png 800w, /Plq2jRmfKxtJWvk_3253817600748253564_hu_710888f48c0caf9f.png 1600w, /Plq2jRmfKxtJWvk_3253817600748253564_hu_a0abff934d77fc5b.png 2400w, https://s2.loli.net/2024/09/25/Plq2jRmfKxtJWvk.png 2528w" width="2528"></p>
 <p>这种工具真的特别多：各种语言开发的、各种平台的、在线的/本地的，开源的/闭源的……<br>
 这个工具我看到的亮点是有一个“随手记”功能，并且支持一些简单的文本处理比如“去掉空格”“去掉空行”“科学计数法-&gt;普通数字”等等。<br>
 但是确实不得不说，实际下载下来用过之后发现 BUG 是真的多啊……随便点点就能碰到那种只能关掉重启的恶性 BUG。
 只能说未来可期但是现在肯定是不能当日常主力工具使用了。</p>
-<h3 id="zen-浏览器">Zen 浏览器
-</h3><p><a class="link" href="https://github.com/zen-browser/desktop"  target="_blank" rel="noopener"
+<h4 id="zen-浏览器">Zen 浏览器
+</h4>
+<p><a class="link" href="https://github.com/zen-browser/desktop"  target="_blank" rel="noopener"
     >Zen Browser</a></p>
 <p>一个开源的、基于 Firefox 的浏览器。<br>
 之所以了解到是因为看到一个<a class="link" href="https://www.reddit.com/r/ArcBrowser/comments/1flixxw/i_am_moving_away_from_arc/"  target="_blank" rel="noopener"
@@ -723,37 +794,48 @@
 目前主力使用的浏览器一个是 Arc（公司 Mac）一个是 Edge （个人 Mac&amp;Windows），前者主要吸引我的一个是 Space 这个功能，能够将不同类型的页面放在不同的 Space 下，另一个是标签页 ≈ 收藏页但比收藏轻量一些；相比之下其他功能只能说有趣、概念比较新，真正有多少实际帮助还是待商榷的。<br>
 Zen 也是有类似 Space 的功能，但实际体验下来和 Arc 的还是有一些差距，当然也可能是习惯问题。<br>
 之后应该也会持续关注，毕竟 Arc 是闭源的并且看势头将来必定是要走向收费的，有一个开源的备选方案总归会好一些。</p>
-<h2 id="个人项目">个人项目
-</h2><p>因为是第一篇，所以把不是本周的项目也都放在这里了。（下一周大概率就凑不出来这部分内容了）</p>
-<h3 id="个人页面">个人页面
-</h3><p>没什么好说的，毕竟每个搭建个人页面/博客的人的第一篇文章大概率都是关于怎么搭建的技术笔记。
+<h3 id="个人项目">个人项目
+</h3>
+<p>因为是第一篇，所以把不是本周的项目也都放在这里了。（下一周大概率就凑不出来这部分内容了）</p>
+<h4 id="个人页面">个人页面
+</h4>
+<p>没什么好说的，毕竟每个搭建个人页面/博客的人的第一篇文章大概率都是关于怎么搭建的技术笔记。
 <a class="link" href="/p/hugo-github-actions-github-pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%A1%B5%E9%9D%A2/" >Hugo+Github Page 搭建个人页面</a></p>
-<h3 id="统计-steam-游戏时间">统计 Steam 游戏时间
-</h3><p>因为个人对“收集数据”的强烈喜好，再加上一些相关功能的启发，因此决定采集自己每天的 Steam 游戏时长。没什么价值，但是确实还蛮有趣。<br>
+<h4 id="统计-steam-游戏时间">统计 Steam 游戏时间
+</h4>
+<p>因为个人对“收集数据”的强烈喜好，再加上一些相关功能的启发，因此决定采集自己每天的 Steam 游戏时长。没什么价值，但是确实还蛮有趣。<br>
 具体详见 <a class="link" href="/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/" >使用 Github Actions 实现 Steam 每天游戏时长记录</a></p>
-<h1 id="生活">生活
-</h1><h2 id="游戏">游戏
-</h2><p>不得不说，Steam Deck 确实是电子伟哥。<br>
+<h2 id="生活">生活
+</h2>
+<h3 id="游戏">游戏
+</h3>
+<p>不得不说，Steam Deck 确实是电子伟哥。<br>
 虽然这次电子阳痿的间歇期在购买 Steam Deck 之前就出现了，但是确实承认没有 Steam Deck 的话这次间歇期应该不会有这么长。不仅玩游戏的时间长了，甚至对于一些成就不是过于困难的游戏竟然都有精力去打一打全成就了。<br>
 果然技术能解决很多问题（不是）。<br>
 这里只提一些想提的游戏吧，之前基本上是通关游戏之后会写一篇记录，但是发现自己打游戏的速度比记录的速度要快（当然也只是暂时的，因为玩的几个游戏体量都比较小），所以后面也都没写详细的记录。</p>
-<h3 id="巴别号漫游指南">巴别号漫游指南
-</h3><p>很有自己风格的国产独立游戏，不论是画面风格还是剧情。个人非常喜欢，期待续作。</p>
+<h4 id="巴别号漫游指南">巴别号漫游指南
+</h4>
+<p>很有自己风格的国产独立游戏，不论是画面风格还是剧情。个人非常喜欢，期待续作。</p>
 <p><img alt="巴别号漫游指南" class="gallery-image" data-flex-basis="160px" data-flex-grow="66" height="900" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/26/kCDurAgpH48MNVW.jpg" width="600"></p>
-<h3 id="去月球">去月球
-</h3><p>大名鼎鼎的作品，剧情向游戏，基本没有玩法可言。但是靠着无比过硬的感人剧情在这个领域达到了天花板水平。<br>
+<h4 id="去月球">去月球
+</h4>
+<p>大名鼎鼎的作品，剧情向游戏，基本没有玩法可言。但是靠着无比过硬的感人剧情在这个领域达到了天花板水平。<br>
 当年手机上买了一份玩完了，这次看这个系列打折就把系列都给买了。</p>
 <p><img alt="To The Moon" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="215" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/26/AWvPteZ25gYyXpB.jpg" width="460"></p>
-<h2 id="读书">读书
-</h2><h3 id="读一页就上瘾的唐朝史">读一页就上瘾的唐朝史
-</h3><p><a class="link" href="https://book.douban.com/subject/36357164/"  target="_blank" rel="noopener"
+<h3 id="读书">读书
+</h3>
+<h4 id="读一页就上瘾的唐朝史">读一页就上瘾的唐朝史
+</h4>
+<p><a class="link" href="https://book.douban.com/subject/36357164/"  target="_blank" rel="noopener"
     >《读一页就上瘾的唐朝史》</a></p>
 <p>书名挺 low 的，但是内容还可以，在通俗性和专业性上找到了一个我还能接受的平衡点。也是补一补对唐朝这个中国最鼎盛的历史时期之一的了解。<br>
 目前最大的感触是门阀制度真 tmd 不是个好东西：李唐攻打天下的时候，坚持对着干、城里开始吃人都不投降的对手因为有贵族身份，所以被捉后留了条命；关心自己领地百姓就顺势降唐的，被捉了之后因为是农民起义军，甚至都不肯给个体面的死法在闹市给砍了。秦朝就喊出的“王侯将相宁有种乎”不肯听，活该末期“内库烧为锦绣灰，天街踏尽公卿骨！”。</p>
-<h2 id="追番">追番
-</h2><p>用一个周末 1.5~2 倍速补完了几部之前几个季度评价还可以或者看简介比较感兴趣的番剧。</p>
-<h3 id="迷宫饭">迷宫饭
-</h3><p><a class="link" href="https://movie.douban.com/subject/35801594/"  target="_blank" rel="noopener"
+<h3 id="追番">追番
+</h3>
+<p>用一个周末 1.5~2 倍速补完了几部之前几个季度评价还可以或者看简介比较感兴趣的番剧。</p>
+<h4 id="迷宫饭">迷宫饭
+</h4>
+<p><a class="link" href="https://movie.douban.com/subject/35801594/"  target="_blank" rel="noopener"
     >《迷宫饭》</a></p>
 <p>之前看到一半结果发现是半年番果断停止等完结，但是直到上周才补完。<br>
 和《异种族风俗娘评鉴指南》一样，是把某个冷门设定一下顶到天花板的作品。相比之下主体的剧情和人物反而不是那么出彩了。</p>
@@ -763,12 +845,14 @@ Zen 也是有类似 Space 的功能，但实际体验下来和 Arc 的还是有�
 不管是迷宫饭还是上面说到的唐朝史，都有因为作品里对某个女角色的描绘不如自己预期就一棍子打死的评价，而且还往往排序占据非常高的位置，点进去之后除此之外的优缺点完全没提。<br>
 我理解这种行为，但是我不赞同，因为这种风气养成之后会形成另一种“审核”制度。现有的官方审核为人诟病，却在形成另一种“消费者”的审核——说实在的，现行的各种审核规定当年不也是这么来的么。
 </details>
-<h3 id="素晴第三季">素晴第三季
-</h3><p><a class="link" href="https://movie.douban.com/subject/34948226/"  target="_blank" rel="noopener"
+<h4 id="素晴第三季">素晴第三季
+</h4>
+<p><a class="link" href="https://movie.douban.com/subject/34948226/"  target="_blank" rel="noopener"
     >《为美好的世界献上祝福！ 第三季》</a></p>
 <p>能有什么好说的呢？希望能继续出。素晴这个风格来说动画版确实比原作够味儿一些。</p>
-<h3 id="从lv2开始开外挂的前勇者候补过着悠哉异世界生活">从Lv2开始开外挂的前勇者候补过着悠哉异世界生活
-</h3><p><a class="link" href="https://movie.douban.com/subject/36603547/"  target="_blank" rel="noopener"
+<h4 id="从lv2开始开外挂的前勇者候补过着悠哉异世界生活">从Lv2开始开外挂的前勇者候补过着悠哉异世界生活
+</h4>
+<p><a class="link" href="https://movie.douban.com/subject/36603547/"  target="_blank" rel="noopener"
     >《从Lv2开始开外挂的前勇者候补过着悠哉异世界生活》</a></p>
 <p>每个季度都应该要有的、不能但也不用带脑子看、用来打发时间也没什么大问题的番。<br>
 相比一些剧情明明也没什么东西但是看的时候多多少少还是得用脑子的番来说，我更喜欢这种无脑厕纸。</p>
@@ -930,7 +1014,7 @@ Zen 也是有类似 Space 的功能，但实际体验下来和 Arc 的还是有�
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

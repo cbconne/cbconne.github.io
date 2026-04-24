@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -614,8 +680,9 @@
     <section class="article-content">
     
     
-    <h1 id="背景碎碎念">背景碎碎念
-</h1><p>虽然说是说“最近”打完的游戏，但是实际上统计的是《丝之歌》缓解了我的电子 ED 之后到现在（2025/12/01）中间打通的游戏，主要有这么几个类型：</p>
+    <h2 id="背景碎碎念">背景碎碎念
+</h2>
+<p>虽然说是说“最近”打完的游戏，但是实际上统计的是《丝之歌》缓解了我的电子 ED 之后到现在（2025/12/01）中间打通的游戏，主要有这么几个类型：</p>
 <ul>
 <li>之前已经玩了但是没有打通</li>
 <li>之前已经买了但是没有玩</li>
@@ -623,17 +690,20 @@
 </ul>
 <p>因为包含的游戏还蛮多的，因此不像单篇那样详细解释了，没什么好说的就一笔带过、有什么想提两句的就说一说。</p>
 <hr>
-<h1 id="空洞骑士丝之歌">《空洞骑士：丝之歌》
-</h1><p><img alt="Hollow Knight: Silksong" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg" srcset="/xwSa1yrLiRcEqkB_1208571101288218070_hu_b8b534e46382f7e9.jpg 800w, https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg 920w" width="920"></p>
+<h2 id="空洞骑士丝之歌">《空洞骑士：丝之歌》
+</h2>
+<p><img alt="Hollow Knight: Silksong" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg" srcset="/xwSa1yrLiRcEqkB_1208571101288218070_hu_c2194fd65010ff9a.jpg 800w, https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg 920w" width="920"></p>
 <p>评价：★★★★★</p>
 <p>纯主观评价，不具备可参考性。事实上发售后 99% 被喷的点我都能接受并不觉得差；相反很多我觉得真的很差的东西被喷的反而很少。</p>
 <p>所以很多东西还是得信自己。</p>
 <hr>
-<h1 id="恶魔城月下夜想曲">《恶魔城：月下夜想曲》
-</h1><p><a class="link" href="/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/" >单独写过了。</a></p>
+<h2 id="恶魔城月下夜想曲">《恶魔城：月下夜想曲》
+</h2>
+<p><a class="link" href="/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/" >单独写过了。</a></p>
 <hr>
-<h1 id="波斯王子失落的王冠">《波斯王子：失落的王冠》
-</h1><p><img alt="Prince of Persia The Lost Crown" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/4jSVtXampHr5KIP.jpg" width="616"></p>
+<h2 id="波斯王子失落的王冠">《波斯王子：失落的王冠》
+</h2>
+<p><img alt="Prince of Persia The Lost Crown" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/4jSVtXampHr5KIP.jpg" width="616"></p>
 <p>评价：★★★☆☆</p>
 <p>另一个打完《丝之歌》之后类银恶瘾犯了之后找的游戏。<br>
 游戏本身质量比较“一般”，非常的育碧：一切都不差，但是就是没足够突出的“好”。<br>
@@ -643,41 +713,48 @@
 <li>地图标记可截图——提高了标记的信息量，避免了类银恶中常见的“当时这里没走下去是因为缺少啥能力来着？”的问题。</li>
 </ul>
 <hr>
-<h1 id="öoo">《Öoo》
-</h1><p><img alt="Öoo" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/HYOWkjedNxRLSF6.jpg" width="616"></p>
+<h2 id="öoo">《Öoo》
+</h2>
+<p><img alt="Öoo" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/HYOWkjedNxRLSF6.jpg" width="616"></p>
 <p>评价：★★★★★</p>
 <p>无可争议的满分，唯二的短板：一是体量太小（但是这个游戏机制确实也很难填充更多的游戏体量了）；二是这破名字我每次都必须复制粘贴才能打出来。</p>
 <hr>
-<h1 id="密特罗德零点任务密特罗德融合">《密特罗德：零点任务》&amp;《密特罗德：融合》
-</h1><p><img alt="Metroid: Zero Mission" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="196" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/4BymnYfqx13uklj.jpg" width="419"> <img alt="Metroid Fusion" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="196" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/3LrdkfUVYuWtzXH.jpg" width="419"></p>
+<h2 id="密特罗德零点任务密特罗德融合">《密特罗德：零点任务》&amp;《密特罗德：融合》
+</h2>
+<p><img alt="Metroid: Zero Mission" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="196" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/4BymnYfqx13uklj.jpg" width="419"> <img alt="Metroid Fusion" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="196" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/3LrdkfUVYuWtzXH.jpg" width="419"></p>
 <p>评价：★★★★☆</p>
 <p>其中中间还隔了一个，但是都是考古 GBA 上的就放一起了。<br>
 基本上除了时间太早系统偏老之外没什么缺点。个人体验上来说零点任务的地图设计我会更喜欢一些，更有银恶那种大地图的感觉；融合的地图设计相对差不少，地图都是独立的，通过一个空间站中转连起来。</p>
 <hr>
-<h1 id="奥伯拉丁的回归">《奥伯拉丁的回归》
-</h1><p><img alt="Return of the Obra Dinn" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/ZotSKhTRAPawMDd.jpg" width="616"></p>
+<h2 id="奥伯拉丁的回归">《奥伯拉丁的回归》
+</h2>
+<p><img alt="Return of the Obra Dinn" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/ZotSKhTRAPawMDd.jpg" width="616"></p>
 <p>评价：★★★★☆</p>
 <p>非常扎实的推理游戏。画面风格算特色但对某些人来说也算缺点；难度曲线总体还可以，但是部分身份的推理又有点刁钻；故事上中规中矩，但如果抱着很高的期望来看会觉得差口气</p>
 <hr>
-<h1 id="密特罗德生存恐惧">《密特罗德：生存恐惧》
-</h1><p><img alt="Metroid Dread" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png" srcset="/EXnWC7s6gGTLZiS_14837073161747700975_hu_af9a5ddfbaea9d34.png 800w, https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png 920w" width="920"></p>
+<h2 id="密特罗德生存恐惧">《密特罗德：生存恐惧》
+</h2>
+<p><img alt="Metroid Dread" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png" srcset="/EXnWC7s6gGTLZiS_14837073161747700975_hu_af9a5ddfbaea9d34.png 800w, https://s2.loli.net/2025/12/08/EXnWC7s6gGTLZiS.png 920w" width="920"></p>
 <p>评价：★★★★★</p>
 <p>现代化改造下的密特罗德，手感比 GBA 上的两作好了很多，比起当年玩的 3DS 上的萨姆斯归来也好不少。地图设计、BOSS 战设计更是没的说。比起虽然我更喜欢一些但估计是等不到续作的恶魔城，密特罗德的正统续作还是可以期待一下吧。</p>
 <hr>
-<h1 id="金偶像谜案">《金偶像谜案》
-</h1><p><img alt="The Case of the Golden Idol" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/aRdofHXMVzGqSYT.jpg" width="616"></p>
+<h2 id="金偶像谜案">《金偶像谜案》
+</h2>
+<p><img alt="The Case of the Golden Idol" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/08/aRdofHXMVzGqSYT.jpg" width="616"></p>
 <p>评价：★★★★★</p>
 <p>奥伯拉丁的回归评论区里推荐的，玩完之后确实能感觉到是同一种类的<del>替身</del>游戏。虽然戏称选词填空模拟器，但是要是不给选项直接让你自己填那不是当场暴毙么。<br>
 个人感觉谜题难度设计比奥伯拉丁好一些，至少我能在全程无攻略的情况下打完并且基本没有瞎蒙的情况；谜题类型上因为是章节/关卡制，所以可以在选词填空的大框架上做出很多种变化，相比单纯的推理身份、推理死因之外会更丰富一些；故事上因为时间跨度大所以也有比较充足的舞台空间去讲一个更完整的故事。</p>
 <hr>
-<h1 id="蝙蝠侠阿卡姆之城">《蝙蝠侠：阿卡姆之城》
-</h1><p><img alt="Batman: Arkham City" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="215" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/12/jUbsnX9y2C6if3q.jpg" width="460"></p>
+<h2 id="蝙蝠侠阿卡姆之城">《蝙蝠侠：阿卡姆之城》
+</h2>
+<p><img alt="Batman: Arkham City" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="215" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/12/jUbsnX9y2C6if3q.jpg" width="460"></p>
 <p>评价：★★★★★</p>
 <p>漫改游戏的天花板系列，那还有啥好说的。<br>
 小丑的刻画比初代要好，比阿卡姆骑士也好一些（毕竟阿卡姆骑士真·小丑已经没了，只是“活”在老爷脑袋里）。如果把起源剧情也算进来的话，小丑一直都没想通老爷为什么不杀他，一直都在以“我知道你 Batman 不会杀我”为前提搞事情，然后真的自己作死作到死亡边缘了反而不敢赌老爷真的会去救他结果害死自己了。这下小丑真小丑了。</p>
 <hr>
-<h1 id="塞尔达传说智慧的再现">《塞尔达传说：智慧的再现》
-</h1><p><img alt="智慧的再现" class="gallery-image" data-flex-basis="426px" data-flex-grow="177" height="720" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp" srcset="/wcXkf6IqLEr5e2o_206728368684409251_hu_682013b8d3fe32d6.webp 800w, https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp 1280w" width="1280"></p>
+<h2 id="塞尔达传说智慧的再现">《塞尔达传说：智慧的再现》
+</h2>
+<p><img alt="智慧的再现" class="gallery-image" data-flex-basis="426px" data-flex-grow="177" height="720" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp" srcset="/wcXkf6IqLEr5e2o_206728368684409251_hu_682013b8d3fe32d6.webp 800w, https://s2.loli.net/2025/12/12/wcXkf6IqLEr5e2o.webp 1280w" width="1280"></p>
 <p>评价：★★★★★</p>
 <p>夭寿啦，塞尔达传说主角竟然真的是塞尔达啦。<br>
 时隔十余年 2D 塞尔达的非重制新作，仍然是任天堂级别的顶级的创意。</p>
@@ -861,7 +938,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

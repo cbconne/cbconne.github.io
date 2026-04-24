@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/weekly/20260323/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -634,9 +700,11 @@
     <section class="article-content">
     
     
-    <h1 id="技术">技术
-</h1><h2 id="hackernews">HackerNews
-</h2><p><del>写</del>生成了个脚本，能通过 HN 帖子的 id 号拉取内容并且用 LLM 翻译（虽然直接浏览器页面翻译就行但是我乐意），摸鱼起来更方便了（不是）。</p>
+    <h2 id="技术">技术
+</h2>
+<h3 id="hackernews">HackerNews
+</h3>
+<p><del>写</del>生成了个脚本，能通过 HN 帖子的 id 号拉取内容并且用 LLM 翻译（虽然直接浏览器页面翻译就行但是我乐意），摸鱼起来更方便了（不是）。</p>
 <p>不得不说 HackerNews 的讨论质量还是比各种乱七八糟的地方要好很多，虽然也有自己的“主流观点”/“政治正确”，但总体还是在讨论问题的。</p>
 <p>放一些摘录：</p>
 
@@ -657,8 +725,9 @@
 有些人擅长解决那些棘手却难以言喻的问题，而另一些人则精于处理直接的业务问题。不必为此感到羞愧，这不过是两种不同的工作罢了。</p>
 
     </blockquote>
-<h2 id="openclaw-322">OpenClaw 3.22
-</h2><p>TL;DR：OpenClaw 3.22 版本改动过大，导致很多插件失效。</p>
+<h3 id="openclaw-322">OpenClaw 3.22
+</h3>
+<p>TL;DR：OpenClaw 3.22 版本改动过大，导致很多插件失效。</p>
 <p>因为我没有实际在用，所以影响不大，当时钉钉插件挂了重装还不行大概就知道是升级的问题，扫了眼 issue 就没管了——反正会有人去修的（不管是 OpenClaw 还是插件）。</p>
 <p>但是这确实暴露出来很多问题，我愿意相信这玩意个人使用的话有人能玩出花头，但是当正儿八经的生产力？</p>
 <div style="text-align: center;">
@@ -668,19 +737,23 @@
     B -->|No| D[怎么解决 OpenClaw 自己的问题？]
     C --> E[结束]
     D --> E</pre></div>
-<h2 id="github-copilot数据使用政策更新">GitHub Copilot数据使用政策更新
-</h2><p><a class="link" href="https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/"  target="_blank" rel="noopener"
+<h3 id="github-copilot数据使用政策更新">GitHub Copilot数据使用政策更新
+</h3>
+<p><a class="link" href="https://github.blog/news-insights/company-news/updates-to-github-copilot-interaction-data-usage-policy/"  target="_blank" rel="noopener"
     >GitHub Copilot数据使用政策更新</a></p>
 <p>从 2026 年 4 月 24 日起，GitHub 将开始使用部分用户的交互数据来训练和改进其 AI 模型，除非用户主动选择退出（Opt-out）。</p>
 <p>当年刚出来没多久买了一年 Copilot（100 刀，还挺贵），到期之后就没用 Copilot 了，哪怕之后有了 Free 的挡位（虽然 Free 也不够用吧感觉）。看到提醒之后就去关掉了——虽然说实话我不是很在意。</p>
-<h2 id="steam-游戏时长推送">Steam 游戏时长推送
-</h2><p>时不时想起来就优化一下：</p>
+<h3 id="steam-游戏时长推送">Steam 游戏时长推送
+</h3>
+<p>时不时想起来就优化一下：</p>
 <p>这次添加了推送功能，每天会推送昨天游戏情况和时长，感谢<a class="link" href="https://wxpusher.zjiecode.com/docs/#/"  target="_blank" rel="noopener"
     >WxPusher</a>提供的免费的推送服务，虽然需要使用独立的 APP 但都接入了主要厂商的后台推送，不需要长期后台运行，推送消息也支持 markdown 和 html，个人使用推送一些无甚要紧的消息的话相当可以了（毕竟免费，还要啥自行车？）</p>
 <p>此处 diss 一下企业微信，需要有域名或者公网 IP 才能完成配置并实现推送，本来想用的，遗憾放弃。</p>
-<h1 id="生活">生活
-</h1><h2 id="游戏">游戏
-</h2><p>最近电子 ED 又双叒叕有所缓解，Steam Deck、Switch、PC 多点开花。</p>
+<h2 id="生活">生活
+</h2>
+<h3 id="游戏">游戏
+</h3>
+<p>最近电子 ED 又双叒叕有所缓解，Steam Deck、Switch、PC 多点开花。</p>
 <p>简单过一下最近通关的游戏：</p>
 <p><img alt="暗喻幻想" class="gallery-image" data-flex-basis="418px" data-flex-grow="174" height="353" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/06/gP6e/capsule_616x353.jpg" width="616"></p>
 <p>不多说了，看图吧：</p>
@@ -688,8 +761,9 @@
 <hr>
 <p><img alt="三相奇谈" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="215" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/23/4Nhj/header_schinese.jpg" width="460"></p>
 <p>普普通通的一个横版解谜游戏，挺中规中矩的，很多让人会心一笑的彩蛋/梗。在“讲好自己的故事”这方面做到了 70 分，再加一些国产游戏独有的中国元素，我还是愿意好评的。</p>
-<h2 id="电影">电影
-</h2><p>上周末去看了《挽救计划》，是我为数不多：没观望口碑&amp;上映没多久就去看的电影，除此之外应该只有复联3/4和每年的哆啦A梦有此“殊荣”。</p>
+<h3 id="电影">电影
+</h3>
+<p>上周末去看了《挽救计划》，是我为数不多：没观望口碑&amp;上映没多久就去看的电影，除此之外应该只有复联3/4和每年的哆啦A梦有此“殊荣”。</p>
 <p><img alt="电影海报（挺一般的）" class="gallery-image" data-flex-basis="161px" data-flex-grow="67" height="2965" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/23/x5iK/vZvUHR5xoMfLFnqNxgwcTDeT7H7.jpg" srcset="/vZvUHR5xoMfLFnqNxgwcTDeT7H7_3449137197494297965_hu_909de0f83b6b3044.jpg 800w, /vZvUHR5xoMfLFnqNxgwcTDeT7H7_3449137197494297965_hu_7916c03d01440444.jpg 1600w, https://files.seeusercontent.com/2026/03/23/x5iK/vZvUHR5xoMfLFnqNxgwcTDeT7H7.jpg 2000w" width="2000"></p>
 <p>这部电影能吸引我去看主要还是因为四年前读过原著小说并且非常喜欢：</p>
 <p><img alt="当年小说的豆瓣评价" class="gallery-image" data-flex-basis="258px" data-flex-grow="107" height="1292" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/03/23/hj5Q/Screenshot_20260320143824.jpg" srcset="/Screenshot_20260320143824_2204109721170292748_hu_ffc802b31a37de15.jpg 800w, https://files.seeusercontent.com/2026/03/23/hj5Q/Screenshot_20260320143824.jpg 1392w" width="1392"></p>
@@ -744,9 +818,11 @@
 </ul>
 
 </details>
-<h1 id="其它">其它
-</h1><h2 id="远程教学颜值影响成绩">远程教学+颜值影响成绩
-</h2><p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S016517652200283X"  target="_blank" rel="noopener"
+<h2 id="其它">其它
+</h2>
+<h3 id="远程教学颜值影响成绩">远程教学+颜值影响成绩
+</h3>
+<p><a class="link" href="https://www.sciencedirect.com/science/article/pii/S016517652200283X"  target="_blank" rel="noopener"
     >Student beauty and grades under in-person and remote teaching</a></p>
 <p>有些标题党了，研究结论是：在面对面授课时，长得好看的学生（尤其是女生）往往能获得更高的成绩；但当疫情期间转为线上网课后，这种“颜值红利”消失了，漂亮女生的成绩出现了显著下滑，但男生影响不大。</p>
 <p>就我个人理解来说，虽然文章很严谨，但数据量还是太小了，范围也局限于一所大学、一门课，图一乐可以，但说服力不高。</p>
@@ -920,7 +996,7 @@ initMermaidPage({"darkTheme":"dark","darkThemeVariables":{},"htmlLabels":true,"l
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

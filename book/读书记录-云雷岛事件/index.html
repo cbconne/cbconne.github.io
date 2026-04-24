@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/book/%E8%AF%BB%E4%B9%A6%E8%AE%B0%E5%BD%95-%E4%BA%91%E9%9B%B7%E5%B2%9B%E4%BA%8B%E4%BB%B6/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -222,28 +306,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -656,36 +722,47 @@
     
     
     <p><img alt="云雷岛事件" class="gallery-image" data-flex-basis="159px" data-flex-grow="66" height="1627" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/05/30/7MvaDWKlzJ4Rh9Y.jpg" srcset="/7MvaDWKlzJ4Rh9Y_14451644635123841090_hu_d09a4a173448a6b8.jpg 800w, https://s2.loli.net/2025/05/30/7MvaDWKlzJ4Rh9Y.jpg 1080w" width="1080"></p>
-<h1 id="剧情简介">剧情简介
-</h1><h2 id="官方">官方
+<h2 id="剧情简介">剧情简介
 </h2>
+<h3 id="官方">官方
+</h3>
+
     <blockquote>
         <p>平凡的公司职员吴寒峰跟随神秘女友汪雨涵来到了她的家乡，一座名叫云雷岛的海岛上，不料岛上的通信设施被人为破坏，命案也接踵而来。令人匪夷所思的是，案发现场都呈现所谓“密室”状态，凶手的作案手法似乎也暗含了金、木、水、火等“五行”相关的要素。无法解明真相、深感自己也在劫难逃的吴寒峰在最后关头将案件经过写在纸上、塞进瓶子，扔到了大海里。云雷岛上的命案真相是否还能水落石出？</p>
 
     </blockquote>
-<h2 id="个人">个人
-</h2><p>（伪）男主被他的女朋友带去家里见家长，女朋友家里因为爷爷避世居住在一个只有自家人的岛上，然后就套路化的开始暴风雪山庄死人，最后一个<del>案子</del>人造意外团灭所有人。最后一个团灭前男主写了很多记载细节的纸条放在漂流瓶里，最终漂流瓶被<del>出场不到两章</del>的真男主捡到，案件被真女主破解。</p>
-<h1 id="评价">评价
-</h1><h2 id="作为小说">作为“小说”
-</h2><p>基本上，绝大多数的推理小说——不论古今中外——单纯作为“小说”都是不合格的，人物形象、故事情节（除诡计外）、背景环境之类的都谈不上优秀。作为在推理小说中也属于比较一般的这本书，当然更是差劲：</p>
-<h3 id="人物形象">人物形象
-</h3><p>立体的人物形象不一定是好的人物形象，但是扁平到两句话就能定义完的人物形象肯定不好。但是这本书里的人物基本都是这样，完完全全只有一个面，并且这一个面能通过非常简单的标签定义出来：</p>
+<h3 id="个人">个人
+</h3>
+<p>（伪）男主被他的女朋友带去家里见家长，女朋友家里因为爷爷避世居住在一个只有自家人的岛上，然后就套路化的开始暴风雪山庄死人，最后一个<del>案子</del>人造意外团灭所有人。最后一个团灭前男主写了很多记载细节的纸条放在漂流瓶里，最终漂流瓶被<del>出场不到两章</del>的真男主捡到，案件被真女主破解。</p>
+<h2 id="评价">评价
+</h2>
+<h3 id="作为小说">作为“小说”
+</h3>
+<p>基本上，绝大多数的推理小说——不论古今中外——单纯作为“小说”都是不合格的，人物形象、故事情节（除诡计外）、背景环境之类的都谈不上优秀。作为在推理小说中也属于比较一般的这本书，当然更是差劲：</p>
+<h4 id="人物形象">人物形象
+</h4>
+<p>立体的人物形象不一定是好的人物形象，但是扁平到两句话就能定义完的人物形象肯定不好。但是这本书里的人物基本都是这样，完完全全只有一个面，并且这一个面能通过非常简单的标签定义出来：</p>
 <ul>
 <li>侦探/小女生</li>
 <li>华生</li>
 <li>暴风雪山庄的标准死者</li>
 </ul>
 <p>略微有一些塑造空间的，比如作为凶手动机的那个角色，确实表现出了不止一个面，但是面与面之间完全没有必然关系，也没有着笔墨去描写原因<span class="heimu" title="你知道的太多了">就硬从一个女同转成正常异性恋，为什么爱上对方也没说反正为了给凶手提供一个杀人动机也就劈腿了</span>；凶手就更是了，<span class="heimu" title="你知道的太多了">当年为了救女友当过“侦探”角色如今成为凶手</span>原本也是一个很好的塑造人物的角度，但<span class="heimu" title="你知道的太多了">“你抢了我女朋友虽然你没有强迫她她确实很爱你你对她也确实很好她去世也确实是因为第三方的恶意和意外和你没有关系但是我就是要杀你全家”</span>的动机实在……</p>
-<h3 id="故事情节">故事情节
-</h3><p>因为是单纯作为“小说”来讨论所以这里不涉及诡计部分。基本上故事情节就是 <a class="link" href="#%e4%b8%aa%e4%ba%ba" >#个人</a> 部分所总结的，比较标准/刻板的暴风雪山庄或者更进一步无人生还模式。结构上双线叙事，表线就是上面所说的，里线讲的是当年<span class="heimu" title="你知道的太多了">凶手</span>为救被冤枉的女友破解的一个案子，还藏了一个帮凶的伏笔不知道是不是续作回收。</p>
-<h3 id="背景环境">背景环境
-</h3><p>服务于暴风雪山庄模式的一座岛，其他没啥。</p>
-<h2 id="诡计部分">诡计部分
-</h2><p>我自认是一个很宽容的推理小说读者，以上讲述的确实是推理小说本身这个类型的弱项所以我也不会苛求。但是这本书的诡计也很难评：确实有想法，但是不论是合理性还是可行性都非常一般：</p>
-<h3 id="间幕">间幕
-</h3><p>核心诡计和“木”重复，也是整本书最为扯淡的，放到“木”再讲。</p>
-<h3 id="金">金
-</h3><p>内部上锁的房间内，死者被一支金属箭穿喉而死。</p>
+<h4 id="故事情节">故事情节
+</h4>
+<p>因为是单纯作为“小说”来讨论所以这里不涉及诡计部分。基本上故事情节就是 <a class="link" href="#%e4%b8%aa%e4%ba%ba" >#个人</a> 部分所总结的，比较标准/刻板的暴风雪山庄或者更进一步无人生还模式。结构上双线叙事，表线就是上面所说的，里线讲的是当年<span class="heimu" title="你知道的太多了">凶手</span>为救被冤枉的女友破解的一个案子，还藏了一个帮凶的伏笔不知道是不是续作回收。</p>
+<h4 id="背景环境">背景环境
+</h4>
+<p>服务于暴风雪山庄模式的一座岛，其他没啥。</p>
+<h3 id="诡计部分">诡计部分
+</h3>
+<p>我自认是一个很宽容的推理小说读者，以上讲述的确实是推理小说本身这个类型的弱项所以我也不会苛求。但是这本书的诡计也很难评：确实有想法，但是不论是合理性还是可行性都非常一般：</p>
+<h4 id="间幕">间幕
+</h4>
+<p>核心诡计和“木”重复，也是整本书最为扯淡的，放到“木”再讲。</p>
+<h4 id="金">金
+</h4>
+<p>内部上锁的房间内，死者被一支金属箭穿喉而死。</p>
 <details>
     <summary><strong>泄底</strong></summary>
     <p>房间两边墙壁内有铁板，连着避雷针，闪电劈中之后形成了一个强电场。
@@ -693,8 +770,9 @@
 <p>某个角度上来说还算有创意，而且模糊的条件太多了，所以我也没具体计算。</p>
 
 </details>
-<h3 id="木">木
-</h3><p>足迹密室，死者出现在沼泽中心。</p>
+<h4 id="木">木
+</h4>
+<p>足迹密室，死者出现在沼泽中心。</p>
 <details>
     <summary><strong>泄底</strong></summary>
     <p>我只能说我不理解作者的想法，只能尽可能复述：</p>
@@ -703,24 +781,28 @@
 <p><img alt="云雷岛事件-木" class="gallery-image" data-flex-basis="318px" data-flex-grow="132" height="1080" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/05/30/l6rL3mojCGTnxMN.jpg" srcset="/l6rL3mojCGTnxMN_9193431388321431819_hu_a16f61e74c3059c4.jpg 800w, https://s2.loli.net/2025/05/30/l6rL3mojCGTnxMN.jpg 1434w" width="1434"></p>
 
 </details>
-<h3 id="水">水
-</h3><p>浴室密室，被淹死。</p>
+<h4 id="水">水
+</h4>
+<p>浴室密室，被淹死。</p>
 <details>
     <summary><strong>泄底</strong></summary>
     <p>连通器原理，浴室排水和比浴室海拔更高的一个池子/喷水池（不记得了）连着，有开关控制。把门缝封好之后通过开关控制让水流到浴室，淹死之后再控制开关让浴室的排水连到真正的排水把水排掉。</p>
 <p>比前前者这个总体上来说还算可以了……至少粗看起来逻辑是通的。</p>
 
 </details>
-<h3 id="火">火
-</h3><p>一个很长的玻璃房，很多房间并排，房间之间都是玻璃门。死者被烧死在中间，门都是从内部锁上的。</p>
+<h4 id="火">火
+</h4>
+<p>一个很长的玻璃房，很多房间并排，房间之间都是玻璃门。死者被烧死在中间，门都是从内部锁上的。</p>
 <details>
     <summary><strong>泄底</strong></summary>
     所有门都是不明显的凸透镜，叠加在一起某个时刻会把阳光聚焦。凶手在焦点上放了张粘住的、有磷的纸，偷走了死者的眼镜。死者被迫脸贴近桌面阅读，然后突然着火。
 </details>
-<h3 id="土">土
-</h3><p>埋了炸弹，人为制造泥石流团灭所有人，强行无人生还。</p>
-<h2 id="总结">总结
-</h2><p>谜面非常朴素，并不如何吸引人；解答有的中规中矩，有的又太雷人。</p>
+<h4 id="土">土
+</h4>
+<p>埋了炸弹，人为制造泥石流团灭所有人，强行无人生还。</p>
+<h3 id="总结">总结
+</h3>
+<p>谜面非常朴素，并不如何吸引人；解答有的中规中矩，有的又太雷人。</p>
 <p>评分：4/10</p>
 
 </section>
@@ -880,7 +962,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {

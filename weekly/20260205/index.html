@@ -4,6 +4,84 @@
 
 <head>
     
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
     <script>
         (function () {
             var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
@@ -23,52 +101,39 @@
             var bgColor = isDark ? '#303030' : '#f5f5fa';
             html.dataset.scheme = isDark ? 'dark' : 'light';
             html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
             window.__themeBackground = bgColor;
             window.__themeDark = isDark;
-        })();
-    </script>
-    
-    <style id="loading-overlay-style">
-        :root {
-            --loading-border-color: rgba(0, 0, 0, 0.1);
-            --loading-top-color: #34495e;
-        }
 
-        #page-loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 99999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
 
-         
-        #page-loading-overlay::after {
-            content: '';
-            width: 60px;
-            height: 60px;
-            border: 5px solid var(--loading-border-color);
-            border-top-color: var(--loading-top-color);
-            border-radius: 50%;
-            animation: __loading_spin 0.8s linear infinite;
-            opacity: 0;
-            transition: opacity 200ms ease;
-        }
-
-        #page-loading-overlay.show-spinner::after {
-            opacity: 1;
-        }
-
-        @keyframes __loading_spin {
-            to {
-                transform: rotate(360deg);
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
             }
-        }
-    </style><meta charset='utf-8'>
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
@@ -84,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/weekly/20260205/'>
 
-<link rel="stylesheet" href="/scss/style.min.03f5eb9c3046614880b4b6b3476fed1bc51999d88fe3bafdc045907cee1c5c2e.css">
+<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
 <script>
     (function () {
         
@@ -97,15 +162,18 @@
 
         
         function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
             
-            if (window.__spinnerTimer) {
-                clearTimeout(window.__spinnerTimer);
-                window.__spinnerTimer = null;
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
             }
-            var overlay = document.getElementById('page-loading-overlay');
-            if (overlay && overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
         }
 
         
@@ -125,6 +193,14 @@
             window.pageReadyState.galleryProcessed = true;
             checkAndShow();
         };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
 
         
         if (document.fonts && document.fonts.ready) {
@@ -169,14 +245,22 @@
             window.pageReadyState.panguProcessed = true;
             window.pageReadyState.galleryProcessed = true;
             removeOverlay();
-        }, 800);
+        }, 3000);
     })();
 </script>
 
 
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
-<link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
 
 
 <style>
@@ -221,28 +305,10 @@
 <body class="
     article-page
     ">
-    
-    <div id="page-loading-overlay"></div>
     <script>
         (function () {
-            var overlay = document.getElementById('page-loading-overlay');
             var bgColor = window.__themeBackground || '#f5f5fa';
-            var isDark = window.__themeDark;
-            
-            overlay.style.background = bgColor;
-            
             document.body.style.background = bgColor;
-            
-            if (isDark) {
-                document.documentElement.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
-                document.documentElement.style.setProperty('--loading-top-color', '#ecf0f1');
-            }
-            
-            window.__spinnerTimer = setTimeout(function () {
-                if (overlay) {
-                    overlay.classList.add('show-spinner');
-                }
-            }, 300);
         })();
     </script>
     <script>
@@ -631,9 +697,11 @@
     
     
     <p>老规矩，上周没写完拖到这周了，就两周并一起了。也刚好年前，应该过年是不会写啥的了。</p>
-<h1 id="游戏">游戏
-</h1><h2 id="樱色之云绯色之恋">樱色之云＊绯色之恋
-</h2><p>上周日打完的，果然虽然随着时代发展“排名”这种东西越来越水，但能拿到当年的美少女游戏大赏的综合部门&amp;剧本部门第一名总归还是有一定道理的。</p>
+<h2 id="游戏">游戏
+</h2>
+<h3 id="樱色之云绯色之恋">樱色之云＊绯色之恋
+</h3>
+<p>上周日打完的，果然虽然随着时代发展“排名”这种东西越来越水，但能拿到当年的美少女游戏大赏的综合部门&amp;剧本部门第一名总归还是有一定道理的。</p>
 <p>上一篇也说过了，女角色不是很戳我 XP，所以共通线和前三条分支线对我而言还是蛮无聊的，除了领略一下日本大正时期的风土人情之外，都是非常常规的套路。其实最后一条 TE 线绝大部分也都是并不新鲜的套路，能玩下来主要还是毕竟所长是唯一戳中一点我 XP 的女角色打了这么久终于能攻略了以及核心的反转确实还算不错。</p>
 <details>
     <summary><strong>剧透警告</strong></summary>
@@ -645,23 +713,29 @@
 <p>此外，在一个明显的男性向 GalGame 中最终竟然选择了一个偏向 BE 的 TE 是我确实没想到的，有句评论说得很准确：“为了艺术表达故意放弃了一些合理性”——按绝大多数人的正常逻辑，风见司其实完全没有回到未来的理由。放弃一个（至少目前还是）和平的环境、放弃爱人和朋友，去选择一个可能保持和平但也可能仍然战乱的未来，无论是从感性还是理性出发都不够合理。其实稍微创造一些不可抗力给一个“不得不回到未来”的理由就会好很多。但总体而言我个人是能接受的，可能已经不是无脑占 HE 的年纪了吧。</p>
 
 </details>
-<h2 id="其他-galgame">其他 GalGame
-</h2><p>不得不说我的兴趣确实一阵一阵的，之前打完《丝之歌》对类银恶突然兴趣大增，这次打完一个 GalGame 突然又对其他 GalGame 起了兴趣。</p>
+<h3 id="其他-galgame">其他 GalGame
+</h3>
+<p>不得不说我的兴趣确实一阵一阵的，之前打完《丝之歌》对类银恶突然兴趣大增，这次打完一个 GalGame 突然又对其他 GalGame 起了兴趣。</p>
 <p>不过也确实是有道理：在电子 ED 发作的时候，需要思考、操作的游戏确实玩起来很累，相比之下 GalGame 更像是看书、看视频、看电影这类纯被动输入的休闲，不用花过多的精力。</p>
 <p>目前攒了 2~3 个 GalGame，不知道什么时候能玩完。</p>
-<h1 id="ai">AI
-</h1><h2 id="langchain-开发">LangChain 开发
-</h2><p>想使用 LLM 辅助学习使用 LangChain 开发 agent，前面几个步骤：列路线图、基础环境配置都挺好，但是到了后面写实际代码的时候就开始犯病了：不论我怎么要求、提示，总是坚定不移地使用 0.x 版本的 LangChain ，偶尔在我的要求下联网查到了 1.x 版本的信息、写了几段正确的代码后过了几轮查 BUG 的时候又回去了。</p>
+<h2 id="ai">AI
+</h2>
+<h3 id="langchain-开发">LangChain 开发
+</h3>
+<p>想使用 LLM 辅助学习使用 LangChain 开发 agent，前面几个步骤：列路线图、基础环境配置都挺好，但是到了后面写实际代码的时候就开始犯病了：不论我怎么要求、提示，总是坚定不移地使用 0.x 版本的 LangChain ，偶尔在我的要求下联网查到了 1.x 版本的信息、写了几段正确的代码后过了几轮查 BUG 的时候又回去了。</p>
 <p>估计还是特别新的东西没有放到训练集里导致的，估计这也是个长期的问题：联网查到的新东西和 LLM 已知的东西存在冲突/差异时还是已知内容优先级更高。</p>
 <p>总而言之，至少目前很多事情还是不能完全依赖 AI，还是要保持自己看文档的能力——AI 辅助也应该是自己为主。</p>
-<h2 id="ai-的负面作用">AI 的负面作用
-</h2><p>也算是接着上文吧。</p>
+<h3 id="ai-的负面作用">AI 的负面作用
+</h3>
+<p>也算是接着上文吧。</p>
 <p>其实这里我想说的负面作用不是 AI 本身的，在我看来 AI 本身的负面作用是有希望随着迭代以及使用者的自身素质提高而避免或者降低的。我想说的负面作用主要是使用 AI 给使用者带来的：</p>
 <p>目前 AI 的能力确实已经很强了，但是问题仍然存在。以代码生成为例，写明需求让 AI 生成一个“能用”的脚本/DEMO，我相信绝对不是问题，并且比人做更合适。但是这个脚本/DEMO 离真正的“系统”之间的距离是经常被忽视的：性能问题、可维护性问题、安全问题……我非常相信 AI 再发展下去能够解决这些问题，但是至少目前还是需要人来参与，而一旦需要人来参与，AI 的占比越大问题也就越多。</p>
 <p>光是以上的话，我仍然认为这是 AI 的问题而是人的问题，毕竟这些事情在全是人来干的时候也存在。但最麻烦的是 AI 带来的门槛降低会导致“外行指导内行”这种事情变得愈发普遍且“深入”：毕竟 AI 也是“内行”，并且是个“舔狗”级的内行，它能实现的东西不代表没有问题直接拿来就能用，这中间的来回博弈又会导致执行者觉得指挥者“SB，就相信个 AI 啥也不懂”、指挥者觉得执行者“SB，这点事情干这么久”。</p>
-<h1 id="读书">读书
-</h1><h2 id="二战战史">二战战史
-</h2><p>最近睡前读物是这本<a class="link" href="https://book.douban.com/subject/37478656/"  target="_blank" rel="noopener"
+<h2 id="读书">读书
+</h2>
+<h3 id="二战战史">二战战史
+</h3>
+<p>最近睡前读物是这本<a class="link" href="https://book.douban.com/subject/37478656/"  target="_blank" rel="noopener"
     >《第二次世界大战战史》</a></p>
 <p><img alt="《第二次世界大战战史》" class="gallery-image" data-flex-basis="167px" data-flex-grow="69" height="1358" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://files.seeusercontent.com/2026/02/24/8vDv/HISTORY-OF-THE-SECOND-WORLD-WAR.jpg" srcset="/HISTORY%20OF%20THE%20SECOND%20WORLD%20WAR_10765475733336849383_hu_bd076bdcd314543a.jpg 800w, https://files.seeusercontent.com/2026/02/24/8vDv/HISTORY-OF-THE-SECOND-WORLD-WAR.jpg 945w" width="945"></p>
 <p>其实我对二战史没有那么感兴趣，只有非常浅的大致了解。书目前读了 1/3 因为种种原因知识都从大脑滑走了：</p>
@@ -823,7 +897,7 @@
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.48157f58d8df0c381d0c66c4c4485fc964a88e752c2b331c84788d63c1973d38.js" defer></script>
+<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
