@@ -149,7 +149,7 @@
 
 <link rel='canonical' href='https://cbconne.github.io/weekly/'>
 
-<link rel="stylesheet" href="/scss/style.min.68a25bc59d9b5e79d6e6636134457c0844af935a0f0e2668578aa1222edb3483.css">
+<link rel="stylesheet" href="/scss/style.min.318dbc8f4aa7cefb14b09623af9710b22a28cdfb07710fcc49bfd1e09deda28a.css">
 <script>
     (function () {
         
@@ -277,7 +277,7 @@
 <meta property='og:description' content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。">
 <meta property='og:url' content='https://cbconne.github.io/weekly/'>
 <meta property='og:site_name' content='CBC&#39;s Site'>
-<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-04-24T14:53:35&#43;08:00 '/>
+<meta property='og:type' content='website'><meta property='og:updated_time' content=' 2026-04-30T12:20:05&#43;08:00 '/>
 <meta name="twitter:title" content="Weeklies">
 <meta name="twitter:description" content="CBC_onne 的个人页面，记录/分享个人学习、生活、技术、随笔等。"><link rel="alternate" type="application/rss&#43;xml" href="https://cbconne.github.io/weekly/index.xml">
 <link rel="shortcut icon" href="/favicon.ico" />
@@ -558,7 +558,7 @@
                     <a href="/archives/#2026">
                         
                             <span class="year">2026</span>
-                            <span class="count">11</span>
+                            <span class="count">12</span>
                         
                     </a> 
                 </div>
@@ -688,12 +688,12 @@
                 Hugo
             </a>
         
-            <a href="/tags/nvim/">
-                NVIM
+            <a href="/tags/linux/">
+                Linux
             </a>
         
-            <a href="/tags/redis/">
-                Redis
+            <a href="/tags/nvim/">
+                NVIM
             </a>
         
     </div>
@@ -761,16 +761,56 @@
 </article>
             
         </section>
-    <nav class="pagination" role="navigation" aria-label="pagination"><a class="page-link "href="/weekly/"aria-label="Previous page">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
-    </a><a class="page-link " aria-label="Page 1"href="/weekly/">
-        1
-    </a><a class="page-link current"aria-label="Page 2"aria-current="page">
-        2
-    </a><a class="page-link disabled"aria-label="Next page"aria-disabled="true">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
-    </a>
-</nav><footer class="site-footer">
+    <nav
+        class="pagination"
+        role="navigation"
+        aria-label="pagination"
+        data-total="2"
+        data-first-url="/weekly/"
+        data-format-url="/weekly/page/2/"><a
+            class="page-link "href="/weekly/"
+                aria-label="Previous page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M15 6l-6 6l6 6" /></svg>
+        </a><a
+            class="page-link "
+            aria-label="Page 1"href="/weekly/">
+            1
+        </a><a
+            class="page-link current"aria-label="Page 2"aria-current="page">
+            2
+        </a><a
+            class="page-link disabled"aria-disabled="true">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+        </a>
+    </nav>
+
+    <dialog id="pagination-jump-dialog" aria-labelledby="pagination-jump-title">
+        <form method="dialog" class="pagination-jump-form">
+            <header>
+                <label id="pagination-jump-title" class="title" for="pagination-jump-input">
+                    Jump to page:
+                </label>
+                <span class="subtitle">(1 - 2)</span>
+            </header>
+            <div class="pagination-jump-input-group">
+                <input
+                    type="number"
+                    id="pagination-jump-input"
+                    min="1"
+                    max="2"
+                    autofocus
+                    autocomplete="off"
+                    required>
+                <button type="submit" class="btn btn-primary">
+                    Go
+                </button>
+            </div>
+            <div class="pagination-jump-hint">
+                <kbd>Enter</kbd>
+                <span>Press Enter to jump</span>
+            </div>
+        </form>
+    </dialog><footer class="site-footer">
     <section class="copyright">
         &copy; 
         
