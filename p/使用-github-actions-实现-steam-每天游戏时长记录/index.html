@@ -137,19 +137,19 @@
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://unpkg.com">
 
 
 <link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css">
 <link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css">
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update\n优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长\n">
+<link rel="preload" as="style" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=JetBrains+Mono:ital@0;1&display=swap"><meta name='description' content=" 2024-10-09 update\n补充离线游戏时长\n2025-06-19 update\n新增图表绘制\n2025-12-16 update\n优化逻辑，避免家庭库分享游戏游玩间隔超过 2 周导致时间错误的问题\n2026-01-16 update\n优化数据存储方式：CSV 改为 DuckDB，避免数据持续线性增长\n">
 <title>使用 Github Actions 实现 Steam 每天游戏时长记录</title>
 
 <link rel='canonical' href='https://cbconne.github.io/p/%E4%BD%BF%E7%94%A8-github-actions-%E5%AE%9E%E7%8E%B0-steam-%E6%AF%8F%E5%A4%A9%E6%B8%B8%E6%88%8F%E6%97%B6%E9%95%BF%E8%AE%B0%E5%BD%95/'>
 
-<link rel="stylesheet" href="/scss/style.min.318dbc8f4aa7cefb14b09623af9710b22a28cdfb07710fcc49bfd1e09deda28a.css">
+<link rel="stylesheet" href="/scss/style.min.97f016e024fed136101bef9968a9479f2301c78caff92c887d5f6523a7d8e1f1.css">
 <script>
     (function () {
         
@@ -254,12 +254,12 @@
     onload="this.onload=null;this.rel='stylesheet'" />
 <link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
     onload="this.onload=null;this.rel='stylesheet'" />
-<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+<link rel="preload" as="style" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=JetBrains+Mono:ital@0;1&display=swap"
     onload="this.onload=null;this.rel='stylesheet'" />
 <noscript>
     <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
     <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+    <link href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
 </noscript>
 
 
@@ -2050,7 +2050,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 </div><h2 id="最终效果">最终效果
 </h2>
 <p><del><img alt="数据列表(outdated)" class="gallery-image" data-flex-basis="1106px" data-flex-grow="461" data-title-escaped="数据列表" height="580" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png" srcset="/oRIfrMwN3pxmeld_14391652306906845632_hu_dc5a2bd7893dc489.png 800w, /oRIfrMwN3pxmeld_14391652306906845632_hu_829df7c39f65af42.png 1600w, /oRIfrMwN3pxmeld_14391652306906845632_hu_f256a15d962f1688.png 2400w, https://s2.loli.net/2024/09/18/oRIfrMwN3pxmeld.png 2674w" title="数据列表" width="2674"></del></p>
-<p><img alt="数据内容" class="gallery-image" data-flex-basis="1455px" data-flex-grow="606" data-title-escaped="数据内容" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png" srcset="/PbhgBxOoL52euXr_4882395254979787627_hu_d4d048e3af92ae0b.png 800w, https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png 1358w" title="数据内容" width="1358"></p>
+<p><img alt="数据内容" class="gallery-image" data-flex-basis="1455px" data-flex-grow="606" data-title-escaped="数据内容" height="224" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png" srcset="/PbhgBxOoL52euXr_4882395254979787627_hu_9cecb34c42ae034d.png 800w, https://s2.loli.net/2024/09/18/PbhgBxOoL52euXr.png 1358w" title="数据内容" width="1358"></p>
 <p><img alt="图表展示" class="gallery-image" data-flex-basis="278px" data-flex-grow="116" data-title-escaped="图表展示" height="1466" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png" srcset="/CwzL5TefP2os7Bj_2028340218531195635_hu_210289e28bd8a359.png 800w, /CwzL5TefP2os7Bj_2028340218531195635_hu_d39a8ff2024e97d6.png 1600w, https://s2.loli.net/2025/06/19/CwzL5TefP2os7Bj.png 1702w" title="图表展示" width="1702"></p>
 
 </section>
@@ -2216,7 +2216,7 @@ Restricts results to the appids passed here. This is an array and should be pass
         </main>
     </div>
     
-<script type="text/javascript" src="/ts/main.2d2bb50d89edc82ea2492565a4282507035b378861d74387ac3b02b6a7ee2e5f.js" defer></script>
+<script type="text/javascript" src="/ts/main.8701b2e6f26475177c7b0e20883b31a2f2c6257733dfd9314717e58ac13c2f31.js" defer></script>
 <script type="text/javascript">
     if (!window.location.host.includes('localhost')) {
         (function (c, l, a, r, i, t, y) {
