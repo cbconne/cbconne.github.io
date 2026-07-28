@@ -550,7 +550,7 @@
         <li><a href="#游戏时长获取">游戏时长获取</a></li>
         <li><a href="#保存图表">保存图表</a></li>
         <li><a href="#数据库初始化">数据库初始化</a></li>
-        <li><a href="#github-actions-yaml-配置">GitHub Actions yaml 配置</a></li>
+        <li><a href="#github-actions-yaml-配置">GitHub Actions YAML 配置</a></li>
       </ul>
     </li>
     <li><a href="#最终效果">最终效果</a></li>
@@ -640,7 +640,7 @@
     <path d="M9 13h6" />
 </svg>
             <time class="article-words">
-                字数: 4945
+                字数: 4943
             </time>
             
         </div>
@@ -680,7 +680,7 @@
         <li><a href="#游戏时长获取">游戏时长获取</a></li>
         <li><a href="#保存图表">保存图表</a></li>
         <li><a href="#数据库初始化">数据库初始化</a></li>
-        <li><a href="#github-actions-yaml-配置">GitHub Actions yaml 配置</a></li>
+        <li><a href="#github-actions-yaml-配置">GitHub Actions YAML 配置</a></li>
       </ul>
     </li>
     <li><a href="#最终效果">最终效果</a></li>
@@ -722,7 +722,7 @@
 </h2>
 <h3 id="steam-api-寻找">Steam API 寻找
 </h3>
-<p>Steam 的 API 其实比较难找，因为官方的、成体系的、面向普通开发者 API 文档找起来很困难也不够新，看起来最正式、有良好维护的其实是面向一些游戏相关开发工作的 Steamworks API 文档：<a class="link" href="https://partner.steamgames.com/doc/sdk/api"  target="_blank" rel="noopener"
+<p>Steam 的 API 比较难找，官方的、成体系的、面向普通开发者的 API 文档找起来很困难，即使找到了也不够新，看起来最正式、有良好维护的其实是面向一些游戏相关开发工作的 Steamworks API 文档：<a class="link" href="https://partner.steamgames.com/doc/sdk/api"  target="_blank" rel="noopener"
     >Steamworks API 概览</a>。<br>
 面向普通开发者的 API 文档：<a class="link" href="https://steamcommunity.com/dev"  target="_blank" rel="noopener"
     >Steam Web API 文档</a>、<a class="link" href="https://developer.valvesoftware.com/wiki/Steam_Web_API#GetNewsForApp_.28v0001.29"  target="_blank" rel="noopener"
@@ -767,7 +767,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 同时，文档里说可以使用 <code>language</code> 参数来修改返回的 appinfo 的语言，这个实测下来也无效——或者这个参数非常偏门，不是 zh-CN、Chinese 之类正常逻辑能想到的。好在也不太有这个需求&amp;有中文信息的游戏也不多。</p>
 <h3 id="游戏时长获取方案">游戏时长获取方案
 </h3>
-<p>一开始打算使用 <code>GetRecentlyPlayedGames</code> 直接获取两周内各游戏的游戏时长然后通过每日定时执行脚本计算来获取每日的具体时长信息。但实际尝试下来发现“两周内时长”是一个滑窗动值，要根据这个计算出每日的时长信息是不足的，比如：游戏 A 昨天的两周内游戏时长是 14 小时，今天的两周内游戏时长是 15 小时，这只能够计算出游戏 A 今天的游戏时长比两周前的那天多 1 小时，并不能获取具体当天游戏时长。也许通过某些数学方式能够获取，但是总归太过麻烦。<br>
+<p>一开始打算使用 <code>GetRecentlyPlayedGames</code> 直接获取两周内各游戏的游戏时长，然后通过每日定时执行脚本计算来获取每日的具体时长信息。但实际尝试下来发现“两周内时长”是一个滑窗值，要根据这个计算出每日的时长信息是不足的，比如：游戏 A 昨天的两周内游戏时长是 14 小时，今天的两周内游戏时长是 15 小时，这只能计算出游戏 A 今天的游戏时长比两周前的那天多 1 小时，并不能获取具体当天游戏时长。也许通过某些数学方式能够获取，但是总归太过麻烦。<br>
 选择使用其他接口，最终决定使用 <code>GetOwnedGames</code> 接口来获取，该接口会返回所有拥有的游戏，并返回该游戏的历史总游戏时长，使用该接口每天记录一次数据，并与前一天的数据做差值计算，即可获取到当天的各游戏时长。<br>
 验证过程中发现该方案的问题：<code>GetOwnedGames</code> 如同字面意思，只能返回“Owned”的游戏，而 Steam 最近的新家庭共享功能可以让我玩到我没有购买但是家庭组内其他成员购买的游戏。在这种情况下，通过 <code>GetOwnedGames</code> 获取到的信息中是缺少这些游戏的。<br>
 最后思考下来的解决方案是仍然需要使用 <code>GetRecentlyPlayedGames</code> 来进行补充，该接口能够正常显示两周内玩过的家庭共享游戏信息，包括总游戏时长。因此，在使用 <code>GetOwnedGames</code> 获取数据后，再通过 <code>GetRecentlyPlayedGames</code> 获取数据并对其中缺失的游戏进行补充，即可有效获取到所有游戏时长信息。<br>
@@ -782,7 +782,7 @@ Restricts results to the appids passed here. This is an array and should be pass
     </blockquote>
 <h3 id="定时脚本执行及数据保存方案">定时脚本执行及数据保存方案
 </h3>
-<p>一开始其实考虑过在自己买的云服务器上定时运行脚本，但是想了想后面云服务器到期大概率不太会续了，即使要续大概率也会购买另一家云厂商的，到时候进行程序&amp;数据迁移会比较麻烦。<br>
+<p>一开始其实考虑过在自己买的云服务器上定时运行脚本，但是想了想后面云服务器到期大概率不太会续了，即使要续大概率也会购买另一家云厂商的，到时候进行程序和数据迁移会比较麻烦。<br>
 最后考虑了多种方案还是决定白嫖 GitHub 的资源，使用 GitHub Actions 来实现定时的脚本执行，并使用 DuckDB 嵌入式数据库保存数据到 GitHub 仓库。<br>
 大致方案如下：</p>
 <ol>
@@ -793,7 +793,7 @@ Restricts results to the appids passed here. This is an array and should be pass
 <h3 id="图表绘制">图表绘制
 </h3>
 <p>(20250619 update)<br>
-长期另外写一个 jupyter 脚本来拉数据画图表，今天计划还是写一个脚本每天执行，并将结果放到 README.md 中。</p>
+长期另外写一个 Jupyter 脚本来拉数据画图表，今天计划还是写一个脚本每天执行，并将结果放到 README.md 中。</p>
 <h2 id="代码">代码
 </h2>
 <h3 id="游戏时长获取">游戏时长获取
@@ -1836,9 +1836,9 @@ Restricts results to the appids passed here. This is an array and should be pass
 </span></span><span class="line"><span class="cl">    <span class="n">init_database</span><span class="p">()</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h3 id="github-actions-yaml-配置">GitHub Actions yaml 配置
+</div><h3 id="github-actions-yaml-配置">GitHub Actions YAML 配置
 </h3>
-<p>以下为 GitHub Actions 的 yaml 配置文件。<br>
+<p>以下为 GitHub Actions 的 YAML 配置文件。<br>
 基本都是 GitHub Actions 的八股文，可以参考官方文档或者网络上其他文档。</p>
 <p>（20260116 update）<br>
 优化了工作流，将数据获取和图表生成合并到一个 job 中，减少不必要的 commit 次数。<br>
@@ -2110,17 +2110,6 @@ Restricts results to the appids passed here. This is an array and should be pass
         <div class="article-list--tile">
             
                 
-<article class="">
-    <a href="/p/hugo-github-actions-github-pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%A1%B5%E9%9D%A2/">
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Hugo&#43;Github Actions&#43;Github Pages 搭建个人页面</h2>
-        </div>
-    </a>
-</article>
-            
-                
 <article class="has-image">
     <a href="/p/kubuntu-%E8%BF%90%E8%A1%8C%E9%92%89%E9%92%89/">
         
@@ -2143,6 +2132,17 @@ Restricts results to the appids passed here. This is an array and should be pass
 
         <div class="article-details">
             <h2 class="article-title">递归方式计算 Summel 答案</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/hugo-github-actions-github-pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%A1%B5%E9%9D%A2/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Hugo&#43;GitHub Actions&#43;GitHub Pages 搭建个人页面</h2>
         </div>
     </a>
 </article>
