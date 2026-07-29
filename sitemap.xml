@@ -3,7 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://cbconne.github.io/</loc>
-    <lastmod>2026-05-06T08:52:42+08:00</lastmod>
+    <lastmod>2026-07-29T12:48:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/book/</loc>
+    <lastmod>2026-07-29T12:48:20+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+  </url><url>
+    <loc>https://cbconne.github.io/book/%E7%BA%AA%E5%BF%B5%E4%B8%9C%E9%87%8E%E5%9C%AD%E5%90%BE/</loc>
+    <lastmod>2026-07-29T12:48:20+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://cbconne.github.io/categories/</loc>
@@ -140,10 +148,6 @@
   </url><url>
     <loc>https://cbconne.github.io/p/%E6%BD%9C%E4%BC%8F-ign-%E4%B8%AD%E5%9B%BD%E5%A4%9A%E5%B9%B4%E5%8F%AA%E4%B8%BA%E5%8F%91%E8%BF%99%E4%B8%AA%E8%A7%86%E9%A2%91/</loc>
     <lastmod>2025-06-18T13:38:00+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-  </url><url>
-    <loc>https://cbconne.github.io/book/</loc>
-    <lastmod>2025-05-30T08:53:14+08:00</lastmod>
     <changefreq>monthly</changefreq>
   </url><url>
     <loc>https://cbconne.github.io/book/%E8%AF%BB%E4%B9%A6%E8%AE%B0%E5%BD%95-%E4%BA%91%E9%9B%B7%E5%B2%9B%E4%BA%8B%E4%BB%B6/</loc>
