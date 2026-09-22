@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+
+<html lang="zh-cn" dir="ltr" data-scheme="light">
+
+<head>
+    
+    <style>
+        html {
+            background: #f5f5fa;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html {
+                background: #303030;
+            }
+        }
+
+        :root {
+            --loading-border-color: rgba(0, 0, 0, 0.1);
+            --loading-top-color: #34495e;
+        }
+
+         
+         
+        html:not(.loaded)::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 99999;
+            background:
+                linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                var(--theme-bg, #f5f5fa);
+            background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            transition: var(--progress-transition, none);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not(.loaded)::before {
+                background:
+                    linear-gradient(var(--accent-color, #3498db), var(--accent-color, #3498db)) no-repeat top left,
+                    var(--theme-bg, #303030);
+                background-size: var(--page-progress, 0%) 4px, 100% 100%;
+            }
+        }
+
+         
+        html:not(.loaded)::after {
+            content: '';
+            position: fixed;
+            z-index: 100000;
+            top: 50%;
+            left: 50%;
+            width: 60px;
+            height: 60px;
+            margin: -35px 0 0 -35px;
+            border: 5px solid var(--loading-border-color);
+            border-top-color: var(--loading-top-color);
+            border-radius: 50%;
+            animation: __loading_spin 0.8s linear infinite;
+            box-sizing: border-box;
+        }
+
+         
+        html.loading-complete::before {
+            background-size: 100% 4px, 100% 100% !important;
+            transition: background-size 0.3s ease-out, opacity 0.3s ease !important;
+            opacity: 0;
+        }
+
+        html.loading-complete::after {
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        @keyframes __loading_spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    
+    <script>
+        (function () {
+            var tocCollapsed = localStorage.getItem('toc-sidebar-collapsed');
+            if (tocCollapsed === 'true') {
+                document.documentElement.classList.add('toc-preload-collapsed');
+            }
+        })();
+    </script>
+    
+    <script>
+        (function () {
+            var html = document.documentElement;
+            var colorSchemeKey = 'StackColorScheme';
+            var colorSchemeItem = localStorage.getItem(colorSchemeKey);
+            var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+            var isDark = colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode;
+            var bgColor = isDark ? '#303030' : '#f5f5fa';
+            html.dataset.scheme = isDark ? 'dark' : 'light';
+            html.style.background = bgColor;
+            html.style.setProperty('--theme-bg', bgColor);
+            if (isDark) {
+                html.style.setProperty('--loading-border-color', 'rgba(255, 255, 255, 0.1)');
+                html.style.setProperty('--loading-top-color', '#ecf0f1');
+            }
+            window.__themeBackground = bgColor;
+            window.__themeDark = isDark;
+
+            
+            var savedProgress = sessionStorage.getItem('page-progress');
+            var overlayProgress = savedProgress ? Math.min(parseFloat(savedProgress), 0.95) : 0.8;
+            
+            html.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+            void html.offsetWidth; 
+            
+            html.style.setProperty('--progress-transition', 'background-size 0.3s ease-out');
+
+            
+            
+            var lastTime = Date.now();
+            function pushProgress() {
+                if (document.documentElement.classList.contains('loaded')) return;
+                var now = Date.now();
+                var dt = now - lastTime;
+                lastTime = now;
+                overlayProgress += dt * 0.00002; 
+                if (overlayProgress > 0.95) overlayProgress = 0.95;
+                document.documentElement.style.setProperty('--page-progress', (overlayProgress * 100).toFixed(1) + '%');
+                window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+            }
+            window.__overlayProgressRAF = requestAnimationFrame(pushProgress);
+        })();
+    </script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'>
+
+
+<link rel="preconnect" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://unpkg.com">
+
+
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css">
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css">
+<link rel="preload" as="style" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=JetBrains+Mono:ital@0;1&display=swap"><meta name='description' content="类似 TGA（The Games Awards）的评选无论如何都会有争议存在，差异仅在争议内容及大小。游戏作为文艺作品，评价总有主观的内容存在，“文无第一”，大家各自选择自己的 best one 就好。\n">
+<title>CBC 的游戏/书籍/电影大奖</title>
+
+<link rel='canonical' href='https://cbconne.github.io/p/cbc-%E7%9A%84%E6%B8%B8%E6%88%8F-%E4%B9%A6%E7%B1%8D-%E7%94%B5%E5%BD%B1%E5%A4%A7%E5%A5%96/'>
+
+<link rel="stylesheet" href="/scss/style.min.8d8df2138a346595efd144c5b8deb3a55cd4640a71c851180b51b0d5b41e6f0c.css">
+<script>
+    (function () {
+        
+        window.pageReadyState = {
+            fontsLoaded: false,
+            panguProcessed: false,
+            galleryProcessed: false,
+            forceShowTimeout: null
+        };
+
+        
+        function removeOverlay() {
+            var html = document.documentElement;
+            if (html.classList.contains('loaded')) return;
+            
+            if (window.__overlayProgressRAF) {
+                cancelAnimationFrame(window.__overlayProgressRAF);
+                window.__overlayProgressRAF = null;
+            }
+            html.classList.add('loading-complete');
+            setTimeout(function () {
+                html.classList.add('loaded');
+                sessionStorage.removeItem('page-progress');
+            }, 300);
+        }
+
+        
+        function checkAndShow() {
+            var state = window.pageReadyState;
+            if (state.fontsLoaded && state.panguProcessed && state.galleryProcessed) {
+                removeOverlay();
+                if (state.forceShowTimeout) {
+                    clearTimeout(state.forceShowTimeout);
+                    state.forceShowTimeout = null;
+                }
+            }
+        }
+
+        
+        window.notifyGalleryReady = function () {
+            window.pageReadyState.galleryProcessed = true;
+            checkAndShow();
+        };
+
+        
+        document.addEventListener('DOMContentLoaded', function () {
+            if (!window.pageReadyState.galleryProcessed) {
+                window.pageReadyState.galleryProcessed = true;
+                checkAndShow();
+            }
+        });
+
+        
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(function () {
+                window.pageReadyState.fontsLoaded = true;
+                checkAndShow();
+            }).catch(function () {
+                window.pageReadyState.fontsLoaded = true;
+                checkAndShow();
+            });
+        } else {
+            window.pageReadyState.fontsLoaded = true;
+        }
+
+        
+        var script = document.createElement('script');
+        script.src = 'https://cdn.bootcss.com/pangu/4.0.7/pangu.min.js';
+        script.onload = function () {
+            if (window.pangu) {
+                try { pangu.spacingPage(); } catch (e) { }
+            }
+            window.pageReadyState.panguProcessed = true;
+            checkAndShow();
+        };
+        script.onerror = function () {
+            window.pageReadyState.panguProcessed = true;
+            checkAndShow();
+        };
+        document.head.appendChild(script);
+
+        
+        window.addEventListener('pageshow', function (event) {
+            
+            if (event.persisted && window.pangu) {
+                try { pangu.spacingPage(); } catch (e) { }
+            }
+        });
+
+        
+        window.pageReadyState.forceShowTimeout = setTimeout(function () {
+            window.pageReadyState.fontsLoaded = true;
+            window.pageReadyState.panguProcessed = true;
+            window.pageReadyState.galleryProcessed = true;
+            removeOverlay();
+        }, 3000);
+    })();
+</script>
+
+
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<link rel="preload" as="style" href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=JetBrains+Mono:ital@0;1&display=swap"
+    onload="this.onload=null;this.rel='stylesheet'" />
+<noscript>
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/stdgt@2.0.0/dist/上图东观体-常规/result.css' />
+    <link rel='stylesheet' href='https://unpkg.com/@chinese-fonts/dymh@3.0.0/dist/DouyinSansBold/result.css' />
+    <link href="https://google-fonts.mirrors.sjtug.sjtu.edu.cn/css2?family=JetBrains+Mono:ital@0;1&display=swap" rel="stylesheet">
+</noscript>
+
+
+<style>
+    :root {
+        --sys-font-family: "Douyin Sans";
+        --zh-font-family: "STDongGuanTi";
+        --base-font-family: "Douyin Sans";
+        --code-font-family: "JetBrains Mono";
+        --article-font-family: "STDongGuanTi";
+    }
+</style>
+
+<meta property='og:title' content="CBC 的游戏/书籍/电影大奖">
+<meta property='og:description' content="类似 TGA（The Games Awards）的评选无论如何都会有争议存在，差异仅在争议内容及大小。游戏作为文艺作品，评价总有主观的内容存在，“文无第一”，大家各自选择自己的 best one 就好。\n">
+<meta property='og:url' content='https://cbconne.github.io/p/cbc-%E7%9A%84%E6%B8%B8%E6%88%8F-%E4%B9%A6%E7%B1%8D-%E7%94%B5%E5%BD%B1%E5%A4%A7%E5%A5%96/'>
+<meta property='og:site_name' content='CBC&#39;s Site'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='游戏' /><meta property='article:tag' content='读书' /><meta property='article:tag' content='电影' /><meta property='article:published_time' content='2025-12-25T09:15:38&#43;08:00'/><meta property='article:modified_time' content='2025-12-31T16:16:06&#43;08:00'/>
+<meta name="twitter:title" content="CBC 的游戏/书籍/电影大奖">
+<meta name="twitter:description" content="类似 TGA（The Games Awards）的评选无论如何都会有争议存在，差异仅在争议内容及大小。游戏作为文艺作品，评价总有主观的内容存在，“文无第一”，大家各自选择自己的 best one 就好。\n">
+<link rel="shortcut icon" href="/favicon.ico" />
+
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-62TS5Y5J35"></script>
+      <script>
+        var doNotTrack = false;
+        if ( true ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-62TS5Y5J35');
+        }
+      </script>
+
+</head>
+
+<body class="
+    article-page
+    ">
+    <script>
+        (function () {
+            var bgColor = window.__themeBackground || '#f5f5fa';
+            document.body.style.background = bgColor;
+        })();
+    </script>
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">CBC&#39;s Site</a></h1>
+            <h2 class="site-description"></h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/cbconne'
+                        
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24"
+  height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+  stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+  <path
+    d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5"
+    stroke="currentColor" stroke-width="2" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+                <li>
+                    <a 
+                        href='mailto:770663964@qq.com'
+                        
+                        title="Email"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="icon icon-tabler icons-tabler-outline icon-tabler-mail">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M3 7a2 2 0 0 1 2 -2h14a2 2 0 0 1 2 2v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10z"
+        stroke="currentColor"
+        stroke-width="2" />
+    <path d="M3 7l9 6l9 -6"
+        stroke="currentColor"
+        stroke-width="1.5" />
+</svg>
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>主页</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>归档</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>查询</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E9%93%BE%E6%8E%A5/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>链接</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/%E5%85%B3%E4%BA%8E/' >
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-user" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="7" r="4" />
+  <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2" />
+</svg>
+
+
+
+                
+                <span>关于</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+<section class="widget archives toc-widget">
+    <div class="widget-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+    </div>
+    <h2 class="widget-title section-title"></h2>
+
+    <div class="widget--toc">
+        <nav class="toc-nav" id="TableOfContents">
+            
+  <ul>
+    <li><a href="#ctga">CTGA</a></li>
+    <li><a href="#ctba">CTBA</a></li>
+    <li><a href="#ctma">CTMA</a></li>
+  </ul>
+
+        </nav>
+    </div>
+</section>
+
+            
+        
+    </aside>
+
+
+        <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+    
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+        
+        
+        
+        <a href="/categories/%E6%97%A5%E5%B8%B8%E9%97%B2%E7%AC%94/"
+            style="background-color: #9eccab; color: #fff;">
+            日常闲笔
+        </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/cbc-%E7%9A%84%E6%B8%B8%E6%88%8F-%E4%B9%A6%E7%B1%8D-%E7%94%B5%E5%BD%B1%E5%A4%A7%E5%A5%96/">CBC 的游戏/书籍/电影大奖</a>
+        </h2>
+
+        
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+    <footer class="article-meta">
+        
+        <div class="inline-meta">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+            <time class="article-time--published" datetime='2025-12-25T09:15:38&#43;08:00'>2025/12/25 09:15:38</time>
+            
+
+            
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+            <time class="article-time--reading">
+                阅读时长: 4 分钟
+            </time>
+            
+
+            
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+    class="icon icon-tabler icons-tabler-outline icon-tabler-file-description">
+    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+    <path d="M14 3v4a1 1 0 0 0 1 1h4" />
+    <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z" />
+    <path d="M9 17h6" />
+    <path d="M9 13h6" />
+</svg>
+            <time class="article-words">
+                字数: 1731
+            </time>
+            
+        </div>
+        
+
+        
+
+        
+    </footer>
+    
+</div>
+</header>
+
+
+    
+    <aside class="article-toc">
+        <details>
+            <summary>
+                <div class="article-toc-title">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M9 6l6 6l-6 6" /></svg>
+                    <span></span>
+                </div>
+            </summary>
+            <nav class="toc-nav">
+                
+  <ul>
+    <li><a href="#ctga">CTGA</a></li>
+    <li><a href="#ctba">CTBA</a></li>
+    <li><a href="#ctma">CTMA</a></li>
+  </ul>
+
+            </nav>
+        </details>
+    </aside>
+    
+
+    <section class="article-content">
+    
+    
+    <p>类似 TGA（The Games Awards）的评选无论如何都会有争议存在，差异仅在争议内容及大小。游戏作为文艺作品，评价总有主观的内容存在，“文无第一”，大家各自选择自己的 best one 就好。</p>
+<p>选一下我自己今年的 CTGA(CBC&rsquo;s The Games Awards)、CTBA(Books)、CTMA(Movies)</p>
+<ol>
+<li>由于嫌麻烦各奖项仅设一项大奖，不设子奖项；</li>
+<li>本人投票权重占比 100%，不接受其他来源意见/建议。</li>
+</ol>
+<h2 id="ctga">CTGA
+</h2>
+<p>基本没有什么纠结的，我个人大奖肯定是给<a class="link" href="/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/#空洞骑士丝之歌" >《空洞骑士：丝之歌》</a>的。</p>
+<p><img alt="Hollow Knight: Silksong" class="gallery-image" data-flex-basis="513px" data-flex-grow="213" height="430" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg" srcset="/xwSa1yrLiRcEqkB_1208571101288218070_hu_c2194fd65010ff9a.jpg 800w, https://s2.loli.net/2025/12/01/xwSa1yrLiRcEqkB.jpg 920w" width="920">
+</p>
+<p>虽然游戏风评确实“环大陆好评”，但是我还是觉得这是因为游戏出圈以至于大量玩家接触到一款不是那么合拍的游戏导致的。很多该作被批评的点在前作中也存在但是没有引起如此大面积的批评的原因就是前作火起来的时候游戏已经发售比较久了，早期会主动接触该游戏的基本都是该类型的爱好者，在他们的评价下游戏总体的舆论方向已经确定了，从众心理作用下大多数后来者不会再刻意去提出这些在他们看来确实不好的地方；而本作在有大量玩家涌入的时候因为汉化问题舆论已经偏负面了，自然只会每况愈下。</p>
+<p>➕ 我真幸运！<br>
+➕ 类银河战士恶魔城在我这是绝对的加分类型<br>
+➕ 继承前作的优秀 Boss 设计<br>
+➕ 有效治愈了我的电子 ED（虽然只是一段时间内）<br>
+➕ 免费 DLC comming soon</p>
+<p>➖ 部分设计确实不太行——就我个人而言缺点不是难度和所谓“缺少正反馈”，而是有些滥用“同时和多个单位战斗”这种设计<br>
+➖ 难度曲线感觉不如前作缓和，明显有几个 BOSS 之间有“突变”感，前作的三螳螂其实也有但是相对早期，而且 BOSS 设计优秀程度是可以当天花板的。丝之歌的一些 BOSS 比如歌后、黑蕾丝给我一种陡然上升的感觉，并且 BOSS 质量只是“良好”还远没到天花板</p>
+<h2 id="ctba">CTBA
+</h2>
+<p>今年读书数量相比往年略微少了一些，但是仍然还是有 60 本左右。大奖还是给年末重读的、已经读了很多遍的《挪威的森林》。</p>
+<p><img alt="挪威的森林" class="gallery-image" data-flex-basis="164px" data-flex-grow="68" height="1576" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/26/8HysxeRzvOW5qSP.jpg" srcset="/8HysxeRzvOW5qSP_8297273753926176637_hu_3d6ed82259d7257d.jpg 800w, https://s2.loli.net/2025/12/26/8HysxeRzvOW5qSP.jpg 1080w" width="1080">
+</p>
+<p>我的书单绝大多数都是普通的类型小说，阅读基本上只是过一遍剧情，读过多遍其实不多。《挪威的森林》是比较特殊的一本：重读次数多、并且每次重读时心智状态和生活经历差异较大，因此每次阅读的体验和感受相差非常大。</p>
+<p>高中时期的第一次阅读的印象会深刻一些，但是因为不够成熟、生活经历也还不够 <em>（感觉这么说显得在“爹”自己）</em> ，对小说的理解还是在“爱情故事”这一层面上。</p>
+<p>大学期间尽管年纪和故事中主要角色相仿，但和书中的故事、人物毕竟有着文化、国家、年代的差异。主要的变化一是对渡边和直子之间“直子从来没有爱过我”的“恋爱”关系理解更深；二是由于心理状态也不是很好，对患病的直子的一些症状、言行有了更深的理解。</p>
+<p>这次重读没有选之前的林译，换了“网络上风评更好的”赖译。从个人体验来说并没有感觉有特别大的差异，更像是翻译策略的不同——恰好前段时间研究另一本书不同译本时刚学习了下“异化”和“归化”的区别。回到小说本身：这次重读其实也没有那种“顿悟”的感觉，而是感觉对整本书、对各个人物、对各个事件的理解更加“渗”进去了一些。</p>
+<p>➕ 小林绿，高中、大学到现在，我都依然喜欢小林绿这个人物形象</p>
+
+    <blockquote>
+        <p>这里插一句：我对林译最大的意见就在于绿的人名，不知道出于什么目的在原文只有“绿”的情况下硬加了一个意义不明的“子”，直子是因为原文就是“直子”，“绿子”更像是为了强行和“直子”对应突出两个女性角色的对比。但是这种对比一没必要、二不是作为<strong>译者</strong>所应当做的。</p>
+
+    </blockquote>
+<p>➕ 主角“渡边彻”很大程度上影响了我对“孤独”这件事的态度</p>
+<p>➖ 能够理解性描写是手段而不是目的，但是还是得说有些地方的性描写确实没必要<br>
+➖ 和上一条类似：我理解书中一些男女关系也是用来塑造人物、推动剧情的手段，但是也太“贵圈真乱”了</p>
+
+    <blockquote>
+        <p>再插一句：以如今的互联网氛围，书里这些人和他们干的事，没有几个能逃掉被贴上“男凝”“龟男”“小仙女”或者类似标签，然后连带着这本书和作者一起批倒批臭的命运。</p>
+
+    </blockquote>
+<h2 id="ctma">CTMA
+</h2>
+<p>这个奖比较纠结，今年没看多少电影，真正觉得不错的电影——或者说豆瓣打了 5 星的就三部。思来想去还是给《南京照相馆》吧。</p>
+<p><img alt="南京照相馆" class="gallery-image" data-flex-basis="160px" data-flex-grow="66" height="1620" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2025/12/31/bSZpeqROmWvB5i1.webp" srcset="/bSZpeqROmWvB5i1_10122049165122000461_hu_dd8800f0dc43f8bd.webp 800w, https://s2.loli.net/2025/12/31/bSZpeqROmWvB5i1.webp 1080w" width="1080">
+</p>
+<p>我并不仇视日本，甚至在文艺作品方面日本有很多我很喜欢的游戏/小说/电影。</p>
+<p>只是很多事情需要被记住。</p>
+<p>可能将来两国刀兵相见、也许未来两国如胶似漆；或许将来日本进一步衰弱任人摆布，没准日本突然一朝崛起再次东亚第一……这都不影响有些事应当要被记住。</p>
+<p>“记住”本身无关仇恨、无关好恶、无关强大弱小、无关文化政治，只是记住。</p>
+
+</section>
+
+
+    <footer class="article-meta article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/%E6%B8%B8%E6%88%8F/">游戏</a>
+        
+            <a href="/tags/%E8%AF%BB%E4%B9%A6/">读书</a>
+        
+            <a href="/tags/%E7%94%B5%E5%BD%B1/">电影</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>版权声明：本文为 CBC 原创，依据 <a class="link" href="https://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank" rel="noopener"
+    >CC BY-NC-SA 4.0</a> 许可证进行授权，转载请附上出处链接及本声明。</span>
+    </section>
+    <section class="article-lastmod inline-meta">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+        <span>
+             2025/12/31 16:16:06
+        </span>
+    </section></footer>
+
+
+    
+</article>
+
+    
+
+    
+
+<aside>
+    <h2 class="section-title"></h2>
+    <div class="subsection-list">
+        <div class="article-list--tile">
+            
+                
+<article class="has-image">
+    <a href="/book/%E8%AF%BB%E4%B9%A6%E8%AE%B0%E5%BD%95-%E4%B8%96%E7%95%8C%E4%B8%8A%E6%9C%80%E9%80%8F%E6%98%8E%E7%9A%84%E6%95%85%E4%BA%8B/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 读书记录 世界上最透明的故事" height="150" loading="lazy" src="/s35371622_892102190340202854_hu_317c1a9007ccd8df.jpg" srcset="/s35371622_892102190340202854_hu_317c1a9007ccd8df.jpg 1x, /s35371622_892102190340202854_hu_c2210f8edca239a7.jpg 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #3d4a4780 0%, #dfe6e8C0 100%);">
+            <h2 class="article-title">读书记录 世界上最透明的故事</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/book/%E7%BA%AA%E5%BF%B5%E4%B8%9C%E9%87%8E%E5%9C%AD%E5%90%BE/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 不同身份的东野圭吾" height="150" loading="lazy" src="/Higashino%20Keigo_16227282981194139291_hu_6890234de8a17030.png" srcset="/Higashino%20Keigo_16227282981194139291_hu_6890234de8a17030.png 1x, /Higashino%20Keigo_16227282981194139291_hu_cd0a40f76ff7c138.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #13131380 0%, #e9e9e9C0 100%);">
+            <h2 class="article-title">不同身份的东野圭吾</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/game/%E6%9C%80%E8%BF%91%E6%89%93%E5%AE%8C%E7%9A%84%E6%B8%B8%E6%88%8F/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">最近打完的游戏</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
+    <a href="/game/%E6%B8%B8%E6%88%8F%E8%AE%B0%E5%BD%95-%E6%81%B6%E9%AD%94%E5%9F%8E%E6%9C%88%E4%B8%8B%E5%A4%9C%E6%83%B3%E6%9B%B2/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post 游戏记录 恶魔城：月下夜想曲" height="150" loading="lazy" src="/2mgKAjWINRY16MO_873620166308903543_hu_46c47554f4255289.png" srcset="/2mgKAjWINRY16MO_873620166308903543_hu_46c47554f4255289.png 1x, /2mgKAjWINRY16MO_873620166308903543_hu_59b4a460d767a656.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #d2cab980 0%, #2f2b25C0 100%);">
+            <h2 class="article-title">游戏记录 恶魔城：月下夜想曲</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="">
+    <a href="/p/%E6%BD%9C%E4%BC%8F-ign-%E4%B8%AD%E5%9B%BD%E5%A4%9A%E5%B9%B4%E5%8F%AA%E4%B8%BA%E5%8F%91%E8%BF%99%E4%B8%AA%E8%A7%86%E9%A2%91/">
+        
+
+        <div class="article-details">
+            <h2 class="article-title">潜伏 IGN 中国多年，只为发这个视频</h2>
+        </div>
+    </a>
+</article>
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2023 - 
+        
+        2026 CBC
+    </section>
+    
+    <section class="powerby">
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+
+
+
+<script type="module">
+    import gallery from '\/ts\/gallery.js';
+
+    const articleContent = document.querySelector('.article-content');
+    const shouldLoad = articleContent && (articleContent.querySelectorAll('figure').length > 0 || articleContent.querySelectorAll('img.gallery-image').length > 0);
+    
+    if (shouldLoad) {
+        gallery(articleContent);
+
+        const PhotoSwipeLightbox = (await import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe-lightbox.esm.min.js")).default;
+        const styleHref = "https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.css";
+
+        const styleTag = document.createElement('link');
+        styleTag.rel = 'stylesheet';
+        styleTag.href = styleHref;
+        document.head.appendChild(styleTag);
+
+        const lightbox = new PhotoSwipeLightbox({
+            gallerySelector: '.article-content',
+            childSelector: 'figure a.image-link',
+            pswpModule: () => import("https:\/\/cdn.jsdelivr.net\/npm\/photoswipe@5.4.4\/dist\/photoswipe.esm.min.js")
+        });
+        lightbox.init();
+    }
+</script>
+
+    
+
+        </main>
+    </div>
+    
+<script type="text/javascript" src="/ts/main.8701b2e6f26475177c7b0e20883b31a2f2c6257733dfd9314717e58ac13c2f31.js" defer></script>
+<script type="text/javascript">
+    if (!window.location.host.includes('localhost')) {
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "nq4skyjk39");
+    }
+</script>
+
+
+
+</body>
+
+</html>
