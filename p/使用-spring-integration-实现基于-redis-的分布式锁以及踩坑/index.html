@@ -833,7 +833,7 @@
 <h3 id="排查">排查
 </h3>
 <p>当然很容易想到除了 redis，应该还会有其他地方保存着锁信息，这个通过打断点很容易发现：
-<img alt="2075908-20230926103341555-1736653197" class="gallery-image" data-flex-basis="600px" data-flex-grow="250" height="720" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png" srcset="/Coxurh5nVHKwyAR_17214589067408439338_hu_4d10e34bb7f02dc3.png 800w, /Coxurh5nVHKwyAR_17214589067408439338_hu_b58466f618c3e1f1.png 1600w, https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png 1802w" width="1802">
+<img alt="2075908-20230926103341555-1736653197" class="gallery-image" data-flex-basis="600px" data-flex-grow="250" height="720" loading="lazy" sizes="(max-width: 767px) calc(100vw - 30px), (max-width: 1023px) 700px, (max-width: 1279px) 950px, 1232px" src="https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png" srcset="/Coxurh5nVHKwyAR_17214589067408439338_hu_76dfeb384b122fd2.png 800w, /Coxurh5nVHKwyAR_17214589067408439338_hu_c3086d30ac852e7d.png 1600w, https://s2.loli.net/2024/08/21/Coxurh5nVHKwyAR.png 1802w" width="1802">
 
 很明显，在下面获取 redis 锁之前先尝试获取了 localLock 的锁，虽然 redis 的锁已经没了，但 localLock 仍然还在，所以依然被锁。<br>
 只有在 localLock 没被锁，能够获取锁的情况下才回去尝试获取 redis 的锁。然后如果获取 redis 锁失败（返回 false）的情况下又把 localLock 解锁。感觉这部分逻辑有点怪，不排除是个 BUG？之后再研究下吧。</p>
@@ -896,10 +896,26 @@ To do it you can get a lock and exit from a method without releasing. In such ca
             
                 
 <article class="has-image">
+    <a href="/p/github-action-schedule-%E8%A7%A6%E5%8F%91-8-26-%E5%90%8E%E5%BB%B6%E8%BF%9F%E6%98%8E%E6%98%BE%E5%A2%9E%E5%A4%A7/">
+        
+        <div class="article-image">
+            <img alt="Featured image of post GitHub Action schedule 触发 8/26 后延迟明显增大" height="150" loading="lazy" src="/%E7%84%A6%E6%80%A5%E7%AD%89%E5%BE%85%E4%B8%AD%E7%9A%84%20GitHub%20Actions_3164914244335093754_hu_7ce695c879db2209.png" srcset="/%E7%84%A6%E6%80%A5%E7%AD%89%E5%BE%85%E4%B8%AD%E7%9A%84%20GitHub%20Actions_3164914244335093754_hu_7ce695c879db2209.png 1x, /%E7%84%A6%E6%80%A5%E7%AD%89%E5%BE%85%E4%B8%AD%E7%9A%84%20GitHub%20Actions_3164914244335093754_hu_53fcc17c756eb64e.png 2x" width="250">
+
+        </div>
+        
+
+        <div class="article-details"style="background: linear-gradient(0deg, #27272780 0%, #fafbfaC0 100%);">
+            <h2 class="article-title">GitHub Action schedule 触发 8/26 后延迟明显增大</h2>
+        </div>
+    </a>
+</article>
+            
+                
+<article class="has-image">
     <a href="/p/lm-studio-%E6%9C%AC%E5%9C%B0%E9%83%A8%E7%BD%B2-llm/">
         
         <div class="article-image">
-            <img alt="Featured image of post LM Studio 本地部署 LLM" height="150" loading="lazy" src="/ChatGPT%20Image%202026%E5%B9%B48%E6%9C%8821%E6%97%A5%2013_15_01_3147353866814469582_hu_bcb7754d666856c8.png" srcset="/ChatGPT%20Image%202026%E5%B9%B48%E6%9C%8821%E6%97%A5%2013_15_01_3147353866814469582_hu_bcb7754d666856c8.png 1x, /ChatGPT%20Image%202026%E5%B9%B48%E6%9C%8821%E6%97%A5%2013_15_01_3147353866814469582_hu_c683530367465c88.png 2x" width="250">
+            <img alt="Featured image of post LM Studio 本地部署 LLM" height="150" loading="lazy" src="/ChatGPT%20Image%202026%E5%B9%B48%E6%9C%8821%E6%97%A5%2013_15_01_3147353866814469582_hu_d1333e94e83d3396.png" srcset="/ChatGPT%20Image%202026%E5%B9%B48%E6%9C%8821%E6%97%A5%2013_15_01_3147353866814469582_hu_d1333e94e83d3396.png 1x, /ChatGPT%20Image%202026%E5%B9%B48%E6%9C%8821%E6%97%A5%2013_15_01_3147353866814469582_hu_ff711ec02311e8a7.png 2x" width="250">
 
         </div>
         
@@ -915,7 +931,7 @@ To do it you can get a lock and exit from a method without releasing. In such ca
     <a href="/p/kubuntu-%E8%BF%90%E8%A1%8C%E9%92%89%E9%92%89/">
         
         <div class="article-image">
-            <img alt="Featured image of post Kubuntu 运行钉钉" height="150" loading="lazy" src="/ChatGPT%20Image%202026%E5%B9%B44%E6%9C%8830%E6%97%A5%2011_10_39_12457366223695488387_hu_25a294ff4925e959.png" srcset="/ChatGPT%20Image%202026%E5%B9%B44%E6%9C%8830%E6%97%A5%2011_10_39_12457366223695488387_hu_25a294ff4925e959.png 1x, /ChatGPT%20Image%202026%E5%B9%B44%E6%9C%8830%E6%97%A5%2011_10_39_12457366223695488387_hu_ddc00ce69201a555.png 2x" width="250">
+            <img alt="Featured image of post Kubuntu 运行钉钉" height="150" loading="lazy" src="/ChatGPT%20Image%202026%E5%B9%B44%E6%9C%8830%E6%97%A5%2011_10_39_12457366223695488387_hu_cf5f26f41650861d.png" srcset="/ChatGPT%20Image%202026%E5%B9%B44%E6%9C%8830%E6%97%A5%2011_10_39_12457366223695488387_hu_cf5f26f41650861d.png 1x, /ChatGPT%20Image%202026%E5%B9%B44%E6%9C%8830%E6%97%A5%2011_10_39_12457366223695488387_hu_81b9075f9938cad.png 2x" width="250">
 
         </div>
         
@@ -944,17 +960,6 @@ To do it you can get a lock and exit from a method without releasing. In such ca
 
         <div class="article-details">
             <h2 class="article-title">递归方式计算 Summel 答案</h2>
-        </div>
-    </a>
-</article>
-            
-                
-<article class="">
-    <a href="/p/hugo-github-actions-github-pages-%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E9%A1%B5%E9%9D%A2/">
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Hugo&#43;GitHub Actions&#43;GitHub Pages 搭建个人页面</h2>
         </div>
     </a>
 </article>
